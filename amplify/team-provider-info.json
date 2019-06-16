@@ -1,0 +1,14 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "linkder-dev-20190616130306-authRole",
+            "UnauthRoleArn": "arn:aws:iam::995573383865:role/linkder-dev-20190616130306-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::995573383865:role/linkder-dev-20190616130306-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "linkder-dev-20190616130306-deployment",
+            "UnauthRoleName": "linkder-dev-20190616130306-unauthRole",
+            "StackName": "linkder-dev-20190616130306",
+            "StackId": "arn:aws:cloudformation:us-east-1:995573383865:stack/linkder-dev-20190616130306/9c9c46c0-9058-11e9-8428-0aad5d963972"
+        }
+    }
+}
