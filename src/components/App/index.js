@@ -4,7 +4,6 @@ import {
     Route,
 } from 'react-router-dom';
 
-import Navigation from 'components/Navigation';
 import LandingPage from 'components/Landing';
 import SignUpPage from 'components/SignUp';
 import SignInPage from 'components/SignIn';
@@ -14,12 +13,13 @@ import AccountPage from 'components/Account';
 import AdminPage from 'components/Admin';
 
 import * as ROUTES from 'constants/routes';
+import NavBarNonAuth from '../NavBarNonAuth';
 
 
 const App = () => (
     <Router>
         <div>
-            <Navigation />
+            <NavBarNonAuth />
             <hr />
 
             <Route exact path={ROUTES.LANDING} component={LandingPage} />

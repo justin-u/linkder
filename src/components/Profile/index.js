@@ -1,9 +1,8 @@
 import React from 'react';
 
-
-const Home = () => (
+const Profile = () => (
     <div>
-        <h1>Home</h1>
+        <h1>Profile</h1>
     </div>
 )
 
