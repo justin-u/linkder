@@ -13,7 +13,7 @@ import AccountPage from 'components/Account';
 import AdminPage from 'components/Admin';
 
 import * as ROUTES from 'constants/routes';
-import NavBarNonAuth from '../NavBarNonAuth';
+import NavBarNonAuth from 'components/NavBarNonAuth';
 
 
 const App = () => (
