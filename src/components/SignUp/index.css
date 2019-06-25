@@ -1,11 +1,15 @@
-body {
+.body {
 	margin: 0;
 	padding: 0;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-.heading h1 {
+.heading {
+	margin-top: -30px;
+}
+
+/*.heading h1 {
 	padding-top: 50px;
 	font-size: 64px;
 	font-family: "Courier";
@@ -13,7 +17,7 @@ body {
 	text-align: center;
 	color: black;
 	margin: 0;
-}
+}*/
 
 .description {
 	text-align: center;
@@ -35,11 +39,12 @@ body {
 	border-radius: 20px;
 }
 
-h2 {
+.h2 {
 	font-size: 22px;
 	margin: 0;
 	padding: 0, 0 , 20px;
 	text-align: center;
+	color: black;
 }
 
 .pic {
@@ -52,6 +57,32 @@ h2 {
 
 .col {
 	text-align: center;
+}
+
+.p1 {
+	text-align: left;
+	font-size:18px;
+	color: black;
+	margin-top: -5px;
+}
+
+.p2 {
+	text-align: left;
+	font-size:18px;
+	color: black;
+	padding-top: -5px;
+}
+
+.p3 {
+	text-align: left;
+	font-size:18px;
+	color: black;
+}
+
+.p4 {
+	text-align: left;
+	font-size:18px;
+	color: black;
 }
 
 .container p {
@@ -105,4 +136,8 @@ h2 {
 
 .container input[value="Sign Up"]:hover{
 	color: black;
+}
+
+.last {
+	color: #fff;
 }

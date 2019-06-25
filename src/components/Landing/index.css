@@ -1,0 +1,22 @@
+.main-body {
+	background-image: url("/images/gatey.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.heading h1 {
+	font-size: 64px;
+	font-family: 'Comic Sans MS', sans-serif;
+	text-align: center;
+	/* background-color: rgb(124, 124, 224); */
+	background-color: black;
+	color: white;
+	margin: 0;
+}
+
+.main-description h2 {
+	text-align: center;
+	/*background-color: black;*/
+	color: black;
+}

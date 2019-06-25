@@ -11,6 +11,7 @@ import PasswordForgetPage from 'components/PasswordForget';
 import HomePage from 'components/Home';
 import AccountPage from 'components/Account';
 import AdminPage from 'components/Admin';
+import AboutPage from 'components/About';
 
 import * as ROUTES from 'constants/routes';
 import NavBarNonAuth from 'components/NavBarNonAuth';
@@ -29,6 +30,7 @@ const App = () => (
             <Route path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route path={ROUTES.ABOUT} component={AboutPage} />
 
         </div>
     </Router>

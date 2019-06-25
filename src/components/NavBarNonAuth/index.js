@@ -20,13 +20,13 @@ const NavBarNonAuth = () => {
                         <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Linkder</Link>
                     </Typography>
                     <Button color='inherit'>
-                        <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Landing</Link>
+                        <Link to={ROUTES.ABOUT} style={{color: '#FFFFFF', textDecoration: 'none'}}>About</Link>
                     </Button>
                     <Button color='inherit'>
-                        <Link to={ROUTES.HOME} style={{color: '#FFFFFF', textDecoration: 'none'}}>Home</Link>
+                        <Link to={ROUTES.SIGN_UP} style={{color: '#FFFFFF', textDecoration: 'none'}}>Sign Up</Link>
                     </Button>
                     <Button style={{backgroundColor: '#FFFFFF'}}>
-                        <Link to={ROUTES.SIGN_IN} style={{color: '#000000', textDecoration: 'none'}}>Log in</Link>
+                        <Link to={ROUTES.SIGN_IN} style={{color: '#000000', textDecoration: 'none'}}>Log In</Link>
                     </Button>
                 </Toolbar>
             </AppBar>
