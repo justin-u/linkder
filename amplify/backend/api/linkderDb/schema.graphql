@@ -1,0 +1,41 @@
+type User @model {
+
+  id:       ID!
+  freeTimes:    [FreeTime]    @connection(name: "User2FreeTimes")
+  firstName:    String!
+  lastName:     String!
+  defaultLatitude:  Int!
+  defaultLongitude: Int!
+}
+
+type FreeTime @model {
+
+  id:     ID!
+  user:     User      @connection(name: "User2FreeTimes")
+  freeTimePlaceTimes: [FreeTimePlaceTime] @connection(name: "FreeTime2FreeTimePlaceTimes")
+  dateString:   String!
+  longitude:    Float!
+  latitude:   Float!
+}
+
+type FreeTimePlaceTime @model {
+
+  id:     ID!
+  freeTime:   FreeTime    @connection(name: "FreeTime2FreeTimePlaceTimes")
+  placeTime:    PlaceTime   @connection(name: "FreeTimePlaceTimes2PlaceTime")   
+}
+
+type PlaceTime @model {
+
+  id:     ID!
+  dateString:   String!
+  freeTimePlaceTimes: [FreeTimePlaceTime] @connection(name: "FreeTimePlaceTimes2PlaceTime")
+  place:      Place       @connection(name: "PlaceTimes2Place")
+}
+
+type Place @model {
+
+  id:     ID!
+  placeTimes:   [PlaceTime]   @connection(name: "PlaceTimes2Place")
+  name:     String!
+}
