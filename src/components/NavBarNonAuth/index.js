@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { AuthUserContext } from '../Session';
 import * as ROUTES from 'constants/routes';
 import * as ROLES from 'constants/roles';
-import SignOutButton from 'components/SignOut';
 import logo from 'images/favicon.png';
 
 export default function NavBarNonAuth() {
