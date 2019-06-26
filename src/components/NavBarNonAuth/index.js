@@ -10,14 +10,15 @@ import { AuthUserContext } from '../Session';
 import * as ROUTES from 'constants/routes';
 import * as ROLES from 'constants/roles';
 import SignOutButton from 'components/SignOut';
+import logo from 'images/favicon.png';
 
-const NavBarNonAuth = () => {
+export default function NavBarNonAuth() {
     return (
         <div>
             <AppBar variant='persistent' className='AppBar' style={{ background: '#000000' }}>
                 <Toolbar>
                     <Typography variant='h4' color='inherit' style={{marginLeft: '10px', flex: 1}}>
-                        <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Linkder</Link>
+                        <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}><img src={logo} width="55" height="45"/></Link>
                     </Typography>
                     <Button color='inherit'>
                         <Link to={ROUTES.ABOUT} style={{color: '#FFFFFF', textDecoration: 'none'}}>About</Link>
@@ -33,5 +34,3 @@ const NavBarNonAuth = () => {
         </div>
     );
 }
-
-export default NavBarNonAuth;
