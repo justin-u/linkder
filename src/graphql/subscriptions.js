@@ -334,3 +334,93 @@ export const onDeletePlace = `subscription OnDeletePlace {
   }
 }
 `;
+export const onCreateEducation = `subscription OnCreateEducation {
+  onCreateEducation {
+    id
+    school
+  }
+}
+`;
+export const onUpdateEducation = `subscription OnUpdateEducation {
+  onUpdateEducation {
+    id
+    school
+  }
+}
+`;
+export const onDeleteEducation = `subscription OnDeleteEducation {
+  onDeleteEducation {
+    id
+    school
+  }
+}
+`;
+export const onCreateSkill = `subscription OnCreateSkill {
+  onCreateSkill {
+    id
+    name
+  }
+}
+`;
+export const onUpdateSkill = `subscription OnUpdateSkill {
+  onUpdateSkill {
+    id
+    name
+  }
+}
+`;
+export const onDeleteSkill = `subscription OnDeleteSkill {
+  onDeleteSkill {
+    id
+    name
+  }
+}
+`;
+export const onCreateCertification = `subscription OnCreateCertification {
+  onCreateCertification {
+    id
+    name
+    company
+    url
+  }
+}
+`;
+export const onUpdateCertification = `subscription OnUpdateCertification {
+  onUpdateCertification {
+    id
+    name
+    company
+    url
+  }
+}
+`;
+export const onDeleteCertification = `subscription OnDeleteCertification {
+  onDeleteCertification {
+    id
+    name
+    company
+    url
+  }
+}
+`;
+export const onCreateLanguage = `subscription OnCreateLanguage {
+  onCreateLanguage {
+    id
+    name
+  }
+}
+`;
+export const onUpdateLanguage = `subscription OnUpdateLanguage {
+  onUpdateLanguage {
+    id
+    name
+  }
+}
+`;
+export const onDeleteLanguage = `subscription OnDeleteLanguage {
+  onDeleteLanguage {
+    id
+    name
+  }
+}
+`;

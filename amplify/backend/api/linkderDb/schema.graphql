@@ -39,3 +39,29 @@ type Place @model {
   placeTimes:   [PlaceTime]   @connection(name: "PlaceTimes2Place")
   name:     String!
 }
+
+type Education @model {
+
+  id:             ID!
+  school:         String!  
+}
+
+type Skill @model {
+
+  id:       ID!
+  name:     String!
+}
+
+type Certification @model {
+
+  id:       ID!
+  name:     String!
+  company:  ID
+  url:      String
+}
+
+type Language @model {
+
+  id:           ID!
+  name:         String!
+}

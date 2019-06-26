@@ -223,3 +223,91 @@ export const listPlaces = `query ListPlaces(
   }
 }
 `;
+export const getEducation = `query GetEducation($id: ID!) {
+  getEducation(id: $id) {
+    id
+    school
+  }
+}
+`;
+export const listEducations = `query ListEducations(
+  $filter: ModelEducationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEducations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      school
+    }
+    nextToken
+  }
+}
+`;
+export const getSkill = `query GetSkill($id: ID!) {
+  getSkill(id: $id) {
+    id
+    name
+  }
+}
+`;
+export const listSkills = `query ListSkills(
+  $filter: ModelSkillFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+    }
+    nextToken
+  }
+}
+`;
+export const getCertification = `query GetCertification($id: ID!) {
+  getCertification(id: $id) {
+    id
+    name
+    company
+    url
+  }
+}
+`;
+export const listCertifications = `query ListCertifications(
+  $filter: ModelCertificationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCertifications(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      company
+      url
+    }
+    nextToken
+  }
+}
+`;
+export const getLanguage = `query GetLanguage($id: ID!) {
+  getLanguage(id: $id) {
+    id
+    name
+  }
+}
+`;
+export const listLanguages = `query ListLanguages(
+  $filter: ModelLanguageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLanguages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+    }
+    nextToken
+  }
+}
+`;
