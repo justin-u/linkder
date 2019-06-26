@@ -26,7 +26,7 @@ const NavBarNonAuth = () => {
                         <Link to={ROUTES.SIGN_UP} style={{color: '#FFFFFF', textDecoration: 'none'}}>Sign Up</Link>
                     </Button>
                     <Button style={{backgroundColor: '#FFFFFF'}}>
-                        <Link to={ROUTES.SIGN_IN} style={{color: '#000000', textDecoration: 'none'}}>Log In</Link>
+                        <Link to={ROUTES.LANDING} style={{color: '#000000', textDecoration: 'none'}}>Sign In</Link>
                     </Button>
                 </Toolbar>
             </AppBar>
