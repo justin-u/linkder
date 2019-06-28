@@ -30,7 +30,7 @@ const SignInPage = () => (
         color: '#FFFFFF',
         paddingTop: '100px',
         paddingLeft: '40px'
-      }}>An App that lets you connect to professionals</h3>
+      }}>The App that helps you connect with people in-person</h3>
       <img src={image} style={{
         maxWidth: '180%',
         objectFit: 'cover',
