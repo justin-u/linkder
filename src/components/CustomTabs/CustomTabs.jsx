@@ -68,6 +68,7 @@ class CustomTabs extends React.Component {
                 <Tab
                   classes={{
                     root: classes.tabRootButton,
+                    labelContainer: classes.tabLabelContainer,
                     label: classes.tabLabel,
                     selected: classes.tabSelected,
                     wrapper: classes.tabWrapper
@@ -107,7 +108,7 @@ CustomTabs.propTypes = {
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
       tabName: PropTypes.string.isRequired,
-      tabIcon: PropTypes.object,
+      tabIcon: PropTypes.func,
       tabContent: PropTypes.node.isRequired
     })
   ),

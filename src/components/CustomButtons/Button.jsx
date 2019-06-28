@@ -5,19 +5,16 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 // @material-ui/core components
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
 
 // core components
 
 import buttonStyle from "assets/jss/material-kit-react/components/buttonStyle.jsx";
 
-const makeComponentStyles = makeStyles(() => ({
-  ...buttonStyle
-}));
-
-const RegularButton = React.forwardRef((props, ref) => {
+function RegularButton({ ...props }) {
   const {
+    classes,
     color,
     round,
     children,
@@ -31,9 +28,6 @@ const RegularButton = React.forwardRef((props, ref) => {
     className,
     ...rest
   } = props;
-
-  const classes = makeComponentStyles();
-
   const btnClasses = classNames({
     [classes.button]: true,
     [classes[size]]: size,
@@ -48,13 +42,14 @@ const RegularButton = React.forwardRef((props, ref) => {
     [className]: className
   });
   return (
-    <Button {...rest} ref={ref} className={btnClasses}>
+    <Button {...rest} className={btnClasses}>
       {children}
     </Button>
   );
-});
+}
 
 RegularButton.propTypes = {
+  classes: PropTypes.object.isRequired,
   color: PropTypes.oneOf([
     "primary",
     "info",
@@ -76,9 +71,7 @@ RegularButton.propTypes = {
   disabled: PropTypes.bool,
   block: PropTypes.bool,
   link: PropTypes.bool,
-  justIcon: PropTypes.bool,
-  children: PropTypes.node,
-  className: PropTypes.string
+  justIcon: PropTypes.bool
 };
 
-export default RegularButton;
+export default withStyles(buttonStyle)(RegularButton);

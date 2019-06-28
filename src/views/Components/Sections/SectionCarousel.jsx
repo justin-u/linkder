@@ -1,6 +1,4 @@
 import React from "react";
-// nodejs library to set properties for components
-import PropTypes from "prop-types";
 // react component for creating beautiful carousel
 import Carousel from "react-slick";
 // @material-ui/core components
@@ -82,9 +80,5 @@ class SectionCarousel extends React.Component {
     );
   }
 }
-
-SectionCarousel.propTypes = {
-  classes: PropTypes.object
-};
 
 export default withStyles(carouselStyle)(SectionCarousel);

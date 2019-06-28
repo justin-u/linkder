@@ -1,6 +1,5 @@
 import React from "react";
-// nodejs library to set properties for components
-import PropTypes from "prop-types";
+
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -134,7 +133,7 @@ class SectionTypography extends React.Component {
                 <h2>
                   Header with small subtitle
                   <br />
-                  <Small>Use {'"Small"'} tag for the headers</Small>
+                  <Small>Use "Small" tag for the headers</Small>
                 </h2>
               </div>
             </GridContainer>
@@ -199,9 +198,5 @@ class SectionTypography extends React.Component {
     );
   }
 }
-
-SectionTypography.propTypes = {
-  classes: PropTypes.object
-};
 
 export default withStyles(typographyStyle)(SectionTypography);

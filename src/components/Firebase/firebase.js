@@ -109,9 +109,7 @@ class Firebase {
 
   messages = () => this.db.ref('messages');
 
-  xplot = uid => this.db.ref(`users/${uid}/xplotLocation`);
-
-  yplot = uid => this.db.ref(`users/${uid}/xplotLocation`);
+  bio = uid => this.db.ref(`users/${uid}/bio`)
 }
 
 export default Firebase;

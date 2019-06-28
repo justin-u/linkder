@@ -7,19 +7,10 @@ import {
 
 const customCheckboxRadioSwitch = {
   checkRoot: {
-    padding: "12px",
-    "&:hover": {
-      backgroundColor: "unset"
-    }
+    padding: "14px"
   },
   radioRoot: {
-    padding: "12px",
-    "&:hover": {
-      backgroundColor: "unset"
-    }
-  },
-  labelRoot: {
-    marginLeft: "-14px"
+    padding: "16px"
   },
   checkboxAndRadio: {
     position: "relative",
@@ -66,8 +57,7 @@ const customCheckboxRadioSwitch = {
     lineHeight: "1.428571429",
     fontWeight: "400",
     display: "inline-flex",
-    transition: "0.3s ease all",
-    letterSpacing: "unset"
+    transition: "0.3s ease all"
   },
   labelHorizontal: {
     color: "rgba(0, 0, 0, 0.26)",
@@ -155,7 +145,12 @@ const customCheckboxRadioSwitch = {
   switchIcon: {
     boxShadow: "0 1px 3px 1px rgba(0, 0, 0, 0.4)",
     color: "#FFFFFF !important",
-    border: "1px solid rgba(0, 0, 0, .54)"
+    border: "1px solid rgba(0, 0, 0, .54)",
+    transform: "translateX(-4px)!important"
+  },
+  switchIconChecked: {
+    borderColor: "#9c27b0",
+    transform: "translateX(0px)!important"
   },
   switchBar: {
     width: "30px",
@@ -167,13 +162,7 @@ const customCheckboxRadioSwitch = {
   switchChecked: {
     "& + $switchBar": {
       backgroundColor: "rgba(156, 39, 176, 1) !important"
-    },
-    "& $switchIcon": {
-      borderColor: "#9c27b0"
     }
-  },
-  switchRoot: {
-    height: "48px"
   }
 };
 

@@ -10,44 +10,63 @@ import { AuthUserContext } from '../Session';
 import * as ROUTES from 'constants/routes';
 import * as ROLES from 'constants/roles';
 import SignOutButton from 'components/SignOut';
+import './NavBar.css';
+import Drawer from '@material-ui/core/Drawer';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const NavBar = () => {
-    return (
-        <div>
-            <AppBar variant='persistent' className='AppBar' style={{ background: '#000000' }}>
-                <Toolbar>
-                    <Typography variant='h4' color='inherit' style={{marginLeft: '10px', flex: 1}}>
-                        <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Linkder</Link>
-                    </Typography>
+//TODO: Add Drawer Component
 
-                     <Button color='inherit'>
-                        <Link to={ROUTES.HOME} style={{color: '#FFFFFF', textDecoration: 'none'}}>Home</Link>
-                    </Button>
+class NavBar extends React.Component {
+    state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false
+        };
+        this.handleClose = this.handleClose.bind(this);
+    }
+    
+    handleToggle = () => this.setState({ open: !this.state.open });
+    handleClose = () => this.setState({ open: false });
 
-                    // <Button color='inherit'>
-                    //     <Link to={ROUTES.SCHEDULE} style={{color: '#FFFFFF', textDecoration: 'none'}}>Schedule</Link>
-                    // </Button>
+    render() {
 
-                     <Button color='inherit'>
-                        <Link to={ROUTES.HOME} style={{color: '#FFFFFF', textDecoration: 'none'}}>Home</Link>
-                    </Button>
-
-                     <Button color='inherit'>
-                        <Link to={ROUTES.ACCOUNT} style={{color: '#FFFFFF', textDecoration: 'none'}}>Profile</Link>
-                    </Button>
-
-
-                     <Button color='inherit'>
-                        <Link to={ROUTES.MATCHES} style={{color: '#FFFFFF', textDecoration: 'none'}}>Matches</Link>
-                    </Button>
-
-                    <Button style={{backgroundColor: '#FFFFFF'}}>
-                        <Link to={ROUTES.LANDING} style={{color: '#000000', textDecoration: 'none'}}>Log Out</Link>
-                    </Button>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+        return (
+            <div>
+                <AppBar
+                    variant='persistent'
+                    className='AppBar'
+                    style={{
+                        background: '#000000',
+                        paddingTop: '10px'
+                    }}
+                >
+                    <Toolbar>
+                        {/* <span styles="position: fixed; top: 0; left: 0;">
+                            <IconButton edge='start' size='small' color="inherit" aria-label="Menu"
+                                onClick={this.handleToggle}>
+                                <MenuIcon />
+                            </IconButton>
+                        </span> */}
+                        <Typography variant='h4' color='inherit' style={{ marginLeft: '10px', flex: 1, color: '#FAFAFA', fontWeight: '700'}}>
+                            Linkder
+                        </Typography>
+                        <Button color='inherit' style={{ marginLeft: '30px' }}>
+                            <Link to={ROUTES.HOME} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Home</Link>
+                        </Button>
+                        <Button color='inherit'>
+                            <Link to={ROUTES.ABOUT_US} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Profile</Link>
+                        </Button>
+                        <Button color='inherit'>
+                            <Link to={ROUTES.ACCOUNT} style={{ color: '#FFFFFF', textDecoration: 'none' }}>About</Link>
+                        </Button>
+                        <SignOutButton />
+                    </Toolbar>
+                </AppBar>
+                
+            </div>
+        );
+    }
 }
 
-export default NavBar
+export default NavBar;

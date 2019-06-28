@@ -16,8 +16,7 @@ function Small({ ...props }) {
 }
 
 Small.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.node
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(typographyStyle)(Small);

@@ -29,8 +29,7 @@ CardHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   color: PropTypes.oneOf(["warning", "success", "danger", "info", "primary"]),
-  plain: PropTypes.bool,
-  children: PropTypes.node
+  plain: PropTypes.bool
 };
 
 export default withStyles(cardHeaderStyle)(CardHeader);

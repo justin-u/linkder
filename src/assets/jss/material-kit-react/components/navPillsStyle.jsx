@@ -12,14 +12,7 @@ const navPillsStyle = theme => ({
     marginTop: "20px",
     paddingLeft: "0",
     marginBottom: "0",
-    overflow: "visible !important",
-    lineHeight: "24px",
-    textTransform: "uppercase",
-    fontSize: "12px",
-    fontWeight: "500",
-    position: "relative",
-    display: "block",
-    color: "inherit"
+    overflow: "visible !important"
   },
   flexContainer: {
     [theme.breakpoints.down("xs")]: {
@@ -31,7 +24,7 @@ const navPillsStyle = theme => ({
     display: "none !important"
   },
   fixed: {
-    overflow: "visible !important"
+    overflowX: "visible"
   },
   horizontalDisplay: {
     display: "block"
@@ -58,10 +51,7 @@ const navPillsStyle = theme => ({
     width: "30px",
     height: "30px",
     display: "block",
-    margin: "15px 0 !important",
-    "&, & *": {
-      letterSpacing: "normal !important"
-    }
+    margin: "15px 0"
   },
   horizontalPills: {
     width: "100%",
@@ -69,6 +59,19 @@ const navPillsStyle = theme => ({
     "& + button": {
       margin: "10px 0"
     }
+  },
+  labelContainer: {
+    padding: "0!important",
+    color: "inherit"
+  },
+  label: {
+    lineHeight: "24px",
+    textTransform: "uppercase",
+    fontSize: "12px",
+    fontWeight: "500",
+    position: "relative",
+    display: "block",
+    color: "inherit"
   },
   contentWrapper: {
     marginTop: "20px"
@@ -124,17 +127,6 @@ const navPillsStyle = theme => ({
   alignCenter: {
     alignItems: "center",
     justifyContent: "center"
-  },
-  tabWrapper: {
-    color: "inherit",
-    position: "relative",
-    fontSize: "12px",
-    lineHeight: "24px",
-    fontWeight: "500",
-    textTransform: "uppercase",
-    "&,& *": {
-      letterSpacing: "normal"
-    }
   }
 });
 

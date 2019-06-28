@@ -16,8 +16,7 @@ function Warning({ ...props }) {
 }
 
 Warning.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.node
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(typographyStyle)(Warning);

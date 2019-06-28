@@ -71,7 +71,7 @@ class CustomDropdown extends React.Component {
     });
     let icon = null;
     switch (typeof buttonIcon) {
-      case "object":
+      case "function":
         icon = <this.props.buttonIcon className={classes.buttonIcon} />;
         break;
       case "string":
@@ -120,7 +120,7 @@ class CustomDropdown extends React.Component {
             [classes.popperResponsive]: true
           })}
         >
-          {() => (
+          {({ TransitionProps, placement }) => (
             <Grow
               in={open}
               id="menu-list"
@@ -189,7 +189,7 @@ CustomDropdown.propTypes = {
     "rose"
   ]),
   buttonText: PropTypes.node,
-  buttonIcon: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  buttonIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   dropdownList: PropTypes.array,
   buttonProps: PropTypes.object,
   dropup: PropTypes.bool,
