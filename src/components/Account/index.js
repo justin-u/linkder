@@ -12,6 +12,7 @@ import { withFirebase } from 'components/Firebase';
 import { PasswordForgetForm } from 'components/PasswordForget';
 import PasswordChangeForm from 'components/PasswordChange';
 import firebase from '@firebase/app';
+import { TextField, Button } from '@material-ui/core';
 require('firebase/auth');
 
 const SIGN_IN_METHODS = [
@@ -26,22 +27,14 @@ const authUser = JSON.parse(localStorage.getItem('authUser'));
 const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
-      <div>
+      <div style={{ justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
       <Parallax small filter image={require("assets/img/blockchain.jpg")} />
-      <div style={{paddingTop: '100px'}}>
-        <Typography variant='h3'>
+      <div style={{paddingTop: '100px', paddingBottom: '40px', 
+      justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
+        <Typography variant='h3' style={{ paddingBottom: '40px'}}>
           Account: {authUser.email}
         </Typography>
-        <br />
-        <Typography variant='h7'>
-          Public Key:  {authUser.publicKey}
-        </Typography>
-        <br />
-        <Typography variant='h7'>
-          Private Key:  {authUser.privateKey}
-        </Typography>
         <br></br>
-        <PasswordForgetForm />
         <PasswordChangeForm />
         <LoginManagement authUser={authUser} />
       </div>
@@ -133,20 +126,18 @@ const SocialLoginToggle = ({
   onUnlink,
 }) =>
   isEnabled ? (
-    <button
-      type="button"
+    <Button
       onClick={() => onUnlink(signInMethod.id)}
       disabled={onlyOneLeft}
     >
       Deactivate {signInMethod.id}
-    </button>
+    </Button>
   ) : (
-    <button
-      type="button"
+    <Button
       onClick={() => onLink(signInMethod.provider)}
     >
       Link {signInMethod.id}
-    </button>
+    </Button>
   );
 
 class DefaultLoginToggle extends Component {
@@ -181,23 +172,22 @@ class DefaultLoginToggle extends Component {
       passwordOne !== passwordTwo || passwordOne === '';
 
     return isEnabled ? (
-      <button
-        type="button"
+      <Button
         onClick={() => onUnlink(signInMethod.id)}
         disabled={onlyOneLeft}
       >
         Deactivate {signInMethod.id}
-      </button>
+      </Button>
     ) : (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="New Password"
         />
-        <input
+        <TextField
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
@@ -205,9 +195,9 @@ class DefaultLoginToggle extends Component {
           placeholder="Confirm New Password"
         />
 
-        <button disabled={isInvalid} type="submit">
+        <Button disabled={isInvalid} type="submit">
           Link {signInMethod.id}
-        </button>
+        </Button>
       </form>
     );
   }

@@ -9,6 +9,7 @@ import { Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core
 import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import image from "assets/img/hemp-leaves.jpg";
+import PasswordForgetLink from 'components/PasswordForget'
 
 const SignUpPage = () => (
   <div style={{ paddingTop: '50px', textAlign: 'center' }}>
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  imageURL: '',
   error: '',
 };
 
@@ -43,7 +45,7 @@ class SignUpFormBase extends React.Component {
 
   onSubmit = event => {
     
-    var { name , email, passwordOne, passwordTwo, error } = this.state;
+    var { name , email, passwordOne, passwordTwo, imageURL, error } = this.state;
     const roles = {};
 
     this.props.firebase
@@ -53,6 +55,7 @@ class SignUpFormBase extends React.Component {
         return this.props.firebase.user(authUser.user.uid).set({
           name,
           email,
+          imageURL
         });
       })
       .then(() => {
@@ -86,6 +89,7 @@ class SignUpFormBase extends React.Component {
       email,
       passwordOne,
       passwordTwo,
+      imageURL,
       error
     } = this.state;
 
@@ -131,6 +135,15 @@ class SignUpFormBase extends React.Component {
           type="password"
           placeholder="Confirm Password"
           style={{ paddingBottom: '10px' }}
+        />
+        <br />
+        <TextField
+          name="imageURL"
+          value={imageURL}
+          onChange={this.onChange}
+          type="text"
+          placeholder="Link to Image (Optional)"
+          style={{ paddingBottom: '10px', paddingTop: '30px' }}
         />
         <br />
         <Button disabled={isInvalid} type="submit">

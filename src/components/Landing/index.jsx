@@ -49,6 +49,7 @@ const SignInPage = () => (
       <br></br>
       <SignInForm />
       <SignUpLink />
+      <PasswordForgetLink />
     </div>
     {/* <SignInGoogle />
     <SignInFacebook />
