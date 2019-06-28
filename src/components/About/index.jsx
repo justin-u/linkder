@@ -35,8 +35,8 @@ import work5 from "assets/img/examples/clem-onojegaw.jpg";
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 import { Typography, TextField } from "@material-ui/core";
 import { thisTypeAnnotation } from "@babel/types";
-import { compose} from 'recompose'
-// import SmplAgTech from 'components/SmplAgTech';
+import { compose } from 'recompose'
+import { withAuthorization } from "../Session";
 
 class ProfilePage extends React.Component {
 
@@ -46,6 +46,8 @@ class ProfilePage extends React.Component {
 
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     const bio = authUser.bio
+    const experience = authUser.experience
+    const lengthOfExp = authUser.lengthOfExperience
     // console.log(authUser)
 
     const condition = authUser != null
@@ -53,16 +55,18 @@ class ProfilePage extends React.Component {
     this.state = {
       authUser: authUser,
       bio: bio,
-      isLoggedIn: condition
+      experience: experience,
+      isLoggedIn: condition,
+      lengthOfExp: lengthOfExp
     }
   }
 
-  onSubmit = async(event) => {
-    console.log('YE')
-    console.log(this.props.firebase)
-    console.log(this.state.bio)
+  onSubmit = async (event) => {
+    
     this.props.firebase.user(this.state.authUser.uid).update({
-      'bio': this.state.bio
+      'bio': this.state.bio,
+      'experience': this.state.experience,
+      'lengthOfExperience': this.state.lengthOfExp
     }).then(() => {
       this.setState(this.state)
     })
@@ -93,6 +97,33 @@ class ProfilePage extends React.Component {
             <div>
               <div className={classes.container}>
                 <GridContainer justify="center">
+                  <div
+                  style={{
+                    width: "100%",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: "20px"
+                  }}>
+                    <div
+                      style={{
+                        height: '200px',
+                        width: '200px',
+                        overflow: 'hidden',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: '100%'
+                      }}
+                    >
+                      <img src={this.state.authUser.imageURL}
+                        style={{
+                          paddingTop: '40px',
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <br />
                   <GridItem xs={12} sm={12} md={6}>
                     <div className={classes.profile}>
                       <div style={{
@@ -103,7 +134,7 @@ class ProfilePage extends React.Component {
                         paddingBottom: '40px',
                         paddingTop: '20px'
                       }}>
-                        <Typography variant='h1'>
+                        <Typography variant='h3'>
                           {this.state.authUser.name}
                         </Typography>
                       </div>
@@ -121,6 +152,25 @@ class ProfilePage extends React.Component {
                       placeholder="Bio"
                       style={{ paddingBottom: '10px', width: '70%' }}
                     />
+                    <br />
+                    <TextField
+                      name="experience"
+                      value={this.state.experience}
+                      onChange={this.onChange}
+                      type="string"
+                      placeholder="Experience"
+                      style={{ paddingBottom: '10px', width: '70%' }}
+                    />
+                    <br />
+                    <TextField
+                      name="lengthOfExp"
+                      value={this.state.lengthOfExp}
+                      onChange={this.onChange}
+                      type="number"
+                      placeholder="Length of Experience (in Years)"
+                      style={{ paddingBottom: '10px', width: '70%' }}
+                    />
+                    <br />
                     <Button type="submit">
                       Save Bio
                     </Button>
@@ -133,7 +183,7 @@ class ProfilePage extends React.Component {
                       color="primary"
                       tabs={[
                         {
-                          tabButton: "Studio",
+                          tabButton: "Tab 1",
                           tabIcon: Camera,
                           tabContent: (
                             <GridContainer justify="center">
@@ -165,7 +215,7 @@ class ProfilePage extends React.Component {
                           )
                         },
                         {
-                          tabButton: "Work",
+                          tabButton: "Tab 2",
                           tabIcon: Palette,
                           tabContent: (
                             <GridContainer justify="center">
@@ -202,7 +252,7 @@ class ProfilePage extends React.Component {
                           )
                         },
                         {
-                          tabButton: "Favorite",
+                          tabButton: "Tab 3",
                           tabIcon: Favorite,
                           tabContent: (
                             <GridContainer justify="center">
