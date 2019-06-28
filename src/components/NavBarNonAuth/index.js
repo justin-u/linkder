@@ -10,6 +10,7 @@ import { AuthUserContext } from '../Session';
 import * as ROUTES from 'constants/routes';
 import * as ROLES from 'constants/roles';
 import SignOutButton from 'components/SignOut';
+import logo from 'assets/img/favicon.png';
 
 const NavBarNonAuth = () => {
     return (
@@ -17,10 +18,14 @@ const NavBarNonAuth = () => {
             <AppBar variant='persistent' className='AppBar' style={{ background: '#000000' }}>
                 <Toolbar>
                     <Typography variant='h4' color='inherit' style={{marginLeft: '10px', flex: 1}}>
-                        <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Linkder</Link>
+                        <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}><img src={logo} width="55" height="45"/></Link>
+                        {/* <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Linkder</Link> */}
                     </Typography>
                     <Button color='inherit'>
                         <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Landing</Link>
+                    </Button>
+                    <Button color='inherit'>
+                        <Link to={ROUTES.SIGN_UP} style={{color: '#FFFFFF', textDecoration: 'none'}}>Sign Up</Link>
                     </Button>
                     <Button style={{backgroundColor: '#FFFFFF'}}>
                         <Link to={ROUTES.SIGN_IN} style={{color: '#000000', textDecoration: 'none'}}>Log in</Link>

@@ -13,6 +13,7 @@ import SignOutButton from 'components/SignOut';
 import './NavBar.css';
 import Drawer from '@material-ui/core/Drawer';
 import MenuItem from '@material-ui/core/MenuItem';
+import logo from 'assets/img/favicon.png';
 
 //TODO: Add Drawer Component
 
@@ -48,8 +49,12 @@ class NavBar extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                         </span> */}
-                        <Typography variant='h4' color='inherit' style={{ marginLeft: '10px', flex: 1, color: '#FAFAFA', fontWeight: '700'}}>
+                        {/* <Typography variant='h4' color='inherit' style={{ marginLeft: '10px', flex: 1, color: '#FAFAFA', fontWeight: '700'}}>
                             Linkder
+                        </Typography> */}
+                        <Typography variant='h4' color='inherit' style={{marginLeft: '10px', flex: 1}}>
+                            <img src={logo} width="55" height="45"/>
+                            {/* <Link to={ROUTES.LANDING} style={{color: '#FFFFFF', textDecoration: 'none'}}>Linkder</Link> */}
                         </Typography>
                         <Button color='inherit' style={{ marginLeft: '30px' }}>
                             <Link to={ROUTES.HOME} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Home</Link>
