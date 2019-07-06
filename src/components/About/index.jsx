@@ -7,6 +7,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
+import Paper from '@material-ui/core/Paper';
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { blue } from "@material-ui/core/colors";
+
 // core components
 import { withFirebase } from 'components/Firebase';
 import Button from "components/CustomButtons/Button.jsx";
@@ -26,12 +30,12 @@ import work3 from "assets/img/examples/cynthia-del-rio.jpg";
 import work4 from "assets/img/examples/mariya-georgieva.jpg";
 import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
-
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 import { Typography, TextField } from "@material-ui/core";
 import { thisTypeAnnotation } from "@babel/types";
 import { compose } from 'recompose'
 import { withAuthorization } from "../Session";
+import ProfileCalendar from 'components/ProfileCalendar'
 
 class ProfilePage extends React.Component {
 
@@ -57,7 +61,7 @@ class ProfilePage extends React.Component {
   }
 
   onSubmit = async (event) => {
-    
+
     this.props.firebase.user(this.state.authUser.uid).update({
       'bio': this.state.bio,
       'experience': this.state.experience,
@@ -85,6 +89,18 @@ class ProfilePage extends React.Component {
 
 
     if (this.state.isLoggedIn) {
+      const schedulerData = [
+        { 
+          startDate: new Date(), 
+          endDate: new Date(2019, 6, 6, 19, 0), 
+          title: 'Meeting' 
+        },
+        // { 
+        // //   startDate: '2019-07-04 12:00', 
+        // //   endDate: '2019-07-04 13:30', 
+        // //   title: 'Go to a gym' 
+        // },
+      ];
       return (
         <div>
           <Parallax small filter image={require("assets/img/blockchain.jpg")} />
@@ -93,13 +109,13 @@ class ProfilePage extends React.Component {
               <div className={classes.container}>
                 <GridContainer justify="center">
                   <div
-                  style={{
-                    width: "100%",
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: "20px"
-                  }}>
+                    style={{
+                      width: "100%",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: "20px"
+                    }}>
                     <div
                       style={{
                         height: '200px',
@@ -288,6 +304,10 @@ class ProfilePage extends React.Component {
                   </GridItem>
                 </GridContainer>
               </div>
+            </div>
+            <div>
+              {/* <MyCalendar data={schedulerData}/> */}
+              <ProfileCalendar data={schedulerData}></ProfileCalendar>
             </div>
           </div>
         </div>
