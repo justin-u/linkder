@@ -6,7 +6,7 @@ import notify from 'devextreme/ui/notify';
 import { data } from './data.js';
 
 const currentDate = new Date(2017, 4, 22);
-const views = ['day', 'week'];
+const views = ['day', 'week', 'month'];
 
 class ProfileCalendar extends React.Component {
   constructor(props) {
@@ -36,58 +36,14 @@ class ProfileCalendar extends React.Component {
           views={views}
           defaultCurrentView={'week'}
           defaultCurrentDate={currentDate}
-          startDayHour={9}
-          endDayHour={19}
+          startDayHour={8}
+          endDayHour={24}
           height={600}
           editing={this.state}
           onAppointmentAdded={this.showAddedToast}
           onAppointmentUpdated={this.showUpdatedToast}
           onAppointmentDeleted={this.showDeletedToast}
         />
-        <div className={'options'}>
-          <div className={'caption'}>Options</div>
-          <div className={'option'}>
-            <CheckBox
-              defaultValue={this.state.allowAdding}
-              text={'Allow adding'}
-              onValueChanged={this.onAllowAddingChanged}
-            />
-          </div>
-          {' '}
-          <div className={'option'}>
-            <CheckBox
-              defaultValue={this.state.allowDeleting}
-              text={'Allow deleting'}
-              onValueChanged={this.onAllowDeletingChanged}
-            />
-          </div>
-          {' '}
-          <div className={'option'}>
-            <CheckBox
-              defaultValue={this.state.allowUpdating}
-              text={'Allow updating'}
-              onValueChanged={this.onAllowUpdatingChanged}
-            />
-          </div>
-          {' '}
-          <div className={'option'}>
-            <CheckBox
-              defaultValue={this.state.allowResizing}
-              text={'Allow resizing'}
-              onValueChanged={this.onAllowResizingChanged}
-              disabled={!this.state.allowUpdating}
-            />
-          </div>
-          {' '}
-          <div className={'option'}>
-            <CheckBox
-              defaultValue={this.state.allowDragging}
-              text={'Allow dragging'}
-              onValueChanged={this.onAllowDraggingChanged}
-              disabled={!this.state.allowUpdating}
-            />
-          </div>
-        </div>
       </React.Fragment>
     );
   }

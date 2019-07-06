@@ -95,11 +95,6 @@ class ProfilePage extends React.Component {
           endDate: new Date(2019, 6, 6, 19, 0), 
           title: 'Meeting' 
         },
-        // { 
-        // //   startDate: '2019-07-04 12:00', 
-        // //   endDate: '2019-07-04 13:30', 
-        // //   title: 'Go to a gym' 
-        // },
       ];
       return (
         <div>
@@ -305,7 +300,13 @@ class ProfilePage extends React.Component {
                 </GridContainer>
               </div>
             </div>
-            <div>
+            <div style={{
+              marginTop: '30px',
+              marginBottom: '30px',
+              marginLeft: '30px',
+              marginRight: '30px',
+              paddingBottom: '30px'
+            }}>
               {/* <MyCalendar data={schedulerData}/> */}
               <ProfileCalendar data={schedulerData}></ProfileCalendar>
             </div>
