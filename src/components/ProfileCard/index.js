@@ -55,15 +55,15 @@ class ProfileCard extends React.Component {
                     paddingTop: '30px'
                 }}>
                     <Card>
-                        <CardActionArea>
+                        <CardActionArea
+                            onClick={this.handleChange.bind(this)}
+                        >
                             <CardMedia
                                 component="img"
                                 alt="Contemplative Reptile"
                                 height="140"
                                 image={image}
                                 title="Sample Profile"
-                                onClick={this.handleChange.bind(this)}
-                                onKeyDown={this.handleChange.bind(this)}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">

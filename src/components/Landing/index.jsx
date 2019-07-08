@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, BrowserRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
 import { SignUpLink } from 'components/SignUp';
@@ -54,7 +54,7 @@ const SignInPage = () => (
     {/* <SignInGoogle />
     <SignInFacebook />
     <SignInTwitter /> */}
-    
+
   </div>
 );
 

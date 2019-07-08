@@ -15,8 +15,10 @@ import Product from 'components/Product';
 import * as ROUTES from 'constants/routes';
 import { withAuthentication } from 'components/Session';
 
-const App = () => (
-  <Router>
+const App = () => {
+  // const condition = authUser && !!authUser.roles[ROLES.ADMIN];
+  
+  return <Router>
     <div>
       <Navigation />
 
@@ -36,6 +38,6 @@ const App = () => (
       <Route path={ROUTES.ADMIN} component={AdminPage} />
     </div>
   </Router>
-);
+}
 
 export default withAuthentication(App);
