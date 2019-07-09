@@ -11,11 +11,9 @@ import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 
 
-
 Amplify.configure(awsconfig);
 
 console.log("working!");
-
 
 class HomePage extends React.Component {
 
@@ -48,10 +46,10 @@ class HomePage extends React.Component {
         alignContent: 'center',
         textAlign: 'center'
       }}>
-        <h1>Home</h1>
+        <h1>Meet these people!</h1>
         <Grid container spacing={3}>
         <Grid container item xs={3} spacing={3}>
-        <ProfileCard />
+          <ProfileCard />
         </Grid>
         <Grid container item xs={3} spacing={3}>
           <ProfileCard />
