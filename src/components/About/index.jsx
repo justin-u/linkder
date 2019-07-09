@@ -90,10 +90,10 @@ class ProfilePage extends React.Component {
 
     if (this.state.isLoggedIn) {
       const schedulerData = [
-        { 
-          startDate: new Date(), 
-          endDate: new Date(2019, 6, 6, 19, 0), 
-          title: 'Meeting' 
+        {
+          startDate: new Date(),
+          endDate: new Date(2019, 6, 6, 19, 0),
+          title: 'Meeting'
         },
       ];
       return (
@@ -308,6 +308,15 @@ class ProfilePage extends React.Component {
               paddingBottom: '30px'
             }}>
               {/* <MyCalendar data={schedulerData}/> */}
+
+              <div>
+                <Typography variant='h3' align="center">
+                  Schedule
+                </Typography>
+                  <br></br>
+                  <br></br>
+              </div>
+
               <ProfileCalendar data={schedulerData}></ProfileCalendar>
             </div>
           </div>

@@ -11,13 +11,14 @@ import AccountPage from 'components/Account';
 import AdminPage from 'components/Admin';
 import About from 'components/About';
 import Product from 'components/Product';
+import MatchesPage from 'components/Matches';
 
 import * as ROUTES from 'constants/routes';
 import { withAuthentication } from 'components/Session';
 
 const App = () => {
   // const condition = authUser && !!authUser.roles[ROLES.ADMIN];
-  
+
   return <Router>
     <div>
       <Navigation />
@@ -29,13 +30,11 @@ const App = () => {
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
       <Route path={ROUTES.ABOUT_US} component={About} />
       <Route path={ROUTES.PRODUCT_PAGE} component={Product} />
-      <Route
-        path={ROUTES.PASSWORD_FORGET}
-        component={PasswordForgetPage}
-      />
+      <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
       <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
+      <Route path={ROUTES.MATCHES} component={MatchesPage} />
     </div>
   </Router>
 }

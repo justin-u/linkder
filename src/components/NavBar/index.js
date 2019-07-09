@@ -26,7 +26,7 @@ class NavBar extends React.Component {
         };
         this.handleClose = this.handleClose.bind(this);
     }
-    
+
     handleToggle = () => this.setState({ open: !this.state.open });
     handleClose = () => this.setState({ open: false });
 
@@ -60,6 +60,9 @@ class NavBar extends React.Component {
                             <Link to={ROUTES.HOME} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Home</Link>
                         </Button>
                         <Button color='inherit'>
+                            <Link to={ROUTES.MATCHES} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Matches</Link>
+                        </Button>
+                        <Button color='inherit'>
                             <Link to={ROUTES.ABOUT_US} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Profile</Link>
                         </Button>
                         <Button color='inherit'>
@@ -68,7 +71,7 @@ class NavBar extends React.Component {
                         <SignOutButton />
                     </Toolbar>
                 </AppBar>
-                
+
             </div>
         );
     }
