@@ -17,9 +17,6 @@ const SignInPage = () => (
     Sign In
     </Typography>
     <SignInForm />
-    {/* <SignInGoogle />
-    <SignInFacebook />
-    <SignInTwitter /> */}
     <PasswordForgetLink/>
     <SignUpLink />
   </div>
@@ -75,10 +72,10 @@ class SignInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit} style={{textAlign: 'center'}}>
-        <TextField 
+        <TextField
           name="email"
           value={email}
-          onChange={this.onChange}  
+          onChange={this.onChange}
           type="text"
           placeholder="Email Address"
           style={{paddingBottom: '10px'}}
