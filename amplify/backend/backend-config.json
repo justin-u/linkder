@@ -13,5 +13,13 @@
 				"securityType": "API_KEY"
 			}
 		}
+	},
+	"function": {
+		"addUser": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
+		}
 	}
 }
