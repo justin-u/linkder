@@ -40,17 +40,20 @@ export default class ConversationList extends Component {
   render() {
     return (
       <div className="conversation-list">
-        <Toolbar
-          title="Your Matches"
-          leftItems={[
-            // <div><b>Home</b></div>
-            <ToolbarButton key="home" icon="ion-ios-home" />
-          ]}
-          rightItems={[
-            <ToolbarButton key="profile" icon="ion-ios-person" onClick={ROUTES.HOME}> </ToolbarButton>
-          ]}
-        />
-        <ConversationSearch />
+        <div style={{"height" : "53px"}}>
+          <Toolbar style={{"height" : "53px"}}
+            title="Your Matches"
+            leftItems={[
+              // <div><b>Home</b></div>
+              // <ToolbarButton key="home" icon="ion-ios-home" />
+              <ion-icon name="home"></ion-icon>
+            ]}
+            rightItems={[
+              <ToolbarButton key="profile" icon="ion-ios-person" onClick={ROUTES.HOME}> </ToolbarButton>
+            ]}
+          />
+        </div>
+        {/* <ConversationSearch /> */}
         {
           this.state.conversations.map(conversation =>
             <ConversationListItem

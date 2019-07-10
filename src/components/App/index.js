@@ -12,6 +12,7 @@ import AdminPage from 'components/Admin';
 import About from 'components/About';
 import Product from 'components/Product';
 import MatchesPage from 'components/Matches';
+import SchedulePage from 'components/Schedule';
 
 import * as ROUTES from 'constants/routes';
 import { withAuthentication } from 'components/Session';
@@ -23,7 +24,7 @@ const App = () => {
     <div>
       <Navigation />
 
-      <hr />
+      {/* <hr /> */}
 
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
@@ -35,6 +36,7 @@ const App = () => {
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
       <Route path={ROUTES.MATCHES} component={MatchesPage} />
+      <Route path={ROUTES.SCHEDULE} component={SchedulePage} />
     </div>
   </Router>
 }

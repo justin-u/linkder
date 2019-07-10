@@ -87,7 +87,6 @@ class ProfilePage extends React.Component {
     );
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
-
     if (this.state.isLoggedIn) {
       const schedulerData = [
         {
@@ -300,25 +299,7 @@ class ProfilePage extends React.Component {
                 </GridContainer>
               </div>
             </div>
-            <div style={{
-              marginTop: '30px',
-              marginBottom: '30px',
-              marginLeft: '30px',
-              marginRight: '30px',
-              paddingBottom: '30px'
-            }}>
-              {/* <MyCalendar data={schedulerData}/> */}
-
-              <div>
-                <Typography variant='h3' align="center">
-                  Schedule
-                </Typography>
-                  <br></br>
-                  <br></br>
-              </div>
-
-              <ProfileCalendar data={schedulerData}></ProfileCalendar>
-            </div>
+            
           </div>
         </div>
       );
