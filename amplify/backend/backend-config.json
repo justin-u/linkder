@@ -26,6 +26,12 @@
 			"providerPlugin": "awscloudformation",
 			"build": true,
 			"dependsOn": []
+		},
+		"deleteFreeTime": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
 		}
 	}
 }
