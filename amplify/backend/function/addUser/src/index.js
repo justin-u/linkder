@@ -38,5 +38,5 @@ exports.handler = function (event, context) { //eslint-disable-line
         }
     })
     .then(res => res.json())
-    .then(json => context.done(null, json));
+    .then(json => context.done(null, json.data.createUser));
 };
