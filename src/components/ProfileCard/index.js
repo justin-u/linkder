@@ -14,7 +14,9 @@ class ProfileCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            checked: false
+            checked: false,
+            ignored: false,
+            liked: false
         }
         console.log(this.props)
     }
@@ -24,9 +26,20 @@ class ProfileCard extends React.Component {
         this.setState(state => ({ checked: !state.checked }));
     };
 
+    onIgnore() {
+        this.setState(state => ({ ignored: !state.ignored }));
+    }
+
+    onLike() {
+        this.setState(state => ({ ignored: !state.ignored }));
+    }
+
     render() {
 
-        if (this.state.checked) {
+        if(this.state.ignored) {
+            return null
+        }
+        else if (this.state.checked) {
             return (
                 <div style={{
                     height: '100%',
@@ -81,10 +94,10 @@ class ProfileCard extends React.Component {
                             <Button size="small" color="primary" onClick={this.handleChange.bind(this)}>
                                 View More
         </Button>
-                            <Button size="small" color="primary">
+                            <Button size="small" color="primary" onClick={this.onLike.bind(this)}>
                                 Like
         </Button>
-                            <Button size="small" color="primary">
+                            <Button size="small" color="primary" onClick={this.onIgnore.bind(this)}>
                                 Ignore
         </Button>
                         </CardActions>
