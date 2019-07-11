@@ -9,7 +9,7 @@ import PasswordForgetPage from 'components/PasswordForget';
 import HomePage from 'components/Home';
 import AccountPage from 'components/Account';
 import AdminPage from 'components/Admin';
-import About from 'components/About';
+import ProfilePage from 'components/Profile';
 import Product from 'components/Product';
 import MatchesPage from 'components/Matches';
 import SchedulePage from 'components/Schedule';
@@ -29,7 +29,7 @@ const App = () => {
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-      <Route path={ROUTES.ABOUT_US} component={About} />
+      <Route path={ROUTES.PROFILE} component={ProfilePage} />
       <Route path={ROUTES.PRODUCT_PAGE} component={Product} />
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
       <Route path={ROUTES.HOME} component={HomePage} />

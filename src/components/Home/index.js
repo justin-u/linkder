@@ -9,11 +9,10 @@ import image from 'assets/img/favicon.png'
 import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
-
+import { withFirebase } from '../Firebase';
 
 Amplify.configure(awsconfig);
 
-console.log("working!");
 
 class HomePage extends React.Component {
 
@@ -21,11 +20,24 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      users: []
     }
   }
 
   componentDidMount() {
+    this.props.firebase.users().on('value', snapshot => {
+      const usersObject = snapshot.val();
 
+      const usersList = Object.keys(usersObject).map(key => ({
+        ...usersObject[key],
+        uid: key,
+      }));
+
+      this.setState({
+        users: usersList,
+        loading: false,
+      });
+    });
   }
 
   handleChange = () => {
@@ -34,8 +46,7 @@ class HomePage extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { checked } = this.state;
-
+    const { checked } = this.state
     return (
       <div style={{
         paddingTop: '50px',
@@ -48,22 +59,27 @@ class HomePage extends React.Component {
       }}>
         <h1>Meet these people!</h1>
         <Grid container spacing={3}>
-        <Grid container item xs={3} spacing={3}>
-          <ProfileCard />
+          {this.state.users.map(function (userInfo, index) {
+            return <Grid container item xs={3} spacing={3}>
+              <ProfileCard user={userInfo} />
+            </Grid>
+          })}
+          {/* <Grid container item xs={3} spacing={3}>
+            <ProfileCard user={this.state.users[0]} />
+          </Grid>
+          <Grid container item xs={3} spacing={3}>
+            <ProfileCard />
+          </Grid>
+          <Grid container item xs={3} spacing={3}>
+            <ProfileCard />
+          </Grid>
+          <Grid container item xs={3} spacing={3}>
+            <ProfileCard />
+          </Grid>
+          <Grid container item xs={3} spacing={3}>
+            <ProfileCard />
+          </Grid> */}
         </Grid>
-        <Grid container item xs={3} spacing={3}>
-          <ProfileCard />
-        </Grid>
-        <Grid container item xs={3} spacing={3}>
-          <ProfileCard />
-        </Grid>
-        <Grid container item xs={3} spacing={3}>
-          <ProfileCard />
-        </Grid>
-        <Grid container item xs={3} spacing={3}>
-          <ProfileCard />
-        </Grid>
-      </Grid>
       </div>
 
     );
@@ -74,6 +90,7 @@ class HomePage extends React.Component {
 const condition = authUser => !!authUser;
 
 export default compose(
+  withFirebase,
   withEmailVerification,
   withAuthorization(condition),
 )(HomePage);

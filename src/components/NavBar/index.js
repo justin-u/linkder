@@ -51,7 +51,7 @@ class NavBar extends React.Component {
                             <Link to={ROUTES.MATCHES} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Matches</Link>
                         </Button>
                         <Button color='inherit'>
-                            <Link to={ROUTES.ABOUT_US} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Profile</Link>
+                            <Link to={ROUTES.PROFILE} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Profile</Link>
                         </Button>
                         <Button color='inherit'>
                             <Link to={ROUTES.SCHEDULE} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Schedule</Link>

@@ -1,4 +1,4 @@
-export const ABOUT_US = '/about';
+export const PROFILE = '/profile';
 export const PRODUCT_PAGE = '/product';
 export const LANDING = '/';
 export const SIGN_UP = '/signup';
