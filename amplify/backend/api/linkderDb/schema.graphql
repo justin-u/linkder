@@ -1,11 +1,14 @@
 type User @model {
 
   id:       ID!
+  url:      String!
   freeTimes:    [FreeTime]    @connection(name: "User2FreeTimes")
+  likes:        [User]        @connection()
+  dislikes:     [User]        @connection()
   firstName:    String!
   lastName:     String!
-  defaultLatitude:  Int!
-  defaultLongitude: Int!
+  defaultLatitude:  Float!
+  defaultLongitude: Float!
 }
 
 type FreeTime @model {
@@ -13,7 +16,7 @@ type FreeTime @model {
   id:     ID!
   user:     User      @connection(name: "User2FreeTimes")
   freeTimePlaceTimes: [FreeTimePlaceTime] @connection(name: "FreeTime2FreeTimePlaceTimes")
-  dateString:   String!
+  timestamp:   Int!
   longitude:    Float!
   latitude:   Float!
 }
