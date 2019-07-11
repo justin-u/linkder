@@ -7,7 +7,7 @@ exports.handler = function (event, context) { //eslint-disable-line
 		throw new Error('Missing value for id');
 	}
 
-	stub = { 'potentialMatches':
+	stub = { 'currentMatches':
 				[
 					{ 
 						'id': 'f677d95f-c42e-4f35-9abf-67f171a5230f',
