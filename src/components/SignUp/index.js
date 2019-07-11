@@ -10,6 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import image from "assets/img/hemp-leaves.jpg";
 import PasswordForgetLink from 'components/PasswordForget'
+import AWS from 'aws-sdk'
+import { AWSCredentials } from '@aws-amplify/api/lib/types';
 
 const SignUpPage = () => (
   <div style={{ paddingTop: '50px', textAlign: 'center' }}>
@@ -39,8 +41,9 @@ const ERROR_MSG_ACCOUNT_EXISTS = `
 class SignUpFormBase extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log()
     this.state = { ...INITIAL_STATE };
+
   }
 
   onSubmit = event => {

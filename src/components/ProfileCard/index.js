@@ -1,9 +1,10 @@
 import React from 'react'
 import { Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, Button } from '@material-ui/core';
-import image from 'assets/img/favicon.png'
 import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
+import image from 'assets/img/favicon.png'
+import ProfilePublic from '../ProfilePublic';
 
 
 class ProfileCard extends React.Component {
@@ -13,8 +14,11 @@ class ProfileCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            checked: false
+            checked: false,
+            ignored: false,
+            liked: false
         }
+        console.log(this.props)
     }
 
     handleChange = () => {
@@ -22,26 +26,38 @@ class ProfileCard extends React.Component {
         this.setState(state => ({ checked: !state.checked }));
     };
 
+    onIgnore() {
+        this.setState(state => ({ ignored: !state.ignored }));
+    }
+
+    onLike() {
+        this.setState(state => ({ ignored: !state.ignored }));
+    }
+
     render() {
 
-        if (this.state.checked) {
+        if(this.state.ignored) {
+            return null
+        }
+        else if (this.state.checked) {
             return (
-                <div style={{ 
-                    height: '100%', 
-                    width: '100%', 
-                    top: '0', 
-                    left: '0', 
-                    zIndex: '1000', 
-                    backgroundColor: 'grey', 
-                    opacity: '0.8', 
+                <div style={{
+                    height: '100%',
+                    width: '100%',
+                    top: '0',
+                    left: '0',
+                    zIndex: '1000',
+                    backgroundColor: 'black',
+                    opacity: '0.9',
                     position: 'absolute',
                     paddingTop: '75px',
-                    }}>
+                    // marginBottom: '60px'
+                }}>
                     <Slide direction="up" in={this.state.checked} mountOnEnter unmountOnExit>
-                        <div style={{backgroundColor: 'white'}}>
-                        <h1>Profile Goes Here</h1>
-                        <Button onClick={this.handleChange.bind(this)}>
-                            Close
+                        <div style={{ backgroundColor: 'white', paddingTop: '100px', paddingBottom: '40px' }}>
+                            <ProfilePublic user={this.props.user}/>
+                            <Button onClick={this.handleChange.bind(this)} variant='contained'>
+                                Close
                         </Button>
                         </div>
                     </Slide>
@@ -62,15 +78,15 @@ class ProfileCard extends React.Component {
                                 component="img"
                                 alt="Contemplative Reptile"
                                 height="140"
-                                image={image}
-                                title="Sample Profile"
+                                src={this.props.user.imageURL || image}
+                                title={this.props.user.name}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    Name
+                                    {this.props.user.name}
           </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    This person has an amazing bio which is hella cool
+                                    {this.props.user.bio}
           </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -78,10 +94,10 @@ class ProfileCard extends React.Component {
                             <Button size="small" color="primary" onClick={this.handleChange.bind(this)}>
                                 View More
         </Button>
-                            <Button size="small" color="primary">
+                            <Button size="small" color="primary" onClick={this.onLike.bind(this)}>
                                 Like
         </Button>
-                            <Button size="small" color="primary">
+                            <Button size="small" color="primary" onClick={this.onIgnore.bind(this)}>
                                 Ignore
         </Button>
                         </CardActions>
