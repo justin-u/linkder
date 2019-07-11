@@ -2,6 +2,11 @@ const fetch = require('node-fetch');
 
 exports.handler = function (event, context) { //eslint-disable-line
 
+	if(!event.hasOwnProperty('id')){
+
+		throw new Error('Missing value for id');
+	}
+
 	if(!event.hasOwnProperty('firstName')){
 
 		throw new Error('Missing value for firstName');
@@ -20,6 +25,11 @@ exports.handler = function (event, context) { //eslint-disable-line
 	if(!event.hasOwnProperty('defaultLongitude')){
 
 		throw new Error('Missing value for defaultLongitude');
+	}
+
+	if(!event.hasOwnProperty('url')){
+
+		throw new Error('Missing value for url');
 	}
 
 	fname = event.firstName;
