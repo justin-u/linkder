@@ -44,6 +44,12 @@
 			"providerPlugin": "awscloudformation",
 			"build": true,
 			"dependsOn": []
+		},
+		"likeUser": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
 		}
 	}
 }
