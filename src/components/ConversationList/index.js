@@ -40,8 +40,8 @@ export default class ConversationList extends Component {
   render() {
     return (
       <div className="conversation-list">
-        <div style={{"height" : "53px"}}>
-          <Toolbar style={{"height" : "53px"}}
+        <br/><br/><br/><br/><br/>
+          <Toolbar
             title="Your Matches"
             leftItems={[
               // <div><b>Home</b></div>
@@ -52,8 +52,7 @@ export default class ConversationList extends Component {
               <ToolbarButton key="profile" icon="ion-ios-person" onClick={ROUTES.HOME}> </ToolbarButton>
             ]}
           />
-        </div>
-        {/* <ConversationSearch /> */}
+        { /* <ConversationSearch /> */ }
         {
           this.state.conversations.map(conversation =>
             <ConversationListItem

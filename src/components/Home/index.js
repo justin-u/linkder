@@ -10,9 +10,13 @@ import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import { withFirebase } from '../Firebase';
+import Lambda from 'aws-sdk/clients/lambda'
+import AWS from 'aws-sdk'
 
 Amplify.configure(awsconfig);
-
+AWS.config.update({
+  accessKeyId: 'AKIA6PTGMIK4SFDNUZ2I', secretAccessKey: '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', region: 'us-east-1'
+})
 
 class HomePage extends React.Component {
 
@@ -33,6 +37,24 @@ class HomePage extends React.Component {
         uid: key,
       }));
 
+      
+
+      const payload = {
+        'id': 'text'
+      }
+      const lambda = new AWS.Lambda()
+      lambda.invoke({
+        FunctionName: 'getCurrentMatches-dev',
+        Payload: JSON.stringify(payload)
+      }, function(err, data) {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log(JSON.parse(data['Payload']))
+        }
+      })
+
       this.setState({
         users: usersList,
         loading: false,
@@ -47,6 +69,7 @@ class HomePage extends React.Component {
   render() {
     const { classes } = this.props;
     const { checked } = this.state
+
     return (
       <div style={{
         paddingTop: '50px',
@@ -57,6 +80,7 @@ class HomePage extends React.Component {
         alignContent: 'center',
         textAlign: 'center'
       }}>
+        <br/>
         <h1>Meet these people!</h1>
         <Grid container spacing={3}>
           {this.state.users.map(function (userInfo, index) {
