@@ -1,6 +1,6 @@
 projects:
   linkderDb:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/function/src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
     excludes:

@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const https = require('https');
 
 exports.handler = function (event, context) { //eslint-disable-line
 
@@ -32,21 +32,48 @@ exports.handler = function (event, context) { //eslint-disable-line
 		throw new Error('Missing value for url');
 	}
 
-	fname = event.firstName;
-	lname = event.lastName;
-	dlat = event.defaultLatitude;
-	dlong = event.defaultLongitude;
+	let fname = event.firstName;
+	let lname = event.lastName;
+	let id = event.id;
+	let url = event.url;
 
-	const body = { 	'query': `mutation { createUser(input: { firstName: \"${fname}\", lastName: \"${lname}\", defaultLongitude: ${dlong}, defaultLatitude: ${dlat} }){id}}`};
+	const req_body = { 	'query': `mutation { createUser(input: { url: \"${url}\", id: \"${id}\", firstName: \"${fname}\", lastName: \"${lname}\"}){id}}`};
+
+
+	var postData = JSON.stringify(req_body);
+
+	let options = {
+  		hostname: 'kbtsxq6o7rchfcp7azk3otl5ta.appsync-api.us-east-1.amazonaws.com',
+  		headers: {
+      		'Content-Type': 'application/json',
+      		'Content-Length': postData.length,
+        	'x-api-key': 'da2-p54z7yfv75f4bkfypkzbwb3nqi'
+    	},
+  		path: '/graphql',
+  		method: 'POST',
+  		protocol: 'https:'
+	};
  
-	fetch('https://4rwvy7zbgbaf3f2jx4ekplgicq.appsync-api.us-east-1.amazonaws.com/graphql', {
-    	method: 'post',
-    	body: JSON.stringify(body),
-        headers: { 
-        	'Content-Type': 'application/graphql',
-        	'x-api-key': 'da2-ullbpfmc6rd3hnlqmvenzrlz3q'
-        }
-    })
-    .then(res => res.json())
-    .then(json => context.done(null, json.data.createUser));
+	let resp_body = '';
+        
+    const req = https.request(options, (res) => {
+            
+    	res.setEncoding("utf8");
+        
+        res.on('data', (data) => {
+            
+            resp_body += data;
+            
+        }).on('end', () => {
+            
+            context.done(null,JSON.parse(resp_body));
+        });
+        
+    }).on('error', (e) => {
+        
+        context.done(error);
+    });
+
+    req.write(postData);
+    req.end();
 };

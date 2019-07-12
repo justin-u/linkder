@@ -33,12 +33,6 @@
 			"build": true,
 			"dependsOn": []
 		},
-		"getFreeTimes": {
-			"service": "Lambda",
-			"providerPlugin": "awscloudformation",
-			"build": true,
-			"dependsOn": []
-		},
 		"getPotentialMatches": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
@@ -62,6 +56,11 @@
 			"providerPlugin": "awscloudformation",
 			"build": true,
 			"dependsOn": []
+		},
+		"getFreeTimes": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true
 		}
 	}
 }
