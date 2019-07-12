@@ -18,6 +18,13 @@ exports.handler = function (event, context) { //eslint-disable-line
 								user{
 									id
 									url
+									likes{
+										items{
+											user{
+												id
+											}
+										}
+									}
 								}
 							}
 						}
@@ -50,8 +57,21 @@ exports.handler = function (event, context) { //eslint-disable-line
             resp_body += data;
             
         }).on('end', () => {
+
+            resp_body = JSON.parse(resp_body);
+            var resp_body_parsed = {'currentMatches': []};
+
+            for (x in resp_body.data.findUser.likes.items){
+            	for (y in resp_body.data.findUser.likes.items[x].user.likes.items){
+            		if(resp_body.data.findUser.likes.items[x].user.likes.items[y].user.id == event.id){
+            			resp_body_parsed['currentMatches'].push(resp_body.data.findUser.likes.items[x].user);
+            			delete resp_body_parsed.currentMatches[x].likes;
+            		}
+            	}
+            }
             
-            context.done(null,JSON.parse(resp_body));
+            context.done(null,resp_body_parsed);
+           	
         });
         
     }).on('error', (e) => {
