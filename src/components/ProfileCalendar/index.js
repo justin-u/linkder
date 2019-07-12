@@ -3,7 +3,7 @@ import Scheduler from 'devextreme-react/scheduler';
 import { CheckBox } from 'devextreme-react/check-box';
 import notify from 'devextreme/ui/notify';
 
-import { data } from './data.js';
+// import { data } from './data.js';
 
 const currentDate = new Date(2017, 4, 22);
 const views = ['day', 'week', 'month'];
@@ -11,12 +11,14 @@ const views = ['day', 'week', 'month'];
 class ProfileCalendar extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props)
     this.state = {
       allowAdding: true,
       allowDeleting: true,
       allowResizing: true,
       allowDragging: true,
-      allowUpdating: true
+      allowUpdating: true,
+      data: this.props.data
     };
     this.onAllowAddingChanged = this.onAllowAddingChanged.bind(this);
     this.onAllowDeletingChanged = this.onAllowDeletingChanged.bind(this);
@@ -32,7 +34,7 @@ class ProfileCalendar extends React.Component {
     return (
       <React.Fragment>
         <Scheduler
-          dataSource={data}
+          dataSource={this.state.data}
           views={views}
           defaultCurrentView={'week'}
           defaultCurrentDate={currentDate}
@@ -74,6 +76,7 @@ class ProfileCalendar extends React.Component {
 
   showAddedToast(e) {
     this.showToast('Added', e.appointmentData.text, 'success');
+    console.log(e)
   }
 
   showUpdatedToast(e) {

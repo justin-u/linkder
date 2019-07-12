@@ -71,13 +71,6 @@ class ProfilePage extends React.Component {
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
     if (this.state.isLoggedIn) {
-      const schedulerData = [
-        {
-          startDate: new Date(),
-          endDate: new Date(2019, 6, 6, 19, 0),
-          title: 'Meeting'
-        },
-      ];
       return (
         <div style={{
             marginLeft: '60px',

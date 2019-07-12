@@ -10,8 +10,12 @@ import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import image from "assets/img/hemp-leaves.jpg";
 import PasswordForgetLink from 'components/PasswordForget'
+import Lambda from 'aws-sdk/clients/lambda'
 import AWS from 'aws-sdk'
-import { AWSCredentials } from '@aws-amplify/api/lib/types';
+
+AWS.config.update({
+  accessKeyId: 'AKIA6PTGMIK4SFDNUZ2I', secretAccessKey: '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', region: 'us-east-1'
+})
 
 const SignUpPage = () => (
   <div style={{ paddingTop: '50px', textAlign: 'center' }}>
@@ -46,9 +50,35 @@ class SignUpFormBase extends React.Component {
 
   }
 
+  async addUserLambda(authUser) {
+
+    console.log(authUser)
+    const payload = {
+      'id': authUser.uid,
+      'firstName': authUser.name.split(' ')[0] || ' ',
+      'lastName': authUser.name.split(' ')[1] || ' ',
+      'defaultLatitude': 30.123,
+      'defaultLongitude': 40.123,
+      'url': authUser.imageURL || 'https://thispersondoesnotexist.com/image'
+    }
+    console.log(payload)
+    const lambda = new AWS.Lambda()
+    await lambda.invoke({
+      FunctionName: 'addUser-dev',
+      Payload: JSON.stringify(payload)
+    }, function (err, data) {
+      if (err) {
+        console.log(err)
+      }
+      else {
+        console.log(JSON.parse(data['Payload']))
+      }
+    })
+  }
+
   onSubmit = event => {
-    
-    var { name , email, passwordOne, passwordTwo, imageURL, error } = this.state;
+
+    var { name, email, passwordOne, passwordTwo, imageURL, error } = this.state;
     const roles = {};
 
     this.props.firebase
@@ -63,6 +93,10 @@ class SignUpFormBase extends React.Component {
       })
       .then(() => {
         return this.props.firebase.doSendEmailVerification();
+      })
+      .then(() => {
+        const authUser = JSON.parse(localStorage.getItem('authUser'));
+        this.addUserLambda(authUser);
       })
       .then(() => {
         this.setState({ ...INITIAL_STATE });
@@ -100,7 +134,7 @@ class SignUpFormBase extends React.Component {
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
-      name === '' ;
+      name === '';
 
     return (
       <form onSubmit={this.onSubmit} style={{ textAlign: 'center' }}>
