@@ -126,16 +126,16 @@ class ProfilePage extends React.Component {
                   </GridItem>
                 </GridContainer>
                 <div className={classes.description}>
-                    <Typography variant='body1'>
+                    <Typography variant='subtitle1'>
                         {this.props.user.bio}    
                     </Typography>
                     <br />
-                    <Typography variant='body1'>
+                    <Typography variant='subtitle1'>
                         {this.props.user.experience}
                     </Typography>
                     <br />
-                    <Typography variant='body1'>
-                        {this.props.user.lengthOfExp}    
+                    <Typography variant='subtitle1'>
+                        {this.props.user.lengthOfExperience}
                     </Typography>
                     <br />
                 </div>

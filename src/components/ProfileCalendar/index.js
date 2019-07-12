@@ -10,7 +10,7 @@ import { AuthUserContext, withAuthorization, withEmailVerification } from '../Se
 
 import { data } from './data.js';
 
-const currentDate = new Date(2017, 4, 22);
+const currentDate = new Date();
 const views = ['day', 'week', 'month'];
 const authUser = JSON.parse(localStorage.getItem('authUser'));
 const condition = authUser != null
