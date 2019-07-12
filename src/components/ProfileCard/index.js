@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import image from 'assets/img/favicon.png'
 import ProfilePublic from '../ProfilePublic';
+import AWS from 'aws-sdk'
 
 
 class ProfileCard extends React.Component {
@@ -27,16 +28,55 @@ class ProfileCard extends React.Component {
     };
 
     onIgnore() {
+
         this.setState(state => ({ ignored: !state.ignored }));
+        const authUser = JSON.parse(localStorage.getItem('authUser'));
+
+        this.setState(state => ({ ignored: !state.ignored }));
+        const payload = {
+            'userId': authUser.uid,
+            'otherId': this.props.user.uid
+        }
+        const lambda = new AWS.Lambda()
+        lambda.invoke({
+            FunctionName: 'dislikeUser-dev',
+            Payload: JSON.stringify(payload)
+        }, function (err, data) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log(JSON.parse(data['Payload']))
+                console.log(data)
+            }
+        })
     }
 
     onLike() {
+        const authUser = JSON.parse(localStorage.getItem('authUser'));
+
         this.setState(state => ({ ignored: !state.ignored }));
+        const payload = {
+            'userId': authUser.uid,
+            'otherId': this.props.user.uid
+        }
+        const lambda = new AWS.Lambda()
+        lambda.invoke({
+            FunctionName: 'likeUser-dev',
+            Payload: JSON.stringify(payload)
+        }, function (err, data) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                console.log(JSON.parse(data['Payload']))
+            }
+        })
     }
 
     render() {
 
-        if(this.state.ignored) {
+        if (this.state.ignored) {
             return null
         }
         else if (this.state.checked) {
@@ -55,7 +95,7 @@ class ProfileCard extends React.Component {
                 }}>
                     <Slide direction="up" in={this.state.checked} mountOnEnter unmountOnExit>
                         <div style={{ backgroundColor: 'white', paddingTop: '100px', paddingBottom: '40px' }}>
-                            <ProfilePublic user={this.props.user}/>
+                            <ProfilePublic user={this.props.user} />
                             <Button onClick={this.handleChange.bind(this)} variant='contained'>
                                 Close
                         </Button>
@@ -84,10 +124,10 @@ class ProfileCard extends React.Component {
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     {this.props.user.name}
-          </Typography>
+                                </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     {this.props.user.bio}
-          </Typography>
+                                </Typography>
                             </CardContent>
                         </CardActionArea>
                         <CardActions>

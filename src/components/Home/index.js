@@ -21,10 +21,15 @@ AWS.config.update({
 class HomePage extends React.Component {
 
   state = {}
+  
   constructor(props) {
     super(props);
+    const condition = authUser != null
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+
     this.state = {
-      users: []
+      users: [],
+      isLoggedIn: condition,
     }
   }
 
@@ -37,23 +42,26 @@ class HomePage extends React.Component {
         uid: key,
       }));
 
-      
+      const authUser = JSON.parse(localStorage.getItem('authUser'));
+      const condition = authUser != null
 
-      const payload = {
-        'id': 'text'
+      if (condition) {
+        const payload = {
+          'id': authUser.uid
+        }
+        const lambda = new AWS.Lambda()
+        lambda.invoke({
+          FunctionName: 'getPotentialMatches-dev',
+          Payload: JSON.stringify(payload)
+        }, function(err, data) {
+          if (err) {
+            console.log(err)
+          }
+          else {
+            console.log(JSON.parse(data['Payload']))
+          }
+        })
       }
-      const lambda = new AWS.Lambda()
-      lambda.invoke({
-        FunctionName: 'getCurrentMatches-dev',
-        Payload: JSON.stringify(payload)
-      }, function(err, data) {
-        if (err) {
-          console.log(err)
-        }
-        else {
-          console.log(JSON.parse(data['Payload']))
-        }
-      })
 
       this.setState({
         users: usersList,

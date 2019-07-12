@@ -2,23 +2,32 @@ import React from 'react';
 import Scheduler from 'devextreme-react/scheduler';
 import { CheckBox } from 'devextreme-react/check-box';
 import notify from 'devextreme/ui/notify';
+import Lambda from 'aws-sdk/clients/lambda'
+import AWS from 'aws-sdk'
+import { withFirebase } from '../Firebase';
+import { compose } from 'recompose';
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 
-// import { data } from './data.js';
+import { data } from './data.js';
 
 const currentDate = new Date(2017, 4, 22);
 const views = ['day', 'week', 'month'];
+const authUser = JSON.parse(localStorage.getItem('authUser'));
+const condition = authUser != null
 
 class ProfileCalendar extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
+
     this.state = {
       allowAdding: true,
       allowDeleting: true,
       allowResizing: true,
       allowDragging: true,
       allowUpdating: true,
-      data: this.props.data
+      data: [],
+      isLoggedin: condition,
+      authUser: authUser
     };
     this.onAllowAddingChanged = this.onAllowAddingChanged.bind(this);
     this.onAllowDeletingChanged = this.onAllowDeletingChanged.bind(this);
@@ -28,6 +37,14 @@ class ProfileCalendar extends React.Component {
     this.showAddedToast = this.showAddedToast.bind(this);
     this.showUpdatedToast = this.showUpdatedToast.bind(this);
     this.showDeletedToast = this.showDeletedToast.bind(this);
+  }
+
+  componentWillMount() {
+    console.log(data())
+    data().then((events) => {
+      console.log(events)
+      this.setState({ data: events });
+    }).catch(e => console.log(e));
   }
 
   render() {
@@ -51,14 +68,19 @@ class ProfileCalendar extends React.Component {
   }
 
   onAllowAddingChanged(e) {
+    // console.log(e)
     this.setState({ allowAdding: e.value });
   }
 
   onAllowDeletingChanged(e) {
+    // console.log(e)
+
     this.setState({ allowDeleting: e.value });
   }
 
   onAllowResizingChanged(e) {
+    // console.log(e)
+
     this.setState({ allowResizing: e.value });
   }
 
@@ -75,8 +97,29 @@ class ProfileCalendar extends React.Component {
   }
 
   showAddedToast(e) {
+
+    if (this.state.isLoggedin) {
+      const payload = {
+        'id': this.state.authUser.uid,
+        'time': e.appointmentData.startDate,
+      }
+      // console.log(payload)
+      const lambda = new AWS.Lambda()
+      lambda.invoke({
+        FunctionName: 'addFreeTime-dev',
+        Payload: JSON.stringify(payload)
+      }, function (err, data) {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          // console.log(JSON.parse(data['Payload']))
+          e['id'] = JSON.parse(data['Payload'])['id']
+        }
+      })
+    }
+    // console.log(e)
     this.showToast('Added', e.appointmentData.text, 'success');
-    console.log(e)
   }
 
   showUpdatedToast(e) {
@@ -88,4 +131,6 @@ class ProfileCalendar extends React.Component {
   }
 }
 
-export default ProfileCalendar;
+export default compose(
+  withFirebase,
+  withEmailVerification)(ProfileCalendar);

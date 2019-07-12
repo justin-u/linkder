@@ -6,6 +6,7 @@ import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import * as ROUTES from 'constants/routes';
 import * as ROLES from 'constants/roles';
+import AWS from 'aws-sdk'
 
 import './ConversationList.css';
 
@@ -22,6 +23,27 @@ export default class ConversationList extends Component {
   }
 
   getConversations = () => {
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+
+    const payload = {
+      'id': authUser.uid,
+    }
+    const conversations = []
+    const lambda = new AWS.Lambda()
+    lambda.invoke({
+      FunctionName: 'getCurrentMatches-dev',
+      Payload: JSON.stringify(payload)
+    }, function (err, data) {
+
+      var conv = JSON.parse(data['Payload'])
+      console.log(conv)
+
+    })
+    // this.setState(prevState => {
+    //   let conversations = {
+    //     photo: 
+    //   }
+    // })
     axios.get('https://randomuser.me/api/?results=20').then(response => {
       this.setState(prevState => {
         let conversations = response.data.results.map(result => {
@@ -40,8 +62,8 @@ export default class ConversationList extends Component {
   render() {
     return (
       <div className="conversation-list">
-        <div style={{"height" : "53px"}}>
-          <Toolbar style={{"height" : "53px"}}
+        <div style={{ "height": "53px" }}>
+          <Toolbar style={{ "height": "53px" }}
             title="Your Matches"
             leftItems={[
               // <div><b>Home</b></div>
