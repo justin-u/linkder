@@ -57,7 +57,18 @@ exports.handler = function (event, context) { //eslint-disable-line
             
         }).on('end', () => {
             
-            context.done(null,JSON.parse(resp_body));
+            resp_body = JSON.parse(resp_body);
+            var resp_body_parsed = {'potentialMatches': []};
+
+            for (x in resp_body.data.findUser.availabilities.items){
+            	for (j in resp_body.data.findUser.availabilities.items[x].block.availabilities.items){
+            		if(resp_body.data.findUser.availabilities.items[x].block.availabilities.items[j].user.id != event.id){
+            			resp_body_parsed['potentialMatches'].push( resp_body.data.findUser.availabilities.items[x].block.availabilities.items[j].user);
+            		}
+            	}
+            }
+            
+            context.done(null,resp_body_parsed);
         });
         
     }).on('error', (e) => {
