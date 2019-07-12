@@ -57,6 +57,7 @@ class HomePage extends React.Component {
         alignContent: 'center',
         textAlign: 'center'
       }}>
+        <br/>
         <h1>Meet these people!</h1>
         <Grid container spacing={3}>
           {this.state.users.map(function (userInfo, index) {
