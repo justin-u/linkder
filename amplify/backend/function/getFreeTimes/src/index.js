@@ -16,9 +16,7 @@ exports.handler = function (event, context) { //eslint-disable-line
 						availabilities{
 							items{
 								id
-								block{
-									id
-								}
+								time
 							}
 						}
 					}

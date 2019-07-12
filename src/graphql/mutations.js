@@ -8,6 +8,7 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }
@@ -35,6 +36,7 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }
@@ -62,6 +64,7 @@ export const removeUser = `mutation RemoveUser($input: DeleteUserInput!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }
@@ -172,6 +175,7 @@ export const createBlock = `mutation CreateBlock($input: CreateBlockInput!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }
@@ -184,6 +188,7 @@ export const removeBlock = `mutation RemoveBlock($input: DeleteBlockInput!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }
@@ -208,6 +213,7 @@ export const createAvailability = `mutation CreateAvailability($input: CreateAva
       firstName
       lastName
     }
+    time
     block {
       id
       availabilities {
@@ -235,6 +241,7 @@ export const removeAvailability = `mutation RemoveAvailability($input: DeleteAva
       firstName
       lastName
     }
+    time
     block {
       id
       availabilities {
