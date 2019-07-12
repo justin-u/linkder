@@ -5,10 +5,10 @@ const awsmobile = {
     "aws_content_delivery_bucket": "linkder-app-bucket-1-dev",
     "aws_content_delivery_bucket_region": "us-east-1",
     "aws_content_delivery_url": "http://linkder-app-bucket-1-dev.s3-website-us-east-1.amazonaws.com",
-    "aws_appsync_graphqlEndpoint": "https://4rwvy7zbgbaf3f2jx4ekplgicq.appsync-api.us-east-1.amazonaws.com/graphql",
+    "aws_appsync_graphqlEndpoint": "https://kbtsxq6o7rchfcp7azk3otl5ta.appsync-api.us-east-1.amazonaws.com/graphql",
     "aws_appsync_region": "us-east-1",
     "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-ullbpfmc6rd3hnlqmvenzrlz3q"
+    "aws_appsync_apiKey": "da2-p54z7yfv75f4bkfypkzbwb3nqi"
 };
 
 

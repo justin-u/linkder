@@ -1,5 +1,4 @@
 {
     "AppSyncApiName": "linkderDb",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "APIKeyExpirationEpoch": "1564632000"
+    "DynamoDBBillingMode": "PAY_PER_REQUEST"
 }

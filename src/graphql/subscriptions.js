@@ -4,12 +4,25 @@
 export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
     id
+    url
     freeTimes {
       items {
         id
-        dateString
+        timestamp
         longitude
         latitude
+      }
+      nextToken
+    }
+    likes {
+      items {
+        id
+      }
+      nextToken
+    }
+    dislikes {
+      items {
+        id
       }
       nextToken
     }
@@ -23,12 +36,25 @@ export const onCreateUser = `subscription OnCreateUser {
 export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
     id
+    url
     freeTimes {
       items {
         id
-        dateString
+        timestamp
         longitude
         latitude
+      }
+      nextToken
+    }
+    likes {
+      items {
+        id
+      }
+      nextToken
+    }
+    dislikes {
+      items {
+        id
       }
       nextToken
     }
@@ -42,12 +68,25 @@ export const onUpdateUser = `subscription OnUpdateUser {
 export const onDeleteUser = `subscription OnDeleteUser {
   onDeleteUser {
     id
+    url
     freeTimes {
       items {
         id
-        dateString
+        timestamp
         longitude
         latitude
+      }
+      nextToken
+    }
+    likes {
+      items {
+        id
+      }
+      nextToken
+    }
+    dislikes {
+      items {
+        id
       }
       nextToken
     }
@@ -58,12 +97,157 @@ export const onDeleteUser = `subscription OnDeleteUser {
   }
 }
 `;
+export const onCreateLikedUser = `subscription OnCreateLikedUser {
+  onCreateLikedUser {
+    id
+    user {
+      id
+      url
+      freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
+export const onUpdateLikedUser = `subscription OnUpdateLikedUser {
+  onUpdateLikedUser {
+    id
+    user {
+      id
+      url
+      freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
+export const onDeleteLikedUser = `subscription OnDeleteLikedUser {
+  onDeleteLikedUser {
+    id
+    user {
+      id
+      url
+      freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
+export const onCreateDislikedUser = `subscription OnCreateDislikedUser {
+  onCreateDislikedUser {
+    id
+    user {
+      id
+      url
+      freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
+export const onUpdateDislikedUser = `subscription OnUpdateDislikedUser {
+  onUpdateDislikedUser {
+    id
+    user {
+      id
+      url
+      freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
+export const onDeleteDislikedUser = `subscription OnDeleteDislikedUser {
+  onDeleteDislikedUser {
+    id
+    user {
+      id
+      url
+      freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
 export const onCreateFreeTime = `subscription OnCreateFreeTime {
   onCreateFreeTime {
     id
     user {
       id
+      url
       freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
         nextToken
       }
       firstName
@@ -77,7 +261,7 @@ export const onCreateFreeTime = `subscription OnCreateFreeTime {
       }
       nextToken
     }
-    dateString
+    timestamp
     longitude
     latitude
   }
@@ -88,7 +272,14 @@ export const onUpdateFreeTime = `subscription OnUpdateFreeTime {
     id
     user {
       id
+      url
       freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
         nextToken
       }
       firstName
@@ -102,7 +293,7 @@ export const onUpdateFreeTime = `subscription OnUpdateFreeTime {
       }
       nextToken
     }
-    dateString
+    timestamp
     longitude
     latitude
   }
@@ -113,7 +304,14 @@ export const onDeleteFreeTime = `subscription OnDeleteFreeTime {
     id
     user {
       id
+      url
       freeTimes {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      dislikes {
         nextToken
       }
       firstName
@@ -127,7 +325,7 @@ export const onDeleteFreeTime = `subscription OnDeleteFreeTime {
       }
       nextToken
     }
-    dateString
+    timestamp
     longitude
     latitude
   }
@@ -140,6 +338,7 @@ export const onCreateFreeTimePlaceTime = `subscription OnCreateFreeTimePlaceTime
       id
       user {
         id
+        url
         firstName
         lastName
         defaultLatitude
@@ -148,13 +347,13 @@ export const onCreateFreeTimePlaceTime = `subscription OnCreateFreeTimePlaceTime
       freeTimePlaceTimes {
         nextToken
       }
-      dateString
+      timestamp
       longitude
       latitude
     }
     placeTime {
       id
-      dateString
+      timestamp
       freeTimePlaceTimes {
         nextToken
       }
@@ -173,6 +372,7 @@ export const onUpdateFreeTimePlaceTime = `subscription OnUpdateFreeTimePlaceTime
       id
       user {
         id
+        url
         firstName
         lastName
         defaultLatitude
@@ -181,13 +381,13 @@ export const onUpdateFreeTimePlaceTime = `subscription OnUpdateFreeTimePlaceTime
       freeTimePlaceTimes {
         nextToken
       }
-      dateString
+      timestamp
       longitude
       latitude
     }
     placeTime {
       id
-      dateString
+      timestamp
       freeTimePlaceTimes {
         nextToken
       }
@@ -206,6 +406,7 @@ export const onDeleteFreeTimePlaceTime = `subscription OnDeleteFreeTimePlaceTime
       id
       user {
         id
+        url
         firstName
         lastName
         defaultLatitude
@@ -214,13 +415,13 @@ export const onDeleteFreeTimePlaceTime = `subscription OnDeleteFreeTimePlaceTime
       freeTimePlaceTimes {
         nextToken
       }
-      dateString
+      timestamp
       longitude
       latitude
     }
     placeTime {
       id
-      dateString
+      timestamp
       freeTimePlaceTimes {
         nextToken
       }
@@ -235,7 +436,7 @@ export const onDeleteFreeTimePlaceTime = `subscription OnDeleteFreeTimePlaceTime
 export const onCreatePlaceTime = `subscription OnCreatePlaceTime {
   onCreatePlaceTime {
     id
-    dateString
+    timestamp
     freeTimePlaceTimes {
       items {
         id
@@ -255,7 +456,7 @@ export const onCreatePlaceTime = `subscription OnCreatePlaceTime {
 export const onUpdatePlaceTime = `subscription OnUpdatePlaceTime {
   onUpdatePlaceTime {
     id
-    dateString
+    timestamp
     freeTimePlaceTimes {
       items {
         id
@@ -275,7 +476,7 @@ export const onUpdatePlaceTime = `subscription OnUpdatePlaceTime {
 export const onDeletePlaceTime = `subscription OnDeletePlaceTime {
   onDeletePlaceTime {
     id
-    dateString
+    timestamp
     freeTimePlaceTimes {
       items {
         id
@@ -298,7 +499,7 @@ export const onCreatePlace = `subscription OnCreatePlace {
     placeTimes {
       items {
         id
-        dateString
+        timestamp
       }
       nextToken
     }
@@ -312,7 +513,7 @@ export const onUpdatePlace = `subscription OnUpdatePlace {
     placeTimes {
       items {
         id
-        dateString
+        timestamp
       }
       nextToken
     }
@@ -326,7 +527,7 @@ export const onDeletePlace = `subscription OnDeletePlace {
     placeTimes {
       items {
         id
-        dateString
+        timestamp
       }
       nextToken
     }
