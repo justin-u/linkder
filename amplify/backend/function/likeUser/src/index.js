@@ -54,7 +54,9 @@ exports.handler = function (event, context) { //eslint-disable-line
             
         }).on('end', () => {
             
-            context.done(null,JSON.parse(resp_body));
+            resp_body = JSON.parse(resp_body);
+            resp_body = resp_body.data.createLike;
+            context.done(null,resp_body);
         });
         
     }).on('error', (e) => {
