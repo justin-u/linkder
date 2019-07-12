@@ -8,6 +8,7 @@ export const findUser = `query FindUser($id: ID!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }
@@ -34,6 +35,7 @@ export const findBlock = `query FindBlock($id: ID!) {
     availabilities {
       items {
         id
+        time
       }
       nextToken
     }

@@ -26,5 +26,6 @@ type Block @model(queries: { get: "findBlock" }, mutations: { create: "createBlo
 type Availability @model(queries: null, mutations: { create: "createAvailability", delete: "removeAvailability" }, subscriptions: null) {
   id: ID!
   user: User! @connection(name: "User2Availabilities")
+  time: ID!
   block: Block! @connection(name: "Block2Availabilities")
 }

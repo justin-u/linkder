@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "linkder-dev-20190616130306-deployment",
-					"S3Key": "amplify-builds/likeUser-1562805104-latest-build.zip"
+					"S3Key": "amplify-builds/likeUser-654b79526b6171623632-build.zip"
 				}
 			}
 		},

@@ -74,8 +74,7 @@ export default class ConversationList extends Component {
               <ToolbarButton key="profile" icon="ion-ios-person" onClick={ROUTES.HOME}> </ToolbarButton>
             ]}
           />
-        </div>
-        {/* <ConversationSearch /> */}
+        { /* <ConversationSearch /> */ }
         {
           this.state.conversations.map(conversation =>
             <ConversationListItem
@@ -84,6 +83,7 @@ export default class ConversationList extends Component {
             />
           )
         }
+      </div>
       </div>
     );
   }

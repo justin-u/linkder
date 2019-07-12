@@ -16,9 +16,7 @@ exports.handler = function (event, context) { //eslint-disable-line
 						availabilities{
 							items{
 								id
-								block{
-									id
-								}
+								time
 							}
 						}
 					}
@@ -51,7 +49,14 @@ exports.handler = function (event, context) { //eslint-disable-line
             
         }).on('end', () => {
             
-            context.done(null,JSON.parse(resp_body));
+            resp_body = JSON.parse(resp_body);
+            var resp_body_parsed = {"freeTimes": []};
+
+            for (x in resp_body.data.findUser.availabilities.items){
+              resp_body_parsed['freeTimes'].push(resp_body.data.findUser.availabilities.items[x]);
+            }
+            
+            context.done(null,resp_body_parsed);
         });
         
     }).on('error', (e) => {
