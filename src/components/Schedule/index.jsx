@@ -1,13 +1,17 @@
 import React from 'react';
 import {Typography} from "@material-ui/core";
 import ProfileCalendar from 'components/ProfileCalendar'
+import Lambda from 'aws-sdk/clients/lambda'
+import AWS from 'aws-sdk'
 
 export default class Schedule extends React.Component {
 
   state = {}
   constructor(props) {
     super(props)
-
+    AWS.config.update({
+      accessKeyId: 'AKIA6PTGMIK4SFDNUZ2I', secretAccessKey: '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', region: 'us-east-1'
+    })
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     const bio = authUser.bio
     const experience = authUser.experience
@@ -21,8 +25,39 @@ export default class Schedule extends React.Component {
       bio: bio,
       experience: experience,
       isLoggedIn: condition,
-      lengthOfExp: lengthOfExp
+      lengthOfExp: lengthOfExp,
+      schedulerData: null
     }
+
+  }
+
+  componentDidMount() {
+    var schedulerData = {}
+
+    if (this.state.isLoggedIn) {
+      const payload = {
+        'id': this.state.authUser.uid
+      }
+      const lambda = new AWS.Lambda()
+      
+      const scope = this; 
+
+      lambda.invoke({
+        FunctionName: 'getFreeTimes-dev',
+        Payload: JSON.stringify(payload)
+      }, function(err, data) {
+        if (err) {
+          alert(err)
+        }
+        else {
+          var d = [JSON.parse(data['Payload'])]
+          console.log(d)
+          scope.setState({schedulerData: d});
+        }
+      });
+    }
+
+    
   }
 
   onSubmit = async (event) => {
@@ -40,20 +75,14 @@ export default class Schedule extends React.Component {
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   render() {
     const { classes, ...rest } = this.props;
-
+    
     if (this.state.isLoggedIn) {
-      const schedulerData = [
-        {
-          startDate: new Date(),
-          endDate: new Date(2019, 6, 6, 19, 0),
-          title: 'Meeting'
-        },
-      ];
+      
       return (
         <div style={{
           marginTop: '30px',
@@ -73,7 +102,7 @@ export default class Schedule extends React.Component {
               <br></br>
           </div>
 
-          <ProfileCalendar data={schedulerData}></ProfileCalendar>
+          <ProfileCalendar data={this.state.schedulerData}></ProfileCalendar>
         </div>
       );
     }
