@@ -153,6 +153,7 @@ export default class MessageList extends Component {
   render() {
     return(
       <div className="message-list">
+        <br/><br/><br/><br/><br/>
         <Toolbar
           title="John Doe"
           rightItems={[

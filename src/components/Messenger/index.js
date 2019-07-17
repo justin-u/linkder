@@ -31,7 +31,7 @@ export default class Messenger extends Component {
         </div>
 
         <div className="scrollable content">
-          {/* <MessageList /> */}
+          <MessageList />
         </div>
       </div>
     );
