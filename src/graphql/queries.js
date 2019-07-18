@@ -9,6 +9,8 @@ export const findUser = `query FindUser($id: ID!) {
       items {
         id
         time
+        longitude
+        latitude
       }
       nextToken
     }
@@ -18,7 +20,19 @@ export const findUser = `query FindUser($id: ID!) {
       }
       nextToken
     }
-    dislikes {
+    likedby {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignores {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignoredby {
       items {
         id
       }
@@ -26,19 +40,36 @@ export const findUser = `query FindUser($id: ID!) {
     }
     firstName
     lastName
+    defaultLatitude
+    defaultLongitude
   }
 }
 `;
-export const findBlock = `query FindBlock($id: ID!) {
-  findBlock(id: $id) {
+export const getPlacetime = `query GetPlacetime($id: ID!) {
+  getPlacetime(id: $id) {
     id
-    availabilities {
+    nodes {
       items {
         id
-        time
       }
       nextToken
     }
+  }
+}
+`;
+export const listPlacetimes = `query ListPlacetimes(
+  $filter: ModelPlacetimeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPlacetimes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      nodes {
+        nextToken
+      }
+    }
+    nextToken
   }
 }
 `;

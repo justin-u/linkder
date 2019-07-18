@@ -9,6 +9,8 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
       items {
         id
         time
+        longitude
+        latitude
       }
       nextToken
     }
@@ -18,7 +20,19 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
       }
       nextToken
     }
-    dislikes {
+    likedby {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignores {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignoredby {
       items {
         id
       }
@@ -26,6 +40,8 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
     }
     firstName
     lastName
+    defaultLatitude
+    defaultLongitude
   }
 }
 `;
@@ -37,6 +53,8 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
       items {
         id
         time
+        longitude
+        latitude
       }
       nextToken
     }
@@ -46,7 +64,19 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
       }
       nextToken
     }
-    dislikes {
+    likedby {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignores {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignoredby {
       items {
         id
       }
@@ -54,6 +84,8 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
     }
     firstName
     lastName
+    defaultLatitude
+    defaultLongitude
   }
 }
 `;
@@ -65,6 +97,8 @@ export const removeUser = `mutation RemoveUser($input: DeleteUserInput!) {
       items {
         id
         time
+        longitude
+        latitude
       }
       nextToken
     }
@@ -74,7 +108,19 @@ export const removeUser = `mutation RemoveUser($input: DeleteUserInput!) {
       }
       nextToken
     }
-    dislikes {
+    likedby {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignores {
+      items {
+        id
+      }
+      nextToken
+    }
+    ignoredby {
       items {
         id
       }
@@ -82,13 +128,15 @@ export const removeUser = `mutation RemoveUser($input: DeleteUserInput!) {
     }
     firstName
     lastName
+    defaultLatitude
+    defaultLongitude
   }
 }
 `;
 export const createLike = `mutation CreateLike($input: CreateLikeInput!) {
   createLike(input: $input) {
     id
-    user {
+    sender {
       id
       url
       availabilities {
@@ -97,11 +145,42 @@ export const createLike = `mutation CreateLike($input: CreateLikeInput!) {
       likes {
         nextToken
       }
-      dislikes {
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
         nextToken
       }
       firstName
       lastName
+      defaultLatitude
+      defaultLongitude
+    }
+    receiver {
+      id
+      url
+      availabilities {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
     }
   }
 }
@@ -109,7 +188,7 @@ export const createLike = `mutation CreateLike($input: CreateLikeInput!) {
 export const removeLike = `mutation RemoveLike($input: DeleteLikeInput!) {
   removeLike(input: $input) {
     id
-    user {
+    sender {
       id
       url
       availabilities {
@@ -118,19 +197,21 @@ export const removeLike = `mutation RemoveLike($input: DeleteLikeInput!) {
       likes {
         nextToken
       }
-      dislikes {
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
         nextToken
       }
       firstName
       lastName
+      defaultLatitude
+      defaultLongitude
     }
-  }
-}
-`;
-export const createDislike = `mutation CreateDislike($input: CreateDislikeInput!) {
-  createDislike(input: $input) {
-    id
-    user {
+    receiver {
       id
       url
       availabilities {
@@ -139,19 +220,27 @@ export const createDislike = `mutation CreateDislike($input: CreateDislikeInput!
       likes {
         nextToken
       }
-      dislikes {
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
         nextToken
       }
       firstName
       lastName
+      defaultLatitude
+      defaultLongitude
     }
   }
 }
 `;
-export const removeDisike = `mutation RemoveDisike($input: DeleteDislikeInput!) {
-  removeDisike(input: $input) {
+export const createIgnore = `mutation CreateIgnore($input: CreateIgnoreInput!) {
+  createIgnore(input: $input) {
     id
-    user {
+    sender {
       id
       url
       availabilities {
@@ -160,37 +249,164 @@ export const removeDisike = `mutation RemoveDisike($input: DeleteDislikeInput!) 
       likes {
         nextToken
       }
-      dislikes {
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
         nextToken
       }
       firstName
       lastName
+      defaultLatitude
+      defaultLongitude
+    }
+    receiver {
+      id
+      url
+      availabilities {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
     }
   }
 }
 `;
-export const createBlock = `mutation CreateBlock($input: CreateBlockInput!) {
-  createBlock(input: $input) {
+export const removeIgnore = `mutation RemoveIgnore($input: DeleteIgnoreInput!) {
+  removeIgnore(input: $input) {
     id
-    availabilities {
+    sender {
+      id
+      url
+      availabilities {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+    receiver {
+      id
+      url
+      availabilities {
+        nextToken
+      }
+      likes {
+        nextToken
+      }
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
+        nextToken
+      }
+      firstName
+      lastName
+      defaultLatitude
+      defaultLongitude
+    }
+  }
+}
+`;
+export const createPlacetime = `mutation CreatePlacetime($input: CreatePlacetimeInput!) {
+  createPlacetime(input: $input) {
+    id
+    nodes {
       items {
         id
-        time
       }
       nextToken
     }
   }
 }
 `;
-export const removeBlock = `mutation RemoveBlock($input: DeleteBlockInput!) {
-  removeBlock(input: $input) {
+export const createNode = `mutation CreateNode($input: CreateNodeInput!) {
+  createNode(input: $input) {
     id
-    availabilities {
-      items {
-        id
-        time
+    placetime {
+      id
+      nodes {
+        nextToken
       }
-      nextToken
+    }
+    availability {
+      id
+      user {
+        id
+        url
+        firstName
+        lastName
+        defaultLatitude
+        defaultLongitude
+      }
+      nodes {
+        nextToken
+      }
+      time
+      longitude
+      latitude
+    }
+  }
+}
+`;
+export const removeNode = `mutation RemoveNode($input: DeleteNodeInput!) {
+  removeNode(input: $input) {
+    id
+    placetime {
+      id
+      nodes {
+        nextToken
+      }
+    }
+    availability {
+      id
+      user {
+        id
+        url
+        firstName
+        lastName
+        defaultLatitude
+        defaultLongitude
+      }
+      nodes {
+        nextToken
+      }
+      time
+      longitude
+      latitude
     }
   }
 }
@@ -207,19 +423,29 @@ export const createAvailability = `mutation CreateAvailability($input: CreateAva
       likes {
         nextToken
       }
-      dislikes {
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
         nextToken
       }
       firstName
       lastName
+      defaultLatitude
+      defaultLongitude
+    }
+    nodes {
+      items {
+        id
+      }
+      nextToken
     }
     time
-    block {
-      id
-      availabilities {
-        nextToken
-      }
-    }
+    longitude
+    latitude
   }
 }
 `;
@@ -235,19 +461,29 @@ export const removeAvailability = `mutation RemoveAvailability($input: DeleteAva
       likes {
         nextToken
       }
-      dislikes {
+      likedby {
+        nextToken
+      }
+      ignores {
+        nextToken
+      }
+      ignoredby {
         nextToken
       }
       firstName
       lastName
+      defaultLatitude
+      defaultLongitude
+    }
+    nodes {
+      items {
+        id
+      }
+      nextToken
     }
     time
-    block {
-      id
-      availabilities {
-        nextToken
-      }
-    }
+    longitude
+    latitude
   }
 }
 `;

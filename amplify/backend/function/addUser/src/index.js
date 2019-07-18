@@ -36,18 +36,28 @@ exports.handler = function (event, context) { //eslint-disable-line
 	let lname = event.lastName;
 	let id = event.id;
 	let url = event.url;
+	let lat = event.defaultLatitude;
+	let long = event.defaultLongitude;
 
-	const req_body = { 	'query': `mutation { createUser(input: { url: \"${url}\", id: \"${id}\", firstName: \"${fname}\", lastName: \"${lname}\"}){id}}`};
+	const req_body = { 'query': `mutation { 
+		createUser(input: { url: \"${url}\", 
+				 			id: \"${id}\", 
+				 			firstName: \"${fname}\",
+				 			lastName: \"${lname}\",
+				 			defaultLongitude: ${long},
+				 			defaultLatitude: ${lat}}){ 
+			id 
+		}}`};
 
 
 	var postData = JSON.stringify(req_body);
 
 	let options = {
-  		hostname: 'kbtsxq6o7rchfcp7azk3otl5ta.appsync-api.us-east-1.amazonaws.com',
+  		hostname: 'qdgmoskotbfa5df6joalqrypby.appsync-api.us-east-1.amazonaws.com',
   		headers: {
       		'Content-Type': 'application/json',
       		'Content-Length': postData.length,
-        	'x-api-key': 'da2-p54z7yfv75f4bkfypkzbwb3nqi'
+        	'x-api-key': 'da2-upo6rlmhknam3anhtbuuojx32e'
     	},
   		path: '/graphql',
   		method: 'POST',

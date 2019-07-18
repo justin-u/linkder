@@ -1,0 +1,45 @@
+type User @model(queries: { get: "findUser" }, mutations: { create: "createUser", delete: "removeUser", update: "updateUser" }, subscriptions: null) {
+  id:       ID!
+  url:      String!
+  availabilities: [Availability] @connection(name: "User2Availabilities")
+  likes: [Like] @connection(name: "LikedUsers")
+  likedby: [Like] @connection(name: "LikedByUsers")
+  ignores: [Ignore] @connection(name: "IgnoredUsers")
+  ignoredby: [Ignore] @connection(name: "IgnoredByUsers")
+  firstName:    String!
+  lastName:     String!
+  defaultLatitude: Float!
+  defaultLongitude: Float!
+}
+
+type Like @model(queries: null, mutations: { create: "createLike", delete: "removeLike" } , subscriptions: null) {
+  id: ID!
+  sender: User! @connection(name: "LikedUsers")
+  receiver: User! @connection(name: "LikedByUsers")
+}
+
+type Ignore @model(queries: null, mutations: { create: "createIgnore", delete: "removeIgnore" } , subscriptions: null) {
+  id: ID!
+  sender: User! @connection(name: "IgnoredUsers")
+  receiver: User! @connection(name: "IgnoredByUsers")
+}
+
+type Placetime @model(mutations: { create: "createPlacetime" }, subscriptions: null) {
+  id: ID!
+  nodes: [Node] @connection(name: "Placetime2Nodes")
+}
+
+type Node @model(queries: null, mutations: { create: "createNode", delete: "removeNode" }, subscriptions: null) {
+  id: ID!
+  placetime: Placetime! @connection(name: "Placetime2Nodes")
+  availability: Availability! @connection(name: "Availability2Nodes")
+}
+
+type Availability @model(queries: null, mutations: { create: "createAvailability", delete: "removeAvailability" }, subscriptions: null) {
+  id: ID!
+  user: User! @connection(name: "User2Availabilities")
+  nodes: [Node] @connection(name: "Availability2Nodes")
+  time: ID!
+  longitude: Float!
+  latitude: Float!
+}
