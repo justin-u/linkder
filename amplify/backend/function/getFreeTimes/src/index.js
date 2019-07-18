@@ -15,7 +15,6 @@ exports.handler = function (event, context) { //eslint-disable-line
 						
 						availabilities{
 							items{
-								id
 								time
 							}
 						}
@@ -26,11 +25,11 @@ exports.handler = function (event, context) { //eslint-disable-line
 	var postData = JSON.stringify(req_body);
 
 	let options = {
-  		hostname: 'kbtsxq6o7rchfcp7azk3otl5ta.appsync-api.us-east-1.amazonaws.com',
+  		hostname: 'qdgmoskotbfa5df6joalqrypby.appsync-api.us-east-1.amazonaws.com',
   		headers: {
       		'Content-Type': 'application/json',
       		'Content-Length': postData.length,
-        	'x-api-key': 'da2-p54z7yfv75f4bkfypkzbwb3nqi'
+        	'x-api-key': 'da2-upo6rlmhknam3anhtbuuojx32e'
     	},
   		path: '/graphql',
   		method: 'POST',
@@ -52,7 +51,7 @@ exports.handler = function (event, context) { //eslint-disable-line
             resp_body = JSON.parse(resp_body);
             var resp_body_parsed = {"freeTimes": []};
 
-            for (x in resp_body.data.findUser.availabilities.items){
+            for (var x in resp_body.data.findUser.availabilities.items){
               resp_body_parsed['freeTimes'].push(resp_body.data.findUser.availabilities.items[x]);
             }
             
@@ -61,7 +60,7 @@ exports.handler = function (event, context) { //eslint-disable-line
         
     }).on('error', (e) => {
         
-        context.done(error);
+        context.done(e);
     });
 
     req.write(postData);

@@ -14,7 +14,7 @@ exports.handler = function (event, context) { //eslint-disable-line
 
 	if(!event.hasOwnProperty('longitude')){
 
-		throw new Error('Missing value for lastName');
+		throw new Error('Missing value for  lastName');
 	}
 
 	if(!event.hasOwnProperty('latitude')){
@@ -28,7 +28,8 @@ exports.handler = function (event, context) { //eslint-disable-line
 	let long = event.longitude;
 
 	const req_body = { 'query': `mutation { 
-		createAvailability(input: {	availabilityUserId: \"${id}\", 
+		createAvailability(input: {	id: \"${id}${time}\"
+									availabilityUserId: \"${id}\", 
 				 					time: \"${time}\",
 				 					latitude: ${lat},
 				 					longitude: ${long}}){ 
