@@ -1,4 +1,0 @@
-{
-    "AppSyncApiName": "linkderDb",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST"
-}

@@ -5,15 +5,7 @@
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"api": {
-		"linkderDb": {
-			"service": "AppSync",
-			"providerPlugin": "awscloudformation",
-			"output": {
-				"securityType": "API_KEY"
-			}
-		}
-	},
+	"api": {},
 	"function": {
 		"addUser": {
 			"service": "Lambda",
