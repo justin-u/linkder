@@ -9,34 +9,41 @@ exports.handler = function (event, context) { //eslint-disable-line
 
 	if(!event.hasOwnProperty('time')){
 
-		throw new Error('Missing value for time');
+		throw new Error('Missing value for firstName');
+	}
+
+	if(!event.hasOwnProperty('longitude')){
+
+		throw new Error('Missing value for lastName');
+	}
+
+	if(!event.hasOwnProperty('latitude')){
+
+		throw new Error('Missing value for defaultLatitude');
 	}
 
 	let id = event.id;
 	let time = event.time;
+	let lat = event.latitude;
+	let long = event.longitude;
 
-	const req_body = { 	'query': `mutation {
-
-		createAvailability(input: { 	
-								availabilityUserId: \"${id}\", 
-								availabilityBlockId: \"${time}\",
-								time: \"${time}\"
-							}
-					){
-						
-						id
-					}
-				}`};
+	const req_body = { 'query': `mutation { 
+		createAvailability(input: {	availabilityUserId: \"${id}\", 
+				 					time: \"${time}\",
+				 					latitude: ${lat},
+				 					longitude: ${long}}){ 
+			id 
+		}}`};
 
 
 	var postData = JSON.stringify(req_body);
 
 	let options = {
-  		hostname: 'kbtsxq6o7rchfcp7azk3otl5ta.appsync-api.us-east-1.amazonaws.com',
+  		hostname: 'qdgmoskotbfa5df6joalqrypby.appsync-api.us-east-1.amazonaws.com',
   		headers: {
       		'Content-Type': 'application/json',
       		'Content-Length': postData.length,
-        	'x-api-key': 'da2-p54z7yfv75f4bkfypkzbwb3nqi'
+        	'x-api-key': 'da2-upo6rlmhknam3anhtbuuojx32e'
     	},
   		path: '/graphql',
   		method: 'POST',
@@ -61,7 +68,7 @@ exports.handler = function (event, context) { //eslint-disable-line
         
     }).on('error', (e) => {
         
-        context.done(error);
+        context.done(e);
     });
 
     req.write(postData);

@@ -82,7 +82,7 @@ exports.handler = function (event, context) { //eslint-disable-line
         
     }).on('error', (e) => {
         
-        context.done(error);
+        context.done(e);
     });
 
     req.write(postData);
