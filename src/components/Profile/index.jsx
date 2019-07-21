@@ -7,9 +7,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
-import Paper from '@material-ui/core/Paper';
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
+import Chip from '@material-ui/core/Chip';
 
 // core components
 import { withFirebase } from 'components/Firebase';
@@ -55,7 +54,8 @@ class ProfilePage extends React.Component {
       bio: bio,
       experience: experience,
       isLoggedIn: condition,
-      lengthOfExp: lengthOfExp
+      lengthOfExp: lengthOfExp,
+      chips: []
     }
   }
 
@@ -77,6 +77,10 @@ class ProfilePage extends React.Component {
     console.log(this.state)
   };
 
+  onChange = chips => {
+    this.setState({ chips });
+  }
+
   render() {
     const { classes, ...rest } = this.props;
     const imageClasses = classNames(
@@ -85,6 +89,10 @@ class ProfilePage extends React.Component {
       classes.imgFluid
     );
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+
+    function handleDelete() {
+      alert('You clicked the delete icon.');
+    }
 
     if (this.state.isLoggedIn) {
       const schedulerData = [
@@ -175,10 +183,48 @@ class ProfilePage extends React.Component {
                       style={{ paddingBottom: '10px', width: '70%' }}
                     />
                     <br />
-                    <Button type="submit">
+                    <Button style={{backgroundColor: "#000000", flexWrap: 'wrap',}} type="submit">
                       Save Bio
                     </Button>
                   </form>
+                  <br/><br/>
+                  
+                  <Chip style={{backgroundColor: "#000000", margin: '2px', justifyContent: 'center', flexWrap: 'wrap',}}
+                    label="Programming"
+                    value={this.state.chips}
+                    onChange={this.onChange}
+                    suggestions={["Your", "Data", "Here"]}
+                    onDelete={handleDelete}
+                    color="primary"
+                  />
+
+                  <Chip style={{backgroundColor: "#000000", margin: '2px', flexWrap: 'wrap',}}
+                    label="Finance"
+                    value={this.state.chips}
+                    onChange={this.onChange}
+                    suggestions={["Your", "Data", "Here"]}
+                    onDelete={handleDelete}
+                    color="primary"
+                  />
+
+                  <Chip style={{backgroundColor: "#000000", margin: '2px', flexWrap: 'wrap',}}
+                    label="Hiking"
+                    value={this.state.chips}
+                    onChange={this.onChange}
+                    suggestions={["Your", "Data", "Here"]}
+                    onDelete={handleDelete}
+                    color="primary"
+                  />
+
+                  <Chip style={{backgroundColor: "#000000", margin: '2px', flexWrap: 'wrap',}}
+                    label="Reading"
+                    value={this.state.chips}
+                    onChange={this.onChange}
+                    suggestions={["Your", "Data", "Here"]}
+                    onDelete={handleDelete}
+                    color="primary"
+                  />
+
                 </div>
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>

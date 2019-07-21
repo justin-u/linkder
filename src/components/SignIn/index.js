@@ -9,16 +9,18 @@ import * as ROUTES from 'constants/routes';
 import { Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import image from 'assets/img/bg.jpg'
 
 
 const SignInPage = () => (
-  <div  style={{textAlign: 'center'}}>
-    <Typography variant='h1' style={{paddingTop: '100px', paddingBottom: '50px', textAlign: 'center'}}>
+  <div  style={{textAlign: 'center', backgroundImage: "url(" + image + ")" }}>
+    <Typography variant='h1' style={{paddingTop: '100px', paddingBottom: '30px', textAlign: 'center'}}>
     Sign In
     </Typography>
     <SignInForm />
     <PasswordForgetLink/>
     <SignUpLink />
+    <br/><br/><br/><br/><br/>
   </div>
 );
 

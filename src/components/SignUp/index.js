@@ -8,7 +8,7 @@ import * as ROLES from 'constants/roles';
 import { Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
-import image from "assets/img/hemp-leaves.jpg";
+import image from 'assets/img/bg.jpg'
 import PasswordForgetLink from 'components/PasswordForget'
 import Lambda from 'aws-sdk/clients/lambda'
 import AWS from 'aws-sdk'
@@ -18,8 +18,9 @@ AWS.config.update({
 })
 
 const SignUpPage = () => (
-  <div style={{ paddingTop: '50px', textAlign: 'center' }}>
-    <Typography variant='h1' style={{ paddingBottom: '50px' }}>SignUp</Typography>
+  <div style={{ paddingTop: '50px', textAlign: 'center', backgroundImage: "url(" + image + ")" }}>
+    <Typography variant='h1' style={{ paddingTop: '50px' }}>SignUp</Typography>
+    <br/> <br/>
     <SignUpForm />
   </div>
 );

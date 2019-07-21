@@ -21,6 +21,7 @@
     "devextreme": "^19.1.4",
     "devextreme-react": "^19.1.4",
     "firebase": "latest",
+    "material-ui-icons": "^1.0.0-beta.36",
     "material-ui-pickers": "^2.2.4",
     "moment": "^2.24.0",
     "node-fetch": "^2.6.0",

@@ -5,6 +5,7 @@ import { TextField, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
 import { Link } from 'react-router-dom';
 import * as ROUTES from 'constants/routes';
+import image from 'assets/img/bg7.jpg'
 
 const INITIAL_STATE = {
   complaint: '',
@@ -29,14 +30,15 @@ class Report extends Component {
   render() {
     const { complaint, error } = this.state;
     return (
-      <div style={{justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
-        <Typography variant='h3' style={{ paddingTop: '120px'}}>
+      <div style={{justifyContent: 'center', alignContent: 'center', textAlign: 'center', backgroundImage: "url(" + image + ")"}}>
+        <Typography variant='h3' style={{ color: '#ffffff', paddingTop: '120px'}}>
             Report the User
          </Typography>
          <br/><br/><br/>
       <form onSubmit={this.onSubmit} style={{
+        // backgroundImage: 
       }}>
-        <Typography variant='body'>
+        <Typography style={{color: '#ffffff'}} variant='body'>
             Enter your reason for reporting below
          </Typography>
         <br/><br/><br/>
@@ -51,6 +53,11 @@ class Report extends Component {
         {error && <p>{error.message}</p>}
       </form>
       <br/>
+      {/* <img src={image} style={{
+        maxWidth: '100%',
+        objectFit: 'cover',
+        overflow: 'hidden'
+      }}></img> */}
       
       </div>
     );
