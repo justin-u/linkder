@@ -4,6 +4,9 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import Message from '../Message';
 import moment from 'moment';
+import Button from "components/CustomButtons/Button.jsx";
+import { Link } from 'react-router-dom';
+import * as ROUTES from 'constants/routes';
 
 import './MessageList.css';
 
@@ -158,7 +161,10 @@ export default class MessageList extends Component {
           title="John Doe"
           rightItems={[
             <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />
+            <ToolbarButton key="phone" icon="ion-ios-call" />,
+            <Button style={{backgroundColor: "#007aff"}} variant="outlined">
+              <Link to={ROUTES.REPORT} style={{color: '#ffffff', textDecoration: 'none'}}>Report</Link>
+            </Button>
           ]}
         />
 

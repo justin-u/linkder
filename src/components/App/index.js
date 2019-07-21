@@ -13,15 +13,27 @@ import ProfilePage from 'components/Profile';
 import Product from 'components/Product';
 import MatchesPage from 'components/Matches';
 import SchedulePage from 'components/Schedule';
+import ReportPage from 'components/Report';
 
 import * as ROUTES from 'constants/routes';
 import { withAuthentication } from 'components/Session';
+import MetaTags from 'react-meta-tags';
 
 const App = () => {
   // const condition = authUser && !!authUser.roles[ROLES.ADMIN];
 
   return <Router>
     <div>
+    <MetaTags>
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="description=" content="Linkder-The app that lets you meet people in-person" />
+        <meta name="keywords" content="linkder, linkdin, tinder, network, interests, conversation" />
+        <meta property="og:title" content="Linkder" />
+        <meta property="og:url" content="localhost:3000" />
+        <meta property="og:type" content="website" />
+        {/* <meta property="og:image" content="/favicon.ico" /> */}
+        <meta property="og:description" content="The app that lets you network and meet people in-person/real life." />
+    </MetaTags>
       <Navigation />
 
       {/* <hr /> */}
@@ -37,8 +49,10 @@ const App = () => {
       <Route path={ROUTES.ADMIN} component={AdminPage} />
       <Route path={ROUTES.MATCHES} component={MatchesPage} />
       <Route path={ROUTES.SCHEDULE} component={SchedulePage} />
+      <Route path={ROUTES.REPORT} component={ReportPage} />
     </div>
   </Router>
+  
 }
 
 export default withAuthentication(App);

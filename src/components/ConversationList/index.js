@@ -62,8 +62,8 @@ export default class ConversationList extends Component {
   render() {
     return (
       <div className="conversation-list">
-        <div style={{ "height": "53px", paddingTop: '80px' }}>
-          <Toolbar style={{ "height": "53px" }}
+        <div style={{ "height": "53px", paddingTop: '120px' }}>
+          <Toolbar style={{ "height": "53px", paddingTop: '80px' }}
             title="Your Matches"
             leftItems={[
               // <div><b>Home</b></div>

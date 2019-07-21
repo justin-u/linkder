@@ -4,9 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import { AuthUserContext } from '../Session';
 import * as ROUTES from 'constants/routes';
-import * as ROLES from 'constants/roles';
 import logo from 'assets/img/favicon.png';
 
 const NavBarNonAuth = () => {

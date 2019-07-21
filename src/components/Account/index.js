@@ -28,16 +28,16 @@ const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
       <div style={{ justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
-      <Parallax small filter image={require("assets/img/blockchain.jpg")} />
-      <div style={{paddingTop: '100px', paddingBottom: '40px', 
-      justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
-        <Typography variant='h3' style={{ paddingBottom: '40px'}}>
-          Account: {authUser.email}
-        </Typography>
-        <br></br>
-        <PasswordChangeForm />
-        <LoginManagement authUser={authUser} />
-      </div>
+        <Parallax small filter image={require("assets/img/blockchain.jpg")} />
+        <div style={{paddingTop: '100px', paddingBottom: '40px', 
+          justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
+          <Typography variant='h3' style={{ paddingBottom: '40px'}}>
+            Account: {authUser.email}
+         </Typography>
+          <br></br>
+          <PasswordChangeForm />
+          <LoginManagement authUser={authUser} />
+        </div>
       </div>
     )}
   </AuthUserContext.Consumer>
@@ -112,93 +112,8 @@ class LoginManagementBase extends Component {
       <div>
         <br></br>
         <h1>{this.getUserKeys()}</h1>
-        TODO: More Account Settings
+        {/* TODO: More Account Settings */}
       </div>
-    );
-  }
-}
-
-const SocialLoginToggle = ({
-  onlyOneLeft,
-  isEnabled,
-  signInMethod,
-  onLink,
-  onUnlink,
-}) =>
-  isEnabled ? (
-    <Button
-      onClick={() => onUnlink(signInMethod.id)}
-      disabled={onlyOneLeft}
-    >
-      Deactivate {signInMethod.id}
-    </Button>
-  ) : (
-    <Button
-      onClick={() => onLink(signInMethod.provider)}
-    >
-      Link {signInMethod.id}
-    </Button>
-  );
-
-class DefaultLoginToggle extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { passwordOne: '', passwordTwo: '' };
-  }
-
-  onSubmit = event => {
-    event.preventDefault();
-
-    this.props.onLink(this.state.passwordOne);
-    this.setState({ passwordOne: '', passwordTwo: '' });
-  };
-
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  render() {
-    const {
-      onlyOneLeft,
-      isEnabled,
-      signInMethod,
-      onUnlink,
-    } = this.props;
-
-    const { passwordOne, passwordTwo } = this.state;
-
-    const isInvalid =
-      passwordOne !== passwordTwo || passwordOne === '';
-
-    return isEnabled ? (
-      <Button
-        onClick={() => onUnlink(signInMethod.id)}
-        disabled={onlyOneLeft}
-      >
-        Deactivate {signInMethod.id}
-      </Button>
-    ) : (
-      <form onSubmit={this.onSubmit}>
-        <TextField
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="New Password"
-        />
-        <TextField
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm New Password"
-        />
-
-        <Button disabled={isInvalid} type="submit">
-          Link {signInMethod.id}
-        </Button>
-      </form>
     );
   }
 }

@@ -29,6 +29,7 @@
     "react-big-calendar": "^0.22.0",
     "react-big-scheduler": "^0.2.7",
     "react-dom": "^16.8.6",
+    "react-meta-tags": "^0.7.4",
     "react-router-dom": "latest",
     "react-scripts": "latest",
     "react-swipeable-views": "^0.13.3",

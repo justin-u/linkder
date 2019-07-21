@@ -35,7 +35,6 @@ import { Typography, TextField } from "@material-ui/core";
 import { thisTypeAnnotation } from "@babel/types";
 import { compose } from 'recompose'
 import { withAuthorization } from "../Session";
-import ProfileCalendar from 'components/ProfileCalendar'
 
 class ProfilePage extends React.Component {
 
