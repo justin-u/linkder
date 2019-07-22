@@ -40,34 +40,35 @@ import { compose } from 'recompose'
 import { withAuthorization } from "../Session";
 import image from 'assets/img/sky1.jpg'
 import image1 from 'assets/img/skydown.jpg'
+import * as ROUTES from 'constants/routes'
 
 const suggestions = [
-  { label: 'react' },
-  { label: 'html' },
-  { label: 'css' },
-  { label: 'software development' },
-  { label: 'java' },
-  { label: 'C' },
-  { label: 'C++' },
-  { label: 'python' },
-  { label: 'dancing' },
-  { label: 'singing' },
-  { label: 'hiking' },
-  { label: 'music' },
-  { label: 'guitar' },
-  { label: 'finance' },
-  { label: 'economics' },
-  { label: 'computer science' },
-  { label: 'coding' },
-  { label: 'programming' },
-  { label: 'running' },
-  { label: 'sports' },
-  { label: 'travelling' },
-  { label: 'reading' },
-  { label: 'painting' },
-  { label: 'engineering' },
-  { label: 'acting' },
-  { label: 'eating' },
+  'react',
+  'html',
+  'css',
+  'software development',
+  'java',
+  'C',
+  'C++',
+  'python',
+  'dancing',
+  'singing',
+  'hiking',
+  'music',
+  'guitar',
+  'finance',
+  'economics',
+  'computer science',
+  'coding',
+  'programming',
+  'running',
+  'sports',
+  'travelling',
+  'reading',
+  'painting',
+  'engineering',
+  'acting',
+  'eating',
 
 ];
 
@@ -78,10 +79,11 @@ class ProfilePage extends React.Component {
     super(props)
 
     const authUser = JSON.parse(localStorage.getItem('authUser'));
-    const bio = authUser.bio
-    const experience = authUser.experience
-    const lengthOfExp = authUser.lengthOfExperience
-    const interests = authUser.chips
+    const bio = authUser.bio || ""
+    const experience = authUser.experience || ""
+    const lengthOfExp = authUser.lengthOfExperience || null
+    const interests = authUser.chips || []
+    // console.log(authUser)
     const chip = ""
 
     const condition = authUser != null
@@ -97,43 +99,49 @@ class ProfilePage extends React.Component {
     }
   }
 
-  onSubmit = async (event) => {
+  onSubmit = (event) => {
+
+    var { bio,
+      experience,
+      lengthOfExp } = this.state;
 
     this.props.firebase.user(this.state.authUser.uid).update({
-      'bio': this.state.bio,
-      'experience': this.state.experience,
-      'lengthOfExperience': this.state.lengthOfExp
+      'bio': bio,
+      'experience': experience,
+      'lengthOfExperience': lengthOfExp
     }).then(() => {
-      this.setState(this.state)
+      this.forceUpdate();
     })
 
+    console.log(this.state)
+    alert("Bio Saved!");
     event.preventDefault();
   };
 
-  onSubmitChip = async (event) => {
+  onSubmitChip = (event) => {
 
-    const random = this.state.chips
-    random.push(this.state.chip);
+    if (event.key == 'Enter') {
+      var chips = this.state.chips
+      chips.push(this.state.chip);
 
-    this.props.firebase.user(this.state.authUser.uid).update({
-      'chips': this.state.chips,
-    }).then(() => {
-      this.setState({chips:random})
-    }).then(() => {
-      this.setState(this.state)
-    })
+      this.props.firebase.user(this.state.authUser.uid).update({
+        'chips': chips,
+      }).then(() => {
+        this.setState({ chips: chips })
+      })
+    }
 
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state)
+    // console.log(this.state)
   };
 
   onChangeChip = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   render() {
@@ -153,14 +161,23 @@ class ProfilePage extends React.Component {
           title: 'Meeting'
         },
       ];
+      const scope = this;
+
+      const {
+        bio,
+        experience,
+        lengthOfExp,
+        chip,
+      } = this.state;
+
       return (
         <div>
-          <Parallax small filter image = {require("assets/img/bg2.jpg")} />
+          <Parallax small filter image={require("assets/img/bg2.jpg")} />
 
-          <div style = {{ height: '100vh', backgroundImage: "url(" + image + ")", backgroundSize: 'cover' }} className = {classNames(classes.main, classes.mainRaised)}>
+          <div style={{ height: '100vh', backgroundImage: "url(" + image + ")", backgroundSize: 'cover' }} className={classNames(classes.main, classes.mainRaised)}>
             <div>
-              <div className = {classes.container}>
-                <GridContainer justify = "center">
+              <div className={classes.container}>
+                <GridContainer justify="center">
                   <div
                     style = {{
                       width: "100%",
@@ -171,7 +188,7 @@ class ProfilePage extends React.Component {
                     }}>
                       
                     <div
-                      style = {{
+                      style={{
                         height: '200px',
                         width: '200px',
                         overflow: 'hidden',
@@ -189,14 +206,13 @@ class ProfilePage extends React.Component {
                     </div>
                   </div>
                   <br />
-                  <GridItem xs = {12} sm = {12} md = {6}>
-                    <div className = {classes.profile}>
-                      <div style = {{
+                  <GridItem xs={12} sm={12} md={6}>
+                    <div className={classes.profile}>
+                      <div style={{
                         paddingBottom: '120px'
                       }}>
                       </div>
-
-                      <div className = {classes.name} style = {{
+                      <div className={classes.name} style={{
                         paddingBottom: '40px',
                         paddingTop: '20px'
                       }}>
@@ -209,80 +225,78 @@ class ProfilePage extends React.Component {
                   </GridItem>
                 </GridContainer>
 
-                <div className = {classes.description}>
-                  <form onSubmit = {this.onSubmit}>
+                <div className={classes.description}>
+                  <form onSubmit={this.onSubmit}>
                     <TextField
-                      name = "bio"
+                      name="bio"
                       multiline
-                      value = {this.state.bio}
-                      onChange = {this.onChange.bind(this)}
-                      type = "string"
-                      placeholder = "Bio"
-                      style = {{ paddingBottom: '10px', width: '70%' }}
+                      value={bio}
+                      onChange={this.onChange.bind(this)}
+                      type="string"
+                      placeholder="Bio"
+                      style={{ paddingBottom: '10px', width: '70%' }}
                     />
                     <br />
                     <TextField
-                      name = "experience"
-                      value = {this.state.experience}
-                      onChange = {this.onChange.bind(this)}
-                      type = "string"
-                      placeholder = "Experience"
-                      style = {{ paddingBottom: '10px', width: '70%' }}
+                      name="experience"
+                      value={experience}
+                      onChange={this.onChange.bind(this)}
+                      type="string"
+                      placeholder="Experience"
+                      style={{ paddingBottom: '10px', width: '70%' }}
                     />
                     <br />
                     <TextField
-                      name = "lengthOfExp"
-                      value = {this.state.lengthOfExp}
-                      onChange = {this.onChange.bind(this)}
-                      type = "number"
-                      placeholder = "Length of Experience (in Years)"
-                      style = {{ paddingBottom: '10px', width: '70%' }}
+                      name="lengthOfExp"
+                      value={lengthOfExp}
+                      onChange={this.onChange.bind(this)}
+                      type="number"
+                      placeholder="Length of Experience (in Years)"
+                      style={{ paddingBottom: '10px', width: '70%' }}
                     />
                     <br />
-                    <Button style = {{ color: "#ffffff", backgroundColor: "#000000", flexWrap: 'wrap' }} type = "submit">
+                    <Button style={{ color: "#ffffff", backgroundColor: "#000000", flexWrap: 'wrap', }} type="submit">
                       Save Bio
                     </Button>
                   </form>
                   <br /> <br />
 
-                  <form onSubmit = {this.onSubmitChip.bind(this)} >
-                    <TextField
-                      name = "chip"
-                      value = {this.state.chip}
-                      onChange = {this.onChangeChip.bind(this)}
-                      type = "string"
-                      placeholder = "Interests"
-                    />
-
-                    <Button size = "small" style = {{ color: "#ffffff", marginLeft: "15px", backgroundColor: "#000000", flexWrap: 'wrap' }} type = "submit">
-                      Add Interests
-                    </Button>
-                  </form>
-
+                  <TextField
+                    name="chip"
+                    value={chip}
+                    onChange={this.onChangeChip.bind(this)}
+                    type="string"
+                    placeholder="Interests"
+                    onKeyPress={this.onSubmitChip.bind(this)}
+                    style={{ textAlign: 'center', alignItems: 'center', alignContent: 'center', justifyContent: 'center'}}
+                  />
+                  
                   <br /> <br /> <br />
 
-                  <Grid style = {{ justifyContent: 'center', alignContent: 'center' }} container spacing = {3}>
+                  <Grid style={{ justifyContent: 'center', alignContent: 'center' }} container spacing={3}>
                     {this.state.chips.map(function (asd) {
-                      function handleDelete() {
-                        alert('You clicked the delete icon.');
-                        const random = this.state.chips
-                        random.pop(this.state.chip);
-                        console.log(random);
+                      function handleDelete(toDelete) {
+                        // alert('You clicked the delete icon.');
+                        const chips = scope.state.chips;
+                        console.log(toDelete);
+                        chips.splice(chips.indexOf(toDelete), 1);
+                        console.log(chips);
+                        scope.setState({ chips: chips });
+                        scope.props.firebase.user(scope.state.authUser.uid).update({
+                          'chips': chips
+                        });
                       }
 
-                      console.log(asd);
-
-                      return <Grid container item xs = {3} spacing = {4}>
-                        <Chip style = {{ backgroundColor: "#67448C", marginLeft: '1px', marginRight: '1px', marginBottom:'10px', justifyContent: 'center', flexWrap: 'wrap' }}
-                          label = {asd}
-                          suggestions = {["Your", "Data", "Here"]}
-                          onDelete = {handleDelete}
-                          color = "primary"
+                      return (
+                        <Chip style={{ backgroundColor: "#67448C", marginLeft: '1px', marginRight: '1px', marginBottom: '10px', justifyContent: 'center', flexWrap: 'wrap' }}
+                          label={asd}
+                          onDelete={(e) => handleDelete(asd)}
+                          color="primary"
                         />
-                      </Grid>
+                      )
                     })}
                   </Grid>
-                  
+
 
                   {/* <Chip style={{backgroundColor: "#000000", margin: '2px', flexWrap: 'wrap',}}
                     label="Finance"
@@ -315,8 +329,8 @@ class ProfilePage extends React.Component {
 
                 <br /> <br />
 
-                <GridContainer style = {{height: '100vh', backgroundImage: "url(" + image1 + ")", backgroundSize: 'cover'}} justify = "center">
-                  <GridItem xs = {12} sm = {12} md = {8} className = {classes.navWrapper}>
+                <GridContainer style={{ height: '100vh', backgroundImage: "url(" + image1 + ")", backgroundSize: 'cover' }} justify="center">
+                  <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                     <NavPills
                       alignCenter
                       color = "primary"
@@ -437,9 +451,9 @@ class ProfilePage extends React.Component {
         </div>
       );
     }
-    
+
     else {
-      return (<div style = {{ paddingTop: '50px' }}>
+      return (<div style={{ paddingTop: '50px' }}>
         <h1>You need to be signed in to view this</h1>
       </div>)
     }

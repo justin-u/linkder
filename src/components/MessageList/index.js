@@ -168,7 +168,7 @@ export default class MessageList extends Component {
             </Button>,
             
             <Button style={{backgroundColor: "#007aff"}} variant="outlined">
-              <Link to={ROUTES.PROFILEMATCH} style={{color: '#ffffff', textDecoration: 'none'}}>Schedule</Link>
+              <Link to={"/u/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"} style={{color: '#ffffff', textDecoration: 'none'}}>Schedule</Link>
             </Button>
           ]}
         />
