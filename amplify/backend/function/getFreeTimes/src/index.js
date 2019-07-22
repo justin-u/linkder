@@ -16,6 +16,8 @@ exports.handler = function (event, context) { //eslint-disable-line
 						availabilities{
 							items{
 								time
+                longitude
+                latitude
 							}
 						}
 					}
