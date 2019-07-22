@@ -109,7 +109,9 @@ class Firebase {
 
   messages = () => this.db.ref('messages');
 
-  bio = uid => this.db.ref(`users/${uid}/bio`)
+  bio = uid => this.db.ref(`users/${uid}/bio`);
+
+  report = report => this.db.ref(`report/`);
 }
 
 export default Firebase;

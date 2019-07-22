@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
-import { AuthUserContext } from '../Session';
+import { AuthUserContext, withAuthentication } from '../Session';
 import * as ROUTES from 'constants/routes';
 import * as ROLES from 'constants/roles';
 import SignOutButton from 'components/SignOut';
@@ -20,7 +20,9 @@ class NavBar extends React.Component {
     state = {};
     constructor(props) {
         super(props);
+        const authUser = JSON.parse(localStorage.getItem('authUser'));
         this.state = {
+            authUser: authUser,
             open: false
         };
         this.handleClose = this.handleClose.bind(this);
@@ -50,6 +52,11 @@ class NavBar extends React.Component {
                         <Button color='inherit'>
                             <Link to={ROUTES.MATCHES} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Matches</Link>
                         </Button>
+                        {this.state.authUser.ADMIN == "ADMIN" && (
+                            <Button color='inherit'>
+                            <Link to={ROUTES.ADMIN} style={{ color: '#FFFFFF', textDecoration: 'none' }}>ADMIN</Link>
+                        </Button>
+                        )}
                         <Button color='inherit'>
                             <Link to={ROUTES.PROFILE} style={{ color: '#FFFFFF', textDecoration: 'none' }}>Profile</Link>
                         </Button>
@@ -68,4 +75,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+export default (NavBar);

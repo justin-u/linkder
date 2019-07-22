@@ -50,7 +50,7 @@ const App = () => {
       <Route path={ROUTES.ADMIN} component={AdminPage} />
       <Route path={ROUTES.MATCHES} component={MatchesPage} />
       <Route path={ROUTES.SCHEDULE} component={SchedulePage} />
-      <Route path={ROUTES.REPORT} component={ReportPage} />
+      <Route path={"/report/:user/from/:userfrom"} component={ReportPage} />
       <Route path={"/u/:uid"} component={ProfileMatch} />
     </div>
   </Router>
