@@ -90,7 +90,7 @@ class HomePage extends React.Component {
       }}>
         <br/>
         <h1>Meet these people!</h1>
-        <Grid style = {{ marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing = {3}>
+        <Grid style = {{ marginTop: "-40px", marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing = {3}>
           {this.state.users.map(function (userInfo, index) {
             return <Grid style = {{ margin: '2px', }} container item xs = {3} spacing = {3}>
               <ProfileCard user = {userInfo} />

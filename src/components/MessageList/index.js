@@ -14,9 +14,17 @@ const MY_USER_ID = 'apple';
 
 export default class MessageList extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+    const condition = authUser != null
+    const messages =  []
+    // const messages =  authUser.messages || []
+
     this.state = {
-      messages: []
+      authUser: authUser,
+      isLoggedIn: condition,
+      messages: messages
     };
   }
 
@@ -98,6 +106,8 @@ export default class MessageList extends Component {
     let i = 0;
     let messageCount = this.state.messages.length;
     let messages = [];
+    // const {messages} = this.props; //adit
+    
 
     while (i < messageCount) {
       let previous = this.state.messages[i - 1];
@@ -137,6 +147,8 @@ export default class MessageList extends Component {
 
       messages.push(
         <Message
+          // authUser={authUser}
+          // key={message.uid}
           key={i}
           isMine={isMine}
           startsSequence={startsSequence}
@@ -154,36 +166,46 @@ export default class MessageList extends Component {
   }
 
   render() {
-    return(
-      <div className="message-list">
-        <br/><br/><br/><br/><br/>
-        <Toolbar
-          title="John Doe"
-          rightItems={[
-            <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-            <ToolbarButton key="phone" icon="ion-ios-call" />,
-            
-            <Button style={{backgroundColor: "#007aff"}} variant="contained">
-              <Link to={"/report/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"+"/from/"+"rxaNy1coQPXQmmUkJ6YG5xNpLeg1"} style={{color: '#ffffff', textDecoration: 'none'}}>Report</Link>
-            </Button>,
-            
-            <Button style={{backgroundColor: "#007aff"}} variant="outlined">
-              <Link to={"/u/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"} style={{color: '#ffffff', textDecoration: 'none'}}>Schedule</Link>
-            </Button>
-          ]}
-        />
+    if (this.state.isLoggedIn) {
+      const scope = this;
 
-        <div className="message-list-container">{this.renderMessages()}</div>
+      return(
+        <div className="message-list">
+          <br/><br/><br/><br/><br/>
+          <Toolbar
+            title= {this.state.authUser.name}
+            rightItems={[
+              // <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
+              // <ToolbarButton key="phone" icon="ion-ios-call" />,
+              
+              <Button style={{backgroundColor: "#007aff"}} variant="contained">
+                <Link to={"/report/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"+"/from/"+"rxaNy1coQPXQmmUkJ6YG5xNpLeg1"} style={{color: '#ffffff', textDecoration: 'none'}}>Report</Link>
+              </Button>,
+              
+              <Button style={{backgroundColor: "#007aff"}} variant="outlined">
+                <Link to={"/u/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"} style={{color: '#ffffff', textDecoration: 'none'}}>Schedule</Link>
+              </Button>
+            ]}
+          />
+  
+          <div className="message-list-container">{this.renderMessages()}</div>
+  
+          <Compose rightItems={[
+            <ToolbarButton key="photo" icon="ion-ios-camera" />,
+            <ToolbarButton key="image" icon="ion-ios-image" />,
+            <ToolbarButton key="audio" icon="ion-ios-mic" />,
+            <ToolbarButton key="money" icon="ion-ios-card" />,
+            <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
+            <ToolbarButton key="emoji" icon="ion-ios-happy" />
+          ]}/>
+        </div>
+      );
+    }
 
-        <Compose rightItems={[
-          <ToolbarButton key="photo" icon="ion-ios-camera" />,
-          <ToolbarButton key="image" icon="ion-ios-image" />,
-          <ToolbarButton key="audio" icon="ion-ios-mic" />,
-          <ToolbarButton key="money" icon="ion-ios-card" />,
-          <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
-          <ToolbarButton key="emoji" icon="ion-ios-happy" />
-        ]}/>
-      </div>
-    );
+    else {
+      return (<div style={{ paddingTop: '50px' }}>
+        <h1>You need to be signed in to view this</h1>
+      </div>)
+    } 
   }
 }

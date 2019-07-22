@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
@@ -39,11 +38,13 @@ export default class ConversationList extends Component {
       console.log(conv)
 
     })
+    
     // this.setState(prevState => {
     //   let conversations = {
     //     photo: 
     //   }
     // })
+
     axios.get('https://randomuser.me/api/?results=20').then(response => {
       this.setState(prevState => {
         let conversations = response.data.results.map(result => {

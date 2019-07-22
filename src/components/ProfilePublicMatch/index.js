@@ -156,6 +156,10 @@ class ProfilePublicPage extends React.Component {
                     {this.state.user.lengthOfExperience}
                   </Typography>
                   <br />
+                  <Typography variant='subtitle1'>
+                    {this.state.user.chips}
+                  </Typography>
+                  <br />
                 </div>
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
