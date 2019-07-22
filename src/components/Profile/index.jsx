@@ -82,7 +82,6 @@ class ProfilePage extends React.Component {
     const experience = authUser.experience
     const lengthOfExp = authUser.lengthOfExperience
     const interests = authUser.chips
-    // console.log(authUser)
     const chip = ""
 
     const condition = authUser != null
@@ -113,7 +112,6 @@ class ProfilePage extends React.Component {
 
   onSubmitChip = async (event) => {
 
-    // console.log(event);
     const random = this.state.chips
     random.push(this.state.chip);
 
@@ -162,15 +160,16 @@ class ProfilePage extends React.Component {
           <div style = {{ height: '100vh', backgroundImage: "url(" + image + ")", backgroundSize: 'cover' }} className = {classNames(classes.main, classes.mainRaised)}>
             <div>
               <div className = {classes.container}>
-                <GridContainer justify="center">
+                <GridContainer justify = "center">
                   <div
-                    style={{
+                    style = {{
                       width: "100%",
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
                       marginTop: "20px"
                     }}>
+                      
                     <div
                       style = {{
                         height: '200px',
@@ -182,8 +181,8 @@ class ProfilePage extends React.Component {
                         borderRadius: '100%'
                       }}
                     >
-                      <img src={this.state.authUser.imageURL}
-                        style={{
+                      <img src = {this.state.authUser.imageURL}
+                        style = {{
                           paddingTop: '40px',
                         }}
                       />
@@ -191,16 +190,18 @@ class ProfilePage extends React.Component {
                   </div>
                   <br />
                   <GridItem xs = {12} sm = {12} md = {6}>
-                    <div className={classes.profile}>
-                      <div style={{
+                    <div className = {classes.profile}>
+                      <div style = {{
                         paddingBottom: '120px'
                       }}>
                       </div>
+
                       <div className = {classes.name} style = {{
                         paddingBottom: '40px',
                         paddingTop: '20px'
                       }}>
-                        <Typography variant='h3'>
+
+                        <Typography variant = 'h3'>
                           {this.state.authUser.name}
                         </Typography>
                       </div>
@@ -238,7 +239,7 @@ class ProfilePage extends React.Component {
                       style = {{ paddingBottom: '10px', width: '70%' }}
                     />
                     <br />
-                    <Button style={{ color: "#ffffff", backgroundColor: "#000000", flexWrap: 'wrap', }} type = "submit">
+                    <Button style = {{ color: "#ffffff", backgroundColor: "#000000", flexWrap: 'wrap' }} type = "submit">
                       Save Bio
                     </Button>
                   </form>
@@ -315,38 +316,38 @@ class ProfilePage extends React.Component {
                 <br /> <br />
 
                 <GridContainer style = {{height: '100vh', backgroundImage: "url(" + image1 + ")", backgroundSize: 'cover'}} justify = "center">
-                  <GridItem xs={12} sm = {12} md = {8} className={classes.navWrapper}>
+                  <GridItem xs = {12} sm = {12} md = {8} className = {classes.navWrapper}>
                     <NavPills
                       alignCenter
-                      color="primary"
-                      tabs={[
+                      color = "primary"
+                      tabs = {[
                         {
                           tabButton: "Tab 1",
                           tabIcon: Camera,
                           tabContent: (
                             <GridContainer justify="center">
-                              <GridItem xs={12} sm={12} md={4}>
+                              <GridItem xs = {12} sm = {12} md = {4}>
                                 <img
-                                  alt="..."
-                                  src={studio1}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {studio1}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={studio2}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {studio2}
+                                  className = {navImageClasses}
                                 />
                               </GridItem>
                               <GridItem xs={12} sm={12} md={4}>
                                 <img
-                                  alt="..."
-                                  src={studio5}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {studio5}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={studio4}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {studio4}
+                                  className = {navImageClasses}
                                 />
                               </GridItem>
                             </GridContainer>
@@ -357,33 +358,33 @@ class ProfilePage extends React.Component {
                           tabIcon: Palette,
                           tabContent: (
                             <GridContainer justify="center">
-                              <GridItem xs={12} sm={12} md={4}>
+                              <GridItem xs = {12} sm = {12} md = {4}>
                                 <img
-                                  alt="..."
-                                  src={work1}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {work1}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={work2}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {work2}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={work3}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {work3}
+                                  className = {navImageClasses}
                                 />
                               </GridItem>
-                              <GridItem xs={12} sm={12} md={4}>
+                              <GridItem xs = {12} sm = {12} md = {4}>
                                 <img
                                   alt="..."
-                                  src={work4}
-                                  className={navImageClasses}
+                                  src = {work4}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={work5}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {work5}
+                                  className = {navImageClasses}
                                 />
                               </GridItem>
                             </GridContainer>
@@ -393,34 +394,34 @@ class ProfilePage extends React.Component {
                           tabButton: "Tab 3",
                           tabIcon: Favorite,
                           tabContent: (
-                            <GridContainer justify="center">
-                              <GridItem xs={12} sm={12} md={4}>
+                            <GridContainer justify = "center">
+                              <GridItem xs = {12} sm = {12} md = {4}>
                                 <img
-                                  alt="..."
-                                  src={work4}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {work4}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={studio3}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {studio3}
+                                  className = {navImageClasses}
                                 />
                               </GridItem>
-                              <GridItem xs={12} sm={12} md={4}>
+                              <GridItem xs = {12} sm = {12} md = {4}>
                                 <img
-                                  alt="..."
-                                  src={work2}
+                                  alt = "..."
+                                  src = {work2}
                                   className={navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={work1}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {work1}
+                                  className = {navImageClasses}
                                 />
                                 <img
-                                  alt="..."
-                                  src={studio1}
-                                  className={navImageClasses}
+                                  alt = "..."
+                                  src = {studio1}
+                                  className = {navImageClasses}
                                 />
                               </GridItem>
                             </GridContainer>

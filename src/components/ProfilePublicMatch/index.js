@@ -8,24 +8,20 @@ import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
 import Paper from '@material-ui/core/Paper';
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
 import Scheduler from 'devextreme-react/scheduler';
-
 
 // core components
 import { withFirebase } from 'components/Firebase';
-import Button from "components/CustomButtons/Button.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
-import Parallax from "components/Parallax/Parallax.jsx";
 
 import studio1 from "assets/img/examples/studio-1.jpg";
 import studio2 from "assets/img/examples/studio-2.jpg";
 import studio3 from "assets/img/examples/studio-3.jpg";
 import studio4 from "assets/img/examples/studio-4.jpg";
 import studio5 from "assets/img/examples/studio-5.jpg";
+
 import work1 from "assets/img/examples/olu-eletu.jpg";
 import work2 from "assets/img/examples/clem-onojeghuo.jpg";
 import work3 from "assets/img/examples/cynthia-del-rio.jpg";
@@ -34,15 +30,12 @@ import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 import { Typography, TextField } from "@material-ui/core";
-import { thisTypeAnnotation } from "@babel/types";
 import { compose } from 'recompose'
-import { withAuthorization } from "../Session";
-import ProfileCalendar from 'components/ProfileCalendar'
 
 const currentDate = new Date();
 const views = ['day', 'week', 'month'];
 
-class ProfilePage extends React.Component {
+class ProfilePublicPage extends React.Component {
 
   state = {}
   constructor(props) {
@@ -74,6 +67,7 @@ class ProfilePage extends React.Component {
       classes.imgRoundedCircle,
       classes.imgFluid
     );
+
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
     if (this.state.isLoggedIn) {
@@ -106,27 +100,26 @@ class ProfilePage extends React.Component {
                         borderRadius: '100%'
                       }}
                     >
-                      <img src={this.props.user.imageURL}
+                      {/* <img src={this.props.user.imageURL}
                         style={{
                           paddingTop: '40px',
                         }}
-                      />
+                      /> */}
                     </div>
                   </div>
                   <br />
-                  <GridItem xs={12} sm={12} md={6}>
-                    <div className={classes.profile}>
-                      <div style={{
-                        paddingBottom: '120px'
-                      }}>
-                      </div>
+                  <GridItem xs = {12} sm = {12} md = {6}>
+                    <div className = {classes.profile}>
+                      <div style = {{ paddingBottom: '120px' }}></div>
+
                       <div className={classes.name} style={{
                         paddingBottom: '40px',
                         paddingTop: '20px'
                       }}>
-                        <Typography variant='h3'>
+
+                        {/* <Typography variant='h3'>
                           {this.props.user.name}
-                        </Typography>
+                        </Typography> */}
                       </div>
 
                       <React.Fragment>
@@ -146,17 +139,17 @@ class ProfilePage extends React.Component {
                   </GridItem>
                 </GridContainer>
                 <div className={classes.description}>
-                    <Typography variant='subtitle1'>
+                    {/* <Typography variant='subtitle1'>
                         {this.props.user.bio}    
-                    </Typography>
+                    </Typography> */}
                     <br />
-                    <Typography variant='subtitle1'>
+                    {/* <Typography variant='subtitle1'>
                         {this.props.user.experience}
-                    </Typography>
+                    </Typography> */}
                     <br />
-                    <Typography variant='subtitle1'>
+                    {/* <Typography variant='subtitle1'>
                         {this.props.user.lengthOfExperience}
-                    </Typography>
+                    </Typography> */}
                     <br />
                 </div>
                 <GridContainer justify="center">
@@ -292,4 +285,4 @@ class ProfilePage extends React.Component {
   }
 }
 
-export default compose(withStyles(profilePageStyle), withFirebase)(ProfilePage);
+export default compose(withStyles(profilePageStyle), withFirebase)(ProfilePublicPage);

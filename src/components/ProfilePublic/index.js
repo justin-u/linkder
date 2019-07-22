@@ -7,25 +7,19 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
-import Paper from '@material-ui/core/Paper';
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
-import Scheduler from 'devextreme-react/scheduler';
-
 
 // core components
 import { withFirebase } from 'components/Firebase';
-import Button from "components/CustomButtons/Button.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";
-import Parallax from "components/Parallax/Parallax.jsx";
 
 import studio1 from "assets/img/examples/studio-1.jpg";
 import studio2 from "assets/img/examples/studio-2.jpg";
 import studio3 from "assets/img/examples/studio-3.jpg";
 import studio4 from "assets/img/examples/studio-4.jpg";
 import studio5 from "assets/img/examples/studio-5.jpg";
+
 import work1 from "assets/img/examples/olu-eletu.jpg";
 import work2 from "assets/img/examples/clem-onojeghuo.jpg";
 import work3 from "assets/img/examples/cynthia-del-rio.jpg";
@@ -33,11 +27,8 @@ import work4 from "assets/img/examples/mariya-georgieva.jpg";
 import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
-import { Typography, TextField } from "@material-ui/core";
-import { thisTypeAnnotation } from "@babel/types";
+import { Typography } from "@material-ui/core";
 import { compose } from 'recompose'
-import { withAuthorization } from "../Session";
-import ProfileCalendar from 'components/ProfileCalendar'
 
 const currentDate = new Date();
 const views = ['day', 'week', 'month'];
@@ -53,7 +44,8 @@ class ProfilePage extends React.Component {
     const bio = authUser.bio
     const experience = authUser.experience
     const lengthOfExp = authUser.lengthOfExperience
-    // console.log(authUser)
+    const interests = authUser.chips
+    const chip = ""
 
     const condition = authUser != null
 
@@ -63,7 +55,8 @@ class ProfilePage extends React.Component {
       experience: experience,
       isLoggedIn: condition,
       lengthOfExp: lengthOfExp,
-      chips: []
+      chips: interests,
+      chip: ""
     }
   }
 
@@ -128,10 +121,10 @@ class ProfilePage extends React.Component {
                           {this.props.user.name}
                         </Typography>
                       </div>
-
                     </div>
                   </GridItem>
                 </GridContainer>
+
                 <div className={classes.description}>
                     <Typography variant='subtitle1'>
                         {this.props.user.bio}    
@@ -145,7 +138,12 @@ class ProfilePage extends React.Component {
                         {this.props.user.lengthOfExperience}
                     </Typography>
                     <br />
+                    <Typography variant='subtitle1'>
+                        {this.props.user.chips}
+                    </Typography>
+                    <br />
                 </div>
+
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                     <NavPills
