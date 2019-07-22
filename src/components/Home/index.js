@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core'
 import awsconfig from '../../aws-exports';
 import { withFirebase } from '../Firebase';
 import AWS from 'aws-sdk'
+import image from 'assets/img/bg.jpg'
 
 Amplify.configure(awsconfig);
 AWS.config.update({
@@ -76,36 +77,25 @@ class HomePage extends React.Component {
     return (
       <div style={{
         paddingTop: '50px',
-        marginLeft: '40px',
-        marginRight: '40px',
-        marginBottom: '40px',
+        // marginLeft: '40px',
+        // marginRight: '40px',
+        // marginBottom: '40px',
         justifyContent: 'center',
         alignContent: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        height: '100vh',
+        backgroundImage: "url(" + image + ")",
+        backgroundSize: 'cover',
+        backgroundRepeat: 'round'
       }}>
         <br/>
         <h1>Meet these people!</h1>
-        <Grid container spacing={3}>
+        <Grid style = {{ marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing = {3}>
           {this.state.users.map(function (userInfo, index) {
-            return <Grid container item xs={3} spacing={3}>
-              <ProfileCard user={userInfo} />
+            return <Grid style = {{ margin: '2px', }} container item xs = {3} spacing = {3}>
+              <ProfileCard user = {userInfo} />
             </Grid>
           })}
-          {/* <Grid container item xs={3} spacing={3}>
-            <ProfileCard user={this.state.users[0]} />
-          </Grid>
-          <Grid container item xs={3} spacing={3}>
-            <ProfileCard />
-          </Grid>
-          <Grid container item xs={3} spacing={3}>
-            <ProfileCard />
-          </Grid>
-          <Grid container item xs={3} spacing={3}>
-            <ProfileCard />
-          </Grid>
-          <Grid container item xs={3} spacing={3}>
-            <ProfileCard />
-          </Grid> */}
         </Grid>
       </div>
 

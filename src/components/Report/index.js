@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
 import { withFirebase } from 'components/Firebase';
-import { TextField, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
 import { Link } from 'react-router-dom';
 import * as ROUTES from 'constants/routes';
@@ -31,34 +30,32 @@ class Report extends Component {
     const { complaint, error } = this.state;
     return (
       <div style={{ height: '100vh', justifyContent: 'center', alignContent: 'center', textAlign: 'center', backgroundImage: "url(" + image + ")", backgroundSize: 'cover'}}>
-        <Typography variant='h3' style={{ color: '#ffffff', paddingTop: '120px'}}>
-            Report the User
-         </Typography>
-         <br/><br/><br/>
-      <form onSubmit={this.onSubmit} style={{
-        // backgroundImage: 
-      }}>
-        <Typography style={{color: '#ffffff'}} variant='body'>
-            Enter your reason for reporting below
-         </Typography>
-        <br/><br/><br/>
-        <textarea style= {{backgroundcolor: 'transparent', bordercolor: 'black',
-			width: '550px'}} id="about" rows="8" maxlength="128" spellcheck="true"></textarea>
+        <Typography variant ='h3' style={{ color: '#ffffff', paddingTop: '120px'}}>
+          Report the User
+        </Typography>
+
         <br/><br/><br/>
 
-        <Button style={{backgroundColor: "#000000"}} variant="outlined" type="submit">
-        <Link to={ROUTES.REPORT} style={{color: '#ffffff', textDecoration: 'none'}}>Report</Link>
-        </Button>
+        <form onSubmit = {this.onSubmit}>
+          <Typography style = {{color: '#ffffff'}} variant = 'body'>
+              Enter your reason for reporting below
+          </Typography>
 
-        {error && <p>{error.message}</p>}
-      </form>
-      <br/>
-      {/* <img src={image} style={{
-        maxWidth: '100%',
-        objectFit: 'cover',
-        overflow: 'hidden'
-      }}></img> */}
-      
+          <br/><br/><br/>
+
+          <textarea style = {{backgroundcolor: 'transparent', bordercolor: 'black',
+            width: '550px'}} id = "about" rows="8" maxlength = "128" spellcheck="true">
+          </textarea>
+
+          <br/><br/><br/>
+
+          <Button style = {{ backgroundColor: "#000000" }} variant="outlined" type = "submit">
+            <Link to={ROUTES.REPORT} style={{ color: '#ffffff', textDecoration: 'none' }}>Report</Link>
+          </Button>
+
+          {error && <p>{error.message}</p>}
+        </form>
+         <br/>
       </div>
     );
   }

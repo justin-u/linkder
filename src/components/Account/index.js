@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import Parallax from "components/Parallax/Parallax.jsx";
 import Typography from '@material-ui/core/Typography'
-
 import {
   AuthUserContext,
   withAuthorization,
   withEmailVerification,
 } from 'components/Session';
 import { withFirebase } from 'components/Firebase';
-import { PasswordForgetForm } from 'components/PasswordForget';
 import PasswordChangeForm from 'components/PasswordChange';
-import firebase from '@firebase/app';
-import { TextField, Button } from '@material-ui/core';
+import image from 'assets/img/bg.jpg'
+
 require('firebase/auth');
 
 const SIGN_IN_METHODS = [
@@ -27,17 +25,13 @@ const authUser = JSON.parse(localStorage.getItem('authUser'));
 const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
-      <div style={{ justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
-        <Parallax small filter image={require("assets/img/blockchain.jpg")} />
-        <div style={{paddingTop: '100px', paddingBottom: '40px', 
-          justifyContent: 'center', alignContent: 'center', textAlign: 'center'}}>
-          <Typography variant='h3' style={{ paddingBottom: '40px'}}>
-            Account: {authUser.email}
-         </Typography>
-          <br></br>
-          <PasswordChangeForm />
-          <LoginManagement authUser={authUser} />
-        </div>
+      <div style = {{paddingTop: '100px', justifyContent: 'center', alignContent: 'center', textAlign: 'center', height: '100vh', backgroundImage: "url(" + image + ")", backgroundSize: 'cover'}}>
+        <Typography variant='h3' style = {{ paddingBottom: '40px'}}>
+          Account: {authUser.email}
+        </Typography>
+        <br></br>
+        <PasswordChangeForm />
+        <LoginManagement authUser = {authUser} />
       </div>
     )}
   </AuthUserContext.Consumer>

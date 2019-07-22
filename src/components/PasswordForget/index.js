@@ -67,7 +67,7 @@ class PasswordForgetFormBase extends Component {
 
         <br></br>
 
-        <Button disabled = {isInvalid} type = "submit">
+        <Button disabled = {isInvalid} type = "submit" variant='contained' style = {{ color: "#ffffff", backgroundColor: "#000000" }}>
           Reset My Password
         </Button>
 

@@ -44,7 +44,6 @@ class SignUpFormBase extends React.Component {
     super(props);
     console.log();
     this.state = { ...INITIAL_STATE };
-
   }
 
   async addUserLambda(authUser) {

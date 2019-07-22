@@ -47,24 +47,24 @@ class PasswordChangeForm extends Component {
         alignContent: 'center'
       }}>
         <TextField
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="New Password"
-          style={{paddingBottom: '10px'}}
+          name = "passwordOne"
+          value = {passwordOne}
+          onChange = {this.onChange}
+          type = "password"
+          placeholder = "New Password"
+          style = {{paddingBottom: '10px'}}
         />
         <br/>
         <TextField
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm New Password"
-          style={{paddingBottom: '10px'}}
+          name = "passwordTwo"
+          value = {passwordTwo}
+          onChange = {this.onChange}
+          type = "password"
+          placeholder = "Confirm New Password"
+          style = {{ paddingBottom: '10px' }}
         />
-        <br/>
-        <Button disabled={isInvalid} type="submit">
+        <br/><br/>
+        <Button style = {{ color: "#ffffff", backgroundColor: "#000000" }} disabled = {isInvalid} type = "submit">
           Reset My Password
         </Button>
 
