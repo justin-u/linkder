@@ -9,6 +9,7 @@ import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Chip from '@material-ui/core/Chip';
+import { Grid } from '@material-ui/core'
 
 // core components
 import { withFirebase } from 'components/Firebase';
@@ -35,6 +36,13 @@ import { thisTypeAnnotation } from "@babel/types";
 import { compose } from 'recompose'
 import { withAuthorization } from "../Session";
 
+const suggestions = [
+  { label: 'Afghanistan' },
+  { label: 'Aland Islands' },
+];
+
+
+
 class ProfilePage extends React.Component {
 
   state = {}
@@ -45,7 +53,9 @@ class ProfilePage extends React.Component {
     const bio = authUser.bio
     const experience = authUser.experience
     const lengthOfExp = authUser.lengthOfExperience
+    const interests = authUser.chips
     // console.log(authUser)
+    const chip = ""
 
     const condition = authUser != null
 
@@ -55,7 +65,8 @@ class ProfilePage extends React.Component {
       experience: experience,
       isLoggedIn: condition,
       lengthOfExp: lengthOfExp,
-      chips: []
+      chips: interests,
+      chip: ""
     }
   }
 
@@ -72,13 +83,31 @@ class ProfilePage extends React.Component {
     event.preventDefault();
   };
 
+  onSubmitChip = async (event) => {
+
+    // console.log(event);
+    const random = this.state.chips
+    random.push(this.state.chip);
+
+    this.props.firebase.user(this.state.authUser.uid).update({
+      'chips': this.state.chips,
+    }).then(() => {
+      this.setState({chips:random})
+    }).then(() => {
+      this.setState(this.state)
+    })
+
+    event.preventDefault();
+  };
+
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
     console.log(this.state)
   };
 
-  onChange = chips => {
-    this.setState({ chips });
+  onChangeChip = event => {
+    this.setState({ [event.target.name]: event.target.value });
+    console.log(this.state)
   }
 
   render() {
@@ -89,10 +118,6 @@ class ProfilePage extends React.Component {
       classes.imgFluid
     );
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-
-    function handleDelete() {
-      alert('You clicked the delete icon.');
-    }
 
     if (this.state.isLoggedIn) {
       const schedulerData = [
@@ -159,7 +184,7 @@ class ProfilePage extends React.Component {
                       name="bio"
                       multiline
                       value={this.state.bio}
-                      onChange={this.onChange}
+                      onChange={this.onChange.bind(this)}
                       type="string"
                       placeholder="Bio"
                       style={{ paddingBottom: '10px', width: '70%' }}
@@ -168,7 +193,7 @@ class ProfilePage extends React.Component {
                     <TextField
                       name="experience"
                       value={this.state.experience}
-                      onChange={this.onChange}
+                      onChange={this.onChange.bind(this)}
                       type="string"
                       placeholder="Experience"
                       style={{ paddingBottom: '10px', width: '70%' }}
@@ -177,28 +202,54 @@ class ProfilePage extends React.Component {
                     <TextField
                       name="lengthOfExp"
                       value={this.state.lengthOfExp}
-                      onChange={this.onChange}
+                      onChange={this.onChange.bind(this)}
                       type="number"
                       placeholder="Length of Experience (in Years)"
                       style={{ paddingBottom: '10px', width: '70%' }}
                     />
                     <br />
-                    <Button style={{backgroundColor: "#000000", flexWrap: 'wrap',}} type="submit">
+                    <Button style={{ backgroundColor: "#000000", flexWrap: 'wrap', }} type="submit">
                       Save Bio
                     </Button>
                   </form>
-                  <br/><br/>
-                  
-                  <Chip style={{backgroundColor: "#000000", margin: '2px', justifyContent: 'center', flexWrap: 'wrap',}}
-                    label="Programming"
-                    value={this.state.chips}
-                    onChange={this.onChange}
-                    suggestions={["Your", "Data", "Here"]}
-                    onDelete={handleDelete}
-                    color="primary"
-                  />
+                  <br /><br />
 
-                  <Chip style={{backgroundColor: "#000000", margin: '2px', flexWrap: 'wrap',}}
+                  <form onSubmit={this.onSubmitChip.bind(this)} >
+                    <TextField
+                      name="chip"
+                      value={this.state.chip}
+                      onChange={this.onChangeChip.bind(this)}
+                      type="string"
+                      placeholder="Interests"
+                    />
+
+                    <Button style={{ backgroundColor: "#000000", flexWrap: 'wrap', }} type="submit">
+                      Add Interest
+                    </Button>
+                  </form>
+                  <Grid container spacing={3}>
+                    {this.state.chips.map(function (asd) {
+                      function handleDelete() {
+                        alert('You clicked the delete icon.');
+                        const random = this.state.chips
+                        random.pop(this.state.chip);
+                        console.log(random);
+                      }
+                      console.log(asd);
+                      return <Grid container item xs={3} spacing={3}>
+                        
+                        <Chip style={{backgroundColor: "#000000", margin: '2px', justifyContent: 'center', flexWrap: 'wrap',}}
+                          label={asd}
+                          suggestions={["Your", "Data", "Here"]}
+                          onDelete={handleDelete}
+                          color="primary"
+                        />
+                      </Grid>
+                    })}
+                  
+                  </Grid>
+
+                  {/* <Chip style={{backgroundColor: "#000000", margin: '2px', flexWrap: 'wrap',}}
                     label="Finance"
                     value={this.state.chips}
                     onChange={this.onChange}
@@ -223,7 +274,7 @@ class ProfilePage extends React.Component {
                     suggestions={["Your", "Data", "Here"]}
                     onDelete={handleDelete}
                     color="primary"
-                  />
+                  /> */}
 
                 </div>
                 <GridContainer justify="center">
@@ -344,7 +395,7 @@ class ProfilePage extends React.Component {
                 </GridContainer>
               </div>
             </div>
-            
+
           </div>
         </div>
       );

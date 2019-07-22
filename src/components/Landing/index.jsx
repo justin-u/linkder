@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { withRouter, BrowserRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-
 import { SignUpLink } from 'components/SignUp';
 import { PasswordForgetLink } from 'components/PasswordForget';
 import { withFirebase } from 'components/Firebase';
@@ -9,52 +8,54 @@ import * as ROUTES from 'constants/routes';
 import { Typography, Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Avatar } from '@material-ui/core'
-import { CancelOutlined } from '@material-ui/icons'
 import image from 'assets/img/bg7.jpg'
 
 const SignInPage = () => (
-  <div style={{ textAlign: 'center', display: 'flex', paddingTop: '40px' }}>
-    <div style={{
+  <div style = {{ textAlign: 'center', display: 'flex', paddingTop: '40px' }}>
+    <div style = {{
       width: '60%',
       maxWidth: '60%',
     }}>
+
       <h1 style={{
         position: 'absolute',
         color: '#FFFFFF',
         paddingTop: '50px',
         paddingLeft: '40px'
       }}>Linkder</h1>
-      <h3 style={{
+
+      <h3 style = {{
         position: 'absolute',
         color: '#FFFFFF',
         paddingTop: '100px',
         paddingLeft: '40px'
       }}>The App that helps you connect with people in-person</h3>
-      <img src={image} style={{
-        maxWidth: '180%',
+
+      <img src = {image} style={{
+        height: '100vh',
         objectFit: 'cover',
         overflow: 'hidden'
       }}></img>
     </div>
-    <div style={{
+
+    <div style = {{
       width: '40%',
       backgroundColor: 'white',
       paddingTop: '100px'
     }}>
-      <Typography variant='h3'>
+
+      <br/><br/><br/>
+
+      <Typography variant = 'h3'>
         Sign In
       </Typography>
-      <br></br>
-      <br></br>
+
+      <br></br><br></br>
+      
       <SignInForm />
       <SignUpLink />
       <PasswordForgetLink />
     </div>
-    {/* <SignInGoogle />
-    <SignInFacebook />
-    <SignInTwitter /> */}
-
   </div>
 );
 
@@ -107,26 +108,26 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
 
     return (
-      <form onSubmit={this.onSubmit} style={{ textAlign: 'center' }}>
+      <form onSubmit = {this.onSubmit} style = {{ textAlign: 'center' }}>
         <TextField
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-          style={{ paddingBottom: '10px' }}
+          name = "email"
+          value = {email}
+          onChange = {this.onChange}
+          type = "text"
+          placeholder = "Email Address"
+          style = {{ paddingBottom: '10px' }}
         />
         <br></br>
         <TextField
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-          style={{ paddingBottom: '10px' }}
+          name = "password"
+          value = {password}
+          onChange = {this.onChange}
+          type = "password"
+          placeholder = "Password"
+          style = {{ paddingBottom: '10px' }}
         />
-        <br></br>
-        <Button disabled={isInvalid} type="submit" variant='contained' color='primary'>
+        <br></br><br/>
+        <Button disabled={isInvalid} type="submit" variant='contained' style= {{ color: "#ffffff", backgroundColor: "#000000"}}>
           Sign In
         </Button>
 
@@ -173,8 +174,8 @@ class SignInGoogleBase extends Component {
     const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Google</button>
+      <form onSubmit = {this.onSubmit}>
+        <button type = "submit">Sign In with Google</button>
 
         {error && <p>{error.message}</p>}
       </form>
@@ -219,7 +220,7 @@ class SignInFacebookBase extends Component {
     const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit = {this.onSubmit}>
         <button type="submit">Sign In with Facebook</button>
 
         {error && <p>{error.message}</p>}
@@ -265,8 +266,8 @@ class SignInTwitterBase extends Component {
     const { error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Twitter</button>
+      <form onSubmit = {this.onSubmit}>
+        <button type = "submit">Sign In with Twitter</button>
 
         {error && <p>{error.message}</p>}
       </form>

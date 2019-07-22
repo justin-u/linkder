@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-
 import { withFirebase } from 'components/Firebase';
 import * as ROUTES from 'constants/routes';
-import * as ROLES from 'constants/roles';
-import { Button, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import image from 'assets/img/bg.jpg'
-import PasswordForgetLink from 'components/PasswordForget'
-import Lambda from 'aws-sdk/clients/lambda'
 import AWS from 'aws-sdk'
 
 AWS.config.update({
@@ -18,7 +14,7 @@ AWS.config.update({
 })
 
 const SignUpPage = () => (
-  <div style={{ paddingTop: '50px', textAlign: 'center', backgroundImage: "url(" + image + ")" }}>
+  <div style = {{ height: '100vh', paddingTop: '50px', textAlign: 'center', backgroundImage: "url(" + image + ")", backgroundSize: 'cover' }}>
     <Typography variant='h1' style={{ paddingTop: '50px' }}>SignUp</Typography>
     <br/> <br/>
     <SignUpForm />
@@ -46,7 +42,7 @@ const ERROR_MSG_ACCOUNT_EXISTS = `
 class SignUpFormBase extends React.Component {
   constructor(props) {
     super(props);
-    console.log()
+    console.log();
     this.state = { ...INITIAL_STATE };
 
   }
@@ -78,8 +74,8 @@ class SignUpFormBase extends React.Component {
   }
 
   onSubmit = event => {
-
     var { name, email, passwordOne, passwordTwo, imageURL, error } = this.state;
+
     const roles = {};
 
     this.props.firebase
@@ -140,51 +136,51 @@ class SignUpFormBase extends React.Component {
     return (
       <form onSubmit={this.onSubmit} style={{ textAlign: 'center' }}>
         <TextField
-          name="name"
-          value={name}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-          style={{ paddingBottom: '10px' }}
+          name = "name"
+          value = {name}
+          onChange = {this.onChange}
+          type = "text"
+          placeholder = "Full Name"
+          style = {{ paddingBottom: '10px' }}
         />
         <br />
         <TextField
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-          style={{ paddingBottom: '10px' }}
+          name = "email"
+          value = {email}
+          onChange = {this.onChange}
+          type = "text"
+          placeholder = "Email Address"
+          style = {{ paddingBottom: '10px' }}
         />
         <br />
         <TextField
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-          style={{ paddingBottom: '10px' }}
+          name = "passwordOne"
+          value = {passwordOne}
+          onChange = {this.onChange}
+          type = "password"
+          placeholder = "Password"
+          style = {{ paddingBottom: '10px' }}
         />
         <br />
         <TextField
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
+          name = "passwordTwo"
+          value = {passwordTwo}
+          onChange = {this.onChange}
+          type = "password"
           placeholder="Confirm Password"
-          style={{ paddingBottom: '10px' }}
+          style = {{ paddingBottom: '10px' }}
         />
         <br />
         <TextField
           name="imageURL"
-          value={imageURL}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Link to Image (Optional)"
-          style={{ paddingBottom: '10px', paddingTop: '30px' }}
+          value = {imageURL}
+          onChange = {this.onChange}
+          type = "text"
+          placeholder = "Link to Image (Optional)"
+          style = {{ paddingBottom: '10px', paddingTop: '20px' }}
         />
-        <br />
-        <Button disabled={isInvalid} type="submit">
+        <br /><br />
+        <Button disabled = {isInvalid} type="submit" variant='contained' style = {{ color: "#ffffff", backgroundColor: "#000000" }}>
           Sign Up
         </Button>
 

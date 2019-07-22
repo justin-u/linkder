@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import { withFirebase } from 'components/Firebase';
 import * as ROUTES from 'constants/routes';
 import { TextField, Button } from '@material-ui/core';
+import image from 'assets/img/bg.jpg'
 
 const PasswordForgetPage = () => (
-  <div style={{
+  <div style = {{
     paddingTop: '100px',
-    textAlign: 'center'
+    textAlign: 'center',
+    height: '100vh',
+    backgroundImage: "url(" + image + ")",
+    backgroundSize: 'cover'
   }}>
-    <h1>PasswordForget</h1>
+    <h1>Forgot Your Password?</h1>
     <PasswordForgetForm />
   </div>
 );
@@ -52,17 +55,19 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit = {this.onSubmit}>
         <TextField
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-          style={{ paddingBottom: '20px'}}
+          name = "email"
+          value = {this.state.email}
+          onChange = {this.onChange}
+          type = "text"
+          placeholder = "Email Address"
+          style = {{ textAlign: 'center', paddingBottom: '20px' }}
         />
+
         <br></br>
-        <Button disabled={isInvalid} type="submit">
+
+        <Button disabled = {isInvalid} type = "submit">
           Reset My Password
         </Button>
 

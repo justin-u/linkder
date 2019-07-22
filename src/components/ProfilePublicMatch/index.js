@@ -129,6 +129,19 @@ class ProfilePage extends React.Component {
                         </Typography>
                       </div>
 
+                      <React.Fragment>
+                        <Scheduler
+                          dataSource={this.state.data}
+                          views={views}
+                          defaultCurrentView={'week'}
+                          defaultCurrentDate={currentDate}
+                          startDayHour={8}
+                          endDayHour={24}
+                          height={600}
+                          disabled
+                        />
+                      </React.Fragment>
+
                     </div>
                   </GridItem>
                 </GridContainer>

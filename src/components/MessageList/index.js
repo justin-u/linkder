@@ -162,8 +162,13 @@ export default class MessageList extends Component {
           rightItems={[
             <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
             <ToolbarButton key="phone" icon="ion-ios-call" />,
-            <Button style={{backgroundColor: "#007aff"}} variant="outlined">
+            
+            <Button style={{backgroundColor: "#007aff"}} variant="contained">
               <Link to={ROUTES.REPORT} style={{color: '#ffffff', textDecoration: 'none'}}>Report</Link>
+            </Button>,
+            
+            <Button style={{backgroundColor: "#007aff"}} variant="outlined">
+              <Link to={ROUTES.PROFILEMATCH} style={{color: '#ffffff', textDecoration: 'none'}}>Schedule</Link>
             </Button>
           ]}
         />

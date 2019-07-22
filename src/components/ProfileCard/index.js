@@ -133,13 +133,13 @@ class ProfileCard extends React.Component {
                         <CardActions>
                             <Button size="small" color="primary" onClick={this.handleChange.bind(this)}>
                                 View More
-        </Button>
+                            </Button>
                             <Button size="small" color="primary" onClick={this.onLike.bind(this)}>
                                 Like
-        </Button>
+                            </Button>
                             <Button size="small" color="primary" onClick={this.onIgnore.bind(this)}>
                                 Ignore
-        </Button>
+                            </Button>
                         </CardActions>
                     </Card>
                 </div>

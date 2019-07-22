@@ -11,3 +11,4 @@ export const ADMIN_DETAILS = '/admin/:id';
 export const MATCHES = '/matches';
 export const SCHEDULE = '/schedule';
 export const REPORT = '/report';
+export const PROFILEMATCH = '/profilematch'

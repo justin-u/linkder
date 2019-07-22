@@ -5,12 +5,7 @@ import ProfileCard from 'components/ProfileCard';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { Grid } from '@material-ui/core'
 import awsconfig from '../../aws-exports';
-import image from 'assets/img/favicon.png'
-import Switch from '@material-ui/core/Switch';
-import Paper from '@material-ui/core/Paper';
-import Slide from '@material-ui/core/Slide';
 import { withFirebase } from '../Firebase';
-import Lambda from 'aws-sdk/clients/lambda'
 import AWS from 'aws-sdk'
 
 Amplify.configure(awsconfig);

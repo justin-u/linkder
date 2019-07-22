@@ -14,6 +14,7 @@ import Product from 'components/Product';
 import MatchesPage from 'components/Matches';
 import SchedulePage from 'components/Schedule';
 import ReportPage from 'components/Report';
+import ProfileMatch from 'components/ProfilePublicMatch';
 
 import * as ROUTES from 'constants/routes';
 import { withAuthentication } from 'components/Session';
@@ -50,9 +51,10 @@ const App = () => {
       <Route path={ROUTES.MATCHES} component={MatchesPage} />
       <Route path={ROUTES.SCHEDULE} component={SchedulePage} />
       <Route path={ROUTES.REPORT} component={ReportPage} />
+      <Route path={ROUTES.PROFILEMATCH} component={ProfileMatch} />
     </div>
   </Router>
-  
+
 }
 
 export default withAuthentication(App);

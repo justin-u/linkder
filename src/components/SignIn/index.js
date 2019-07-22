@@ -13,7 +13,7 @@ import image from 'assets/img/bg.jpg'
 
 
 const SignInPage = () => (
-  <div  style={{textAlign: 'center', backgroundImage: "url(" + image + ")" }}>
+  <div  style={{height: '100vh', textAlign: 'center', backgroundImage: "url(" + image + ")", backgroundSize: 'cover' }}>
     <Typography variant='h1' style={{paddingTop: '100px', paddingBottom: '30px', textAlign: 'center'}}>
     Sign In
     </Typography>
@@ -92,7 +92,7 @@ class SignInFormBase extends Component {
           style={{paddingBottom: '10px'}}
         />
         <br></br>
-        <Button disabled={isInvalid} type="submit">
+        <Button disabled={isInvalid} type="submit" variant='contained' style= {{ color: "#ffffff", backgroundColor: "#000000"}}>
           Sign In
         </Button>
 

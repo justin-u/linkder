@@ -30,7 +30,7 @@ class Report extends Component {
   render() {
     const { complaint, error } = this.state;
     return (
-      <div style={{justifyContent: 'center', alignContent: 'center', textAlign: 'center', backgroundImage: "url(" + image + ")"}}>
+      <div style={{ height: '100vh', justifyContent: 'center', alignContent: 'center', textAlign: 'center', backgroundImage: "url(" + image + ")", backgroundSize: 'cover'}}>
         <Typography variant='h3' style={{ color: '#ffffff', paddingTop: '120px'}}>
             Report the User
          </Typography>
