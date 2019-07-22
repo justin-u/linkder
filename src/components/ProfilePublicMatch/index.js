@@ -49,25 +49,30 @@ class ProfilePage extends React.Component {
     super(props)
 
     console.log(this.props)
-    const authUser = JSON.parse(localStorage.getItem('authUser'));
-    const bio = authUser.bio
-    const experience = authUser.experience
-    const lengthOfExp = authUser.lengthOfExperience
-    // console.log(authUser)
+    const userid = this.props.match.params.uid;
+    
+    this.props.firebase.user(userid).on('value', snapshot => {
+      const user = snapshot.val();
+      const bio = user.bio
+      const experience = user.experience
+      const lengthOfExp = user.lengthOfExperience
+      const chips = user.chips;
+      const condition = user != null
 
-    const condition = authUser != null
-
-    this.state = {
-      authUser: authUser,
-      bio: bio,
-      experience: experience,
-      isLoggedIn: condition,
-      lengthOfExp: lengthOfExp,
-      chips: []
-    }
+      this.setState({
+        user: user,
+        bio: bio,
+        experience: experience,
+        isLoggedIn: condition,
+        lengthOfExp: lengthOfExp,
+        chips: chips
+      })
+    });
+    
   }
 
   render() {
+    
     const { classes, ...rest } = this.props;
     const imageClasses = classNames(
       classes.imgRaised,
@@ -79,9 +84,10 @@ class ProfilePage extends React.Component {
     if (this.state.isLoggedIn) {
       return (
         <div style={{
-            marginLeft: '60px',
-            marginRight: '60px',
-            marginBottom: '60px'
+          paddingTop: '200px',
+          marginLeft: '60px',
+          marginRight: '60px',
+          marginBottom: '60px'
         }}>
           <div className={classNames(classes.main, classes.mainRaised)}>
             <div>
@@ -106,7 +112,7 @@ class ProfilePage extends React.Component {
                         borderRadius: '100%'
                       }}
                     >
-                      <img src={this.props.user.imageURL}
+                      <img src={this.state.user.imageURL}
                         style={{
                           paddingTop: '40px',
                         }}
@@ -125,7 +131,7 @@ class ProfilePage extends React.Component {
                         paddingTop: '20px'
                       }}>
                         <Typography variant='h3'>
-                          {this.props.user.name}
+                          {this.state.user.name}
                         </Typography>
                       </div>
 
@@ -146,18 +152,18 @@ class ProfilePage extends React.Component {
                   </GridItem>
                 </GridContainer>
                 <div className={classes.description}>
-                    <Typography variant='subtitle1'>
-                        {this.props.user.bio}    
-                    </Typography>
-                    <br />
-                    <Typography variant='subtitle1'>
-                        {this.props.user.experience}
-                    </Typography>
-                    <br />
-                    <Typography variant='subtitle1'>
-                        {this.props.user.lengthOfExperience}
-                    </Typography>
-                    <br />
+                  <Typography variant='subtitle1'>
+                    {this.state.user.bio}
+                  </Typography>
+                  <br />
+                  <Typography variant='subtitle1'>
+                    {this.state.user.experience}
+                  </Typography>
+                  <br />
+                  <Typography variant='subtitle1'>
+                    {this.state.user.lengthOfExperience}
+                  </Typography>
+                  <br />
                 </div>
                 <GridContainer justify="center">
                   <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
@@ -277,7 +283,7 @@ class ProfilePage extends React.Component {
                 </GridContainer>
               </div>
             </div>
-            
+
           </div>
         </div>
       );
