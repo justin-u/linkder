@@ -138,9 +138,14 @@ class ProfilePage extends React.Component {
                         {this.props.user.lengthOfExperience}
                     </Typography>
                     <br />
-                    <Typography variant='subtitle1'>
-                        {this.props.user.chips}
+              
+                    {this.state.chips.map(function (chip, index) {
+                      return <Typography variant='subtitle1'>
+                      {chip}
                     </Typography>
+             
+           
+          })}
                     <br />
                 </div>
 
