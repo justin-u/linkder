@@ -17,7 +17,7 @@ AWS.config.update({
 class HomePage extends React.Component {
 
   state = {}
-  
+
   constructor(props) {
     super(props);
     const condition = authUser != null
@@ -30,42 +30,44 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.firebase.users().on('value', snapshot => {
-      const usersObject = snapshot.val();
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
+    const condition = authUser != null
 
-      const usersList = Object.keys(usersObject).map(key => ({
-        ...usersObject[key],
-        uid: key,
-      }));
-
-      const authUser = JSON.parse(localStorage.getItem('authUser'));
-      const condition = authUser != null
-
-      if (condition) {
-        const payload = {
-          'id': authUser.uid
-        }
-
-        const lambda = new AWS.Lambda()
-        
-        lambda.invoke({
-          FunctionName: 'getPotentialMatches-dev',
-          Payload: JSON.stringify(payload)
-        }, function(err, data) {
-          if (err) {
-            console.log(err)
-          }
-          else {
-            console.log(JSON.parse(data['Payload']))
-          }
-        })
+    if (condition) {
+      const payload = {
+        'id': authUser.uid
       }
 
-      this.setState({
-        users: usersList,
-        loading: false,
-      });
-    });
+      const lambda = new AWS.Lambda()
+
+      lambda.invoke({
+        FunctionName: 'getPotentialMatches-dev',
+        Payload: JSON.stringify(payload)
+      }, function (err, data) {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log(JSON.parse(data['Payload']))
+        }
+      })
+    }
+
+    //   this.props.firebase.users().on('value', snapshot => {
+    //     const usersObject = snapshot.val();
+
+    //     const usersList = Object.keys(usersObject).map(key => ({
+    //       ...usersObject[key],
+    //       uid: key,
+    //     }));
+
+    //   }
+
+    //   this.setState({
+    //     users: usersList,
+    //     loading: false,
+    //   });
+    // });
   }
 
   handleChange = () => {
@@ -90,12 +92,12 @@ class HomePage extends React.Component {
         backgroundSize: 'cover',
         backgroundRepeat: 'round'
       }}>
-        <br/>
+        <br />
         <h1>Meet these people!</h1>
-        <Grid style = {{ marginTop: "-40px", marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing = {3}>
+        <Grid style={{ marginTop: "-40px", marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing={3}>
           {this.state.users.map(function (userInfo, index) {
-            return <Grid style = {{ margin: '2px', }} container item xs = {3} spacing = {3}>
-              <ProfileCard user = {userInfo} />
+            return <Grid style={{ margin: '2px', }} container item xs={3} spacing={3}>
+              <ProfileCard user={userInfo} />
             </Grid>
           })}
         </Grid>

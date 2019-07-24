@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import './Compose.css';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
-export default class Compose extends Component {
+class Compose extends Component {
   constructor(props) {
     super(props)
 
@@ -13,35 +16,18 @@ export default class Compose extends Component {
     }
   }
 
-  onSendMessage = (content, type) => {
-    if (content.trim() === '') {
-      return
-    }
-
-    // const timestamp = moment()
-    //   .valueOf()
-    //   .toString()
-
-    const itemMessage = {
-      idFrom: this.authUser,
-      idTo: this.currentPeerUser.id,
-      content: content.trim(),
-      type: type
-    }
-
-    // myFirestore
-    //   .collection(AppString.NODE_MESSAGES)
-    //   .doc(this.groupChatId)
-    //   .collection(this.groupChatId)
-    //   .set(itemMessage)
-    //   .then(() => {
-    //     this.setState({ inputValue: '' })
-    //   })
+  onSendMessage = () => {
+    console.log(this.state.inputValue);
+    this.props.firebase.messages(this.state.authUser.uid, "D7q4mJiJaYgjlgJWXtv0gh1csJB2").push({
+      text: this.state.inputValue,
+      author: this.state.authUser.uid,
+      time: new Date().getTime()
+    })
   }
 
   onKeyboardPress = event => {
     if (event.key === 'Enter') {
-      this.onSendMessage(this.state.inputValue, 0)
+      this.onSendMessage()
     }
   }
 
@@ -55,7 +41,7 @@ export default class Compose extends Component {
             this.setState({ inputValue: event.target.value })
           }}
           className="compose-input"
-          placeholder={"Type a message, " + this.state.authUser.name.substring(0, this.state.authUser.name.indexOf(' ')) }
+          placeholder={"Type a message, " + this.state.authUser.name.substring(0, this.state.authUser.name.indexOf(' '))}
           onKeyPress={this.onKeyboardPress}
         />
 
@@ -66,3 +52,11 @@ export default class Compose extends Component {
     );
   }
 }
+
+const condition = authUser => !!authUser;
+
+export default compose(
+  withFirebase,
+  withEmailVerification,
+  withAuthorization(condition),
+  )(Compose)

@@ -26,13 +26,13 @@ class AdminPage extends React.Component {
 
     this.props.firebase.report().on('value', snapshot => {
       const reportsObject = snapshot.val();
-
-      const reportsList = Object.keys(reportsObject).map(key => ({
-        ...reportsObject[key],
-        reportID: key,
-      }));
-
-      this.setState({ reports: reportsList });
+      if (reportsObject != null) {
+        const reportsList = Object.keys(reportsObject).map(key => ({
+          ...reportsObject[key],
+          reportID: key,
+        }));
+        this.setState({ reports: reportsList });
+      }
     })
 
   }
@@ -46,7 +46,7 @@ class AdminPage extends React.Component {
   }
 
   render() {
-
+    console.log(this.state.reports[0]);
     if (this.state.authUser.ADMIN == "ADMIN") {
       const scope = this;
       return (
@@ -64,23 +64,22 @@ class AdminPage extends React.Component {
                 <TableCell></TableCell>
               </TableRow>
               {this.state.reports.map((report, index) => {
-                
+
                 const resolveButton = () => {
-
-                  this.props.firebase.report().on('value', snapshot => {
-                    const reportsObject = snapshot.val();
-
-                    const reportsList = Object.keys(reportsObject).map(key => ({
-                      ...reportsObject[key],
-                      reportID: key,
-                    }));
-
-                    console.log(reportsList);
-                  })
+                  this.props.firebase.report().child(report.reportID).remove();
+                  var r = this.state.reports;
+                  var i = r.indexOf(report.reportID);
+                  r.splice(i, 1);
+                  this.setState({report: r})
                 }
 
-                const deleteUser = (uid) => {
-                  console.log(uid);
+                const deleteUser = (uid, reportID) => {
+                  this.props.firebase.user(uid).remove();
+                  this.props.firebase.report().child(reportID).remove();
+                  var r = this.state.reports;
+                  var i = r.indexOf(reportID);
+                  r.splice(i, 1);
+                  this.setState({report: r})
                 }
 
                 return <TableRow>
@@ -89,7 +88,7 @@ class AdminPage extends React.Component {
                   <TableCell>{report.fromUser}</TableCell>
                   <TableCell>{report.reportedUser}</TableCell>
                   <TableCell><Button color='primary' variant='outlined' onClick={resolveButton.bind(this)}>Resolve</Button></TableCell>
-                  <TableCell><Button color='secondary' variant='outlined' onClick={e => deleteUser(report.reportedUser)}>Delete User</Button></TableCell>
+                  <TableCell><Button color='secondary' variant='outlined' onClick={e => deleteUser(report.reportedUser, report.reportID)}>Delete User</Button></TableCell>
                 </TableRow>
               })}
             </TableHead>

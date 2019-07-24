@@ -10,8 +10,9 @@ class Report extends Component {
   constructor(props) {
     super(props);
     console.log(props);
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
     const reportedUser = this.props.match.params.user;
-    const fromUser = this.props.match.params.userfrom;
+    const fromUser = authUser.uid;
     this.state = { 
       complaint: '',
       reportedUser: reportedUser,

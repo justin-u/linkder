@@ -91,20 +91,6 @@ class ConversationList extends Component {
     })
   }
 
-  // axios.get('https://randomuser.me/api/?results=20').then(response => {
-  //   this.setState(prevState => {
-  //     let conversations = response.data.results.map(result => {
-  //       return {
-  //         photo: result.picture.large,
-  //         name: `${result.name.first} ${result.name.last}`,
-  //         text: 'Hello! I am a student at Purdue Univeristy. Would you like to meet me? (This is a long message that needs to be truncated.)'
-  //       };
-  //     });
-
-  //     return { ...prevState, conversations };
-  //   });
-  // });
-
   render() {
     // console.log(this.state);
     console.log(this.state.conversations);
