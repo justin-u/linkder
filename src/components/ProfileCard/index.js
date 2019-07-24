@@ -29,9 +29,8 @@ class ProfileCard extends React.Component {
 
     onIgnore() {
 
-        this.setState(state => ({ ignored: !state.ignored }));
+        this.setState(state => ({ ignored: false }));
         const authUser = JSON.parse(localStorage.getItem('authUser'));
-
         this.setState(state => ({ ignored: !state.ignored }));
         const payload = {
             'userId': authUser.uid,

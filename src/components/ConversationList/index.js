@@ -53,6 +53,7 @@ class ConversationList extends Component {
   getConversations = () => {
 
     return new Promise((resolve, reject) => {
+      console.log(this.state.matches)
       for (var match of this.state.matches) {
         const userID = match.id;
         this.props.firebase.user(userID).on('value', snapshot => {
@@ -72,6 +73,8 @@ class ConversationList extends Component {
               text: 'Hello! I am a student at Purdue Univeristy. Would you like to meet me? (This is a long message that needs to be truncated.)'
             }
           )
+
+          console.log(conversations);
   
           this.setState({ conversations: conversations });
         })

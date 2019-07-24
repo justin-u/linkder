@@ -7,6 +7,7 @@ import { UserList, UserItem } from 'components/Users';
 import * as ROLES from 'constants/roles';
 import * as ROUTES from 'constants/routes';
 import { withFirebase } from '../Firebase';
+import { Button, Table, TableRow, TableHead, TableCell } from '@material-ui/core';
 
 
 class AdminPage extends React.Component {
@@ -14,18 +15,85 @@ class AdminPage extends React.Component {
     super(props)
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     this.state = {
+      reports: [],
       authUser: authUser,
-      open: false
+      open: false,
+      user: {}
     };
   }
 
+  componentDidMount() {
+
+    this.props.firebase.report().on('value', snapshot => {
+      const reportsObject = snapshot.val();
+
+      const reportsList = Object.keys(reportsObject).map(key => ({
+        ...reportsObject[key],
+        reportID: key,
+      }));
+
+      this.setState({ reports: reportsList });
+    })
+
+  }
+
+  async getUserFromID(uid) {
+
+    this.props.firebase.user(uid).on('value', user => {
+      user = user.val();
+      this.setState(user);
+    })
+  }
+
   render() {
+
     if (this.state.authUser.ADMIN == "ADMIN") {
+      const scope = this;
       return (
         <div>
           <br /><br /><br /><br />
           <h1>Admin</h1>
-          <p>The Admin Page is accessible by every signed in admin user.</p>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Complaint</TableCell>
+                <TableCell>Submitted By</TableCell>
+                <TableCell>Reported User</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+              {this.state.reports.map((report, index) => {
+                
+                const resolveButton = () => {
+
+                  this.props.firebase.report().on('value', snapshot => {
+                    const reportsObject = snapshot.val();
+
+                    const reportsList = Object.keys(reportsObject).map(key => ({
+                      ...reportsObject[key],
+                      reportID: key,
+                    }));
+
+                    console.log(reportsList);
+                  })
+                }
+
+                const deleteUser = (uid) => {
+                  console.log(uid);
+                }
+
+                return <TableRow>
+                  <TableCell>{report.reportID}</TableCell>
+                  <TableCell>{report.complaint}</TableCell>
+                  <TableCell>{report.fromUser}</TableCell>
+                  <TableCell>{report.reportedUser}</TableCell>
+                  <TableCell><Button color='primary' variant='outlined' onClick={resolveButton.bind(this)}>Resolve</Button></TableCell>
+                  <TableCell><Button color='secondary' variant='outlined' onClick={e => deleteUser(report.reportedUser)}>Delete User</Button></TableCell>
+                </TableRow>
+              })}
+            </TableHead>
+          </Table>
         </div >
       )
     }
