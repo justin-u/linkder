@@ -18,7 +18,8 @@ export default class MessageList extends Component {
 
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     const condition = authUser != null
-    const messages =  []
+    const messages = []
+    
     // const messages =  authUser.messages || []
 
     this.state = {
@@ -26,13 +27,82 @@ export default class MessageList extends Component {
       isLoggedIn: condition,
       messages: messages
     };
+
+    this.removeListener = null
+    // this.messages =  []
+    this.groupChatId = null
+    // this.currentPeerUser = this.props.currentPeerUser
   }
 
   componentDidMount() {
     this.getMessages();
   }
 
+  componentWillUnmount() {
+    if (this.removeListener) {
+      this.removeListener()
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.currentPeerUser) {
+      this.currentPeerUser = newProps.currentPeerUser
+      this.getMessages()
+    }
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
+  scrollToBottom = () => {
+    if (this.messagesEnd) {
+      this.messagesEnd.scrollIntoView({})
+    }
+  }
+
+  // hashString = str => {
+  //   let hash = 0
+  //   for (let i = 0; i < str.length; i++) {
+  //     hash += Math.pow(str.charCodeAt(i) * 31, str.length - i)
+  //     hash = hash & hash // Convert to 32bit integer
+  //   }
+  //   return hash
+  // }
+
   getMessages = () => {
+    if (this.removeListener) {
+      this.removeListener()
+    }
+
+    // this.messages.length = 0
+    
+    // if (
+    //   this.hashString(this.currentUserId) <=
+    //   this.hashString(this.currentPeerUser.id)
+    // ) {
+    //   this.groupChatId = `${this.currentUserId}-${this.currentPeerUser.id}`
+    // } else {
+    //   this.groupChatId = `${this.currentPeerUser.id}-${this.currentUserId}`
+    // }
+
+    // Get history and listen new data added
+    // this.removeListener = myFirestore
+    //   .collection(AppString.NODE_MESSAGES)
+    //   .doc(this.groupChatId)
+    //   .collection(this.groupChatId)
+    //   .onSnapshot(
+    //     snapshot => {
+    //       snapshot.docChanges().forEach(change => {
+    //         if (change.type === AppString.DOC_ADDED) {
+    //           this.messages.push(change.doc.data())
+    //         }
+    //       })
+    //     },
+    // )
+
+
+
     this.setState(prevState => {
       return {
         ...prevState,
@@ -105,9 +175,7 @@ export default class MessageList extends Component {
   renderMessages() {
     let i = 0;
     let messageCount = this.state.messages.length;
-    let messages = [];
-    // const {messages} = this.props; //adit
-    
+    let messages1 = [];
 
     while (i < messageCount) {
       let previous = this.state.messages[i - 1];
@@ -145,7 +213,7 @@ export default class MessageList extends Component {
         }
       }
 
-      messages.push(
+      messages1.push(
         <Message
           // authUser={authUser}
           // key={message.uid}
@@ -162,7 +230,7 @@ export default class MessageList extends Component {
       i += 1;
     }
 
-    return messages;
+    return messages1;
   }
 
   render() {

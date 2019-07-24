@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import ProfileCard from 'components/ProfileCard';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import { Grid } from '@material-ui/core'
 import awsconfig from '../../aws-exports';
 import { withFirebase } from '../Firebase';
@@ -25,7 +25,7 @@ class HomePage extends React.Component {
 
     this.state = {
       users: [],
-      isLoggedIn: condition,
+      isLoggedIn: condition
     }
   }
 
@@ -45,7 +45,9 @@ class HomePage extends React.Component {
         const payload = {
           'id': authUser.uid
         }
+
         const lambda = new AWS.Lambda()
+        
         lambda.invoke({
           FunctionName: 'getPotentialMatches-dev',
           Payload: JSON.stringify(payload)

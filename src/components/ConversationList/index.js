@@ -15,6 +15,7 @@ import { withFirebase } from '../Firebase';
 class ConversationList extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       matches: [],
       conversations: []
@@ -27,6 +28,13 @@ class ConversationList extends Component {
     console.log(this.props);
   }
 
+  // getListUser = async () => {
+  //   const result = await myFirestore.collection(AppString.NODE_USERS).get()
+  //   if (result.docs.length > 0) {
+  //     this.listuser = [...result.docs]
+  //     this.setState({ isLoading: false })
+  //   }
+  // }
 
   async getMatches() {
     return new Promise((resolve, reject) => {
@@ -35,7 +43,7 @@ class ConversationList extends Component {
       const payload = {
         'id': authUser.uid
       }
-      const conversations = []
+
       const lambda = new AWS.Lambda()
       const scope = this;
       var x;
@@ -44,24 +52,27 @@ class ConversationList extends Component {
         FunctionName: 'getCurrentMatches-dev',
         Payload: JSON.stringify(payload)
       }, function (err, data) {
-        let matches = JSON.parse(data['Payload'])
-        scope.setState({ matches: matches['currentMatches'] });
+        if (err) {
+          console.log(err)
+        }
+        else {
+          let matches = JSON.parse(data['Payload'])
+          scope.setState({ matches: matches['currentMatches'] });
+        }
       })
     })
   }
 
   getConversations = () => {
-
     return new Promise((resolve, reject) => {
-      console.log(this.state.matches)
       for (var match of this.state.matches) {
         const userID = match.id;
         this.props.firebase.user(userID).on('value', snapshot => {
           const user = snapshot.val();
-          const bio = user.bio
-          const experience = user.experience
-          const lengthOfExp = user.lengthOfExperience
-          const chips = user.chips;
+          // const bio = user.bio
+          // const experience = user.experience
+          // const lengthOfExp = user.lengthOfExperience
+          // const chips = user.chips;
           const imageURL = user.imageURL;
           const condition = user != null
           var conversations = this.state.conversations;
@@ -73,8 +84,6 @@ class ConversationList extends Component {
               text: 'Hello! I am a student at Purdue Univeristy. Would you like to meet me? (This is a long message that needs to be truncated.)'
             }
           )
-
-          console.log(conversations);
   
           this.setState({ conversations: conversations });
         })
@@ -106,7 +115,7 @@ class ConversationList extends Component {
             title="Your Matches"
             leftItems={[
               // <div><b>Home</b></div>
-              // <ToolbarButton key="home" icon="ion-ios-home" />
+              <ToolbarButton key="home" icon="ion-ios-home" />,
               <ion-icon name="home"></ion-icon>
             ]}
             rightItems={[

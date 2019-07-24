@@ -40,7 +40,6 @@ import { compose } from 'recompose'
 import { withAuthorization } from "../Session";
 import image from 'assets/img/sky1.jpg'
 import image1 from 'assets/img/skydown.jpg'
-import * as ROUTES from 'constants/routes'
 
 const suggestions = [
   'react',
