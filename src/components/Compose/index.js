@@ -17,13 +17,19 @@ class Compose extends Component {
   }
 
   onSendMessage = () => {
-    console.log(this.state.inputValue);
+//     console.log(this.state.inputValue);
     this.props.firebase.messages(this.state.authUser.uid, "gIYF2LikSbdtwQYuq8exd0DKwGn1").push({
       text: this.state.inputValue,
       author: this.state.authUser.uid,
       time: new Date().getTime()
-    })
+    }).then(() => {
+        this.setState({ inputValue: this.state.inputValue })
+    })
   }
+
+onChange = event => {
+    this.setState({ inputValue: event.target.value })
+}
 
   onKeyboardPress = event => {
     if (event.key === 'Enter') {
@@ -37,12 +43,10 @@ class Compose extends Component {
         <input
           type="text"
           value={this.state.inputValue}
-          onChange={event => {
-            this.setState({ inputValue: event.target.value })
-          }}
+          onChange={this.onChange.bind(this)}
           className="compose-input"
           placeholder={"Type a message, " + this.state.authUser.name.substring(0, this.state.authUser.name.indexOf(' '))}
-          onKeyPress={this.onKeyboardPress}
+          onKeyPress={this.onKeyboardPress.bind(this)}
         />
 
         {

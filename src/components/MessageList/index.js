@@ -68,9 +68,9 @@ class MessageList extends Component {
   }
 
   getMessages = () => {
-    if (this.removeListener) {
-      this.removeListener()
-    }
+    // if (this.removeListener) {
+    //   this.removeListener()
+    // }
 
     const scope = this;
     this.props.firebase.messages(this.state.authUser.uid, this.props.otherUser).on('value', snapshot => {
