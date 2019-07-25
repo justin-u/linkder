@@ -7,7 +7,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
-import Paper from '@material-ui/core/Paper';
 import Scheduler from 'devextreme-react/scheduler';
 
 // core components
@@ -29,7 +28,7 @@ import work4 from "assets/img/examples/mariya-georgieva.jpg";
 import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
-import { Typography, TextField } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { compose } from 'recompose'
 
 const currentDate = new Date();
@@ -67,11 +66,11 @@ class ProfilePublicPage extends React.Component {
   render() {
     
     const { classes, ...rest } = this.props;
-    const imageClasses = classNames(
-      classes.imgRaised,
-      classes.imgRoundedCircle,
-      classes.imgFluid
-    );
+    // const imageClasses = classNames(
+    //   classes.imgRaised,
+    //   classes.imgRoundedCircle,
+    //   classes.imgFluid
+    // );
 
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 

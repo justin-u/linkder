@@ -6,26 +6,32 @@ import Message from '../Message';
 import moment from 'moment';
 import Button from "components/CustomButtons/Button.jsx";
 import { Link } from 'react-router-dom';
-import * as ROUTES from 'constants/routes';
+import withFirebase from '../Firebase';
 
 import './MessageList.css';
+import { withEmailVerification, withAuthorization } from '../Session';
 
-const MY_USER_ID = 'apple';
+// const MY_USER_ID = 'apple';
 
-export default class MessageList extends Component {
+class MessageList extends Component {
   constructor(props) {
     super(props)
 
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     const condition = authUser != null
-    const messages = []
-    
-    // const messages =  authUser.messages || []
+    // const messages = []
 
     this.state = {
       authUser: authUser,
       isLoggedIn: condition,
-      messages: messages
+      messages: [
+        {
+          id: '',
+          author: 'apple',
+          message: '',
+          timestamp: ''
+        }
+      ]
     };
 
     this.removeListener = null
@@ -61,112 +67,74 @@ export default class MessageList extends Component {
     }
   }
 
-  // hashString = str => {
-  //   let hash = 0
-  //   for (let i = 0; i < str.length; i++) {
-  //     hash += Math.pow(str.charCodeAt(i) * 31, str.length - i)
-  //     hash = hash & hash // Convert to 32bit integer
-  //   }
-  //   return hash
-  // }
-
   getMessages = () => {
     if (this.removeListener) {
       this.removeListener()
     }
 
-    // this.messages.length = 0
-    
-    // if (
-    //   this.hashString(this.currentUserId) <=
-    //   this.hashString(this.currentPeerUser.id)
-    // ) {
-    //   this.groupChatId = `${this.currentUserId}-${this.currentPeerUser.id}`
-    // } else {
-    //   this.groupChatId = `${this.currentPeerUser.id}-${this.currentUserId}`
-    // }
+    this.props.firebase.messages(this.state.authUser.uid, "gIYF2LikSbdtwQYuq8exd0DKwGn1").on('value', snapshot => {
+      const messageList = snapshot.val();
 
-    // Get history and listen new data added
-    // this.removeListener = myFirestore
-    //   .collection(AppString.NODE_MESSAGES)
-    //   .doc(this.groupChatId)
-    //   .collection(this.groupChatId)
-    //   .onSnapshot(
-    //     snapshot => {
-    //       snapshot.docChanges().forEach(change => {
-    //         if (change.type === AppString.DOC_ADDED) {
-    //           this.messages.push(change.doc.data())
-    //         }
-    //       })
-    //     },
-    // )
+      const messageObject = Object.keys(messageList).map(key => ({
+        ...messageList[key],
+        messageID: key,
+      }));
 
+      for (var message of messageObject) {
+        // console.log(message)
+        const author = message.author
+        const text = message.text;
+        const time = message.time
+        // this.state.messages.push(message)
 
+        this.state.messages.push({
+          id: '',
+          author: message.author,
+          message: message.text,
+          timestamp: message.time
 
+        })
+
+        // console.log(this.state.messages)
+      }
+    })
+
+    console.log(this.state.messages)
+  
     this.setState(prevState => {
       return {
         ...prevState,
         messages: [
-          {
-            id: 1,
-            author: 'apple',
-            message: 'Hello world! Welcome to our chat feature! Hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 2,
-            author: 'orange',
-            message: 'It looks great. Lets see what a reply looks like!',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 3,
-            author: 'orange',
-            message: 'We have worked hard as a team to build this app. Hope you like it',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 4,
-            author: 'apple',
-            message: 'We are a team of three amazingly talented and communicative individuals',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 5,
-            author: 'apple',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 6,
-            author: 'apple',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 7,
-            author: 'orange',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 8,
-            author: 'orange',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 9,
-            author: 'apple',
-            message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-            timestamp: new Date().getTime()
-          },
-          {
-            id: 10,
-            author: 'orange',
-            message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-            timestamp: new Date().getTime()
-          },
+          // {
+          //   id: 1,
+          //   author: 'apple',
+          //   message: 'Hello world! Welcome to our chat feature! Hopefully get wrapped by our message bubble component! We will see how well it works.',
+          //   timestamp: new Date().getTime()
+          // },
+          // {
+          //   id: 2,
+          //   author: 'orange',
+          //   message: 'It looks great. Lets see what a reply looks like!',
+          //   timestamp: new Date().getTime()
+          // },
+          // {
+          //   id: 3,
+          //   author: 'orange',
+          //   message: 'We have worked hard as a team to build this app. Hope you like it',
+          //   timestamp: new Date().getTime()
+          // },
+          // {
+          //   id: 4,
+          //   author: 'apple',
+          //   message: 'We are a team of three amazingly talented and communicative individuals',
+          //   timestamp: new Date().getTime()
+          // },
+          // {
+          //   id: 5,
+          //   author: 'apple',
+          //   message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
+          //   timestamp: new Date().getTime()
+          // },
         ]
       };
     });
@@ -175,13 +143,14 @@ export default class MessageList extends Component {
   renderMessages() {
     let i = 0;
     let messageCount = this.state.messages.length;
-    let messages1 = [];
+    console.log(messageCount)
+    let messages = [];
 
     while (i < messageCount) {
       let previous = this.state.messages[i - 1];
       let current = this.state.messages[i];
       let next = this.state.messages[i + 1];
-      let isMine = current.author === MY_USER_ID;
+      let isMine = current.author === this.state.authUser.uid;
       let currentMoment = moment(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
@@ -213,7 +182,7 @@ export default class MessageList extends Component {
         }
       }
 
-      messages1.push(
+      messages.push(
         <Message
           // authUser={authUser}
           // key={message.uid}
@@ -230,7 +199,8 @@ export default class MessageList extends Component {
       i += 1;
     }
 
-    return messages1;
+    console.log(messages)
+    return messages;
   }
 
   render() {
@@ -277,3 +247,11 @@ export default class MessageList extends Component {
     } 
   }
 }
+
+const condition = authUser => !!authUser;
+
+export default (
+  withFirebase,
+  withEmailVerification,
+  withAuthorization(condition)
+)(MessageList)

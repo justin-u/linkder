@@ -5,7 +5,6 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import * as ROUTES from 'constants/routes';
-import * as ROLES from 'constants/roles';
 import AWS from 'aws-sdk'
 import { compose } from 'recompose'
 
@@ -25,7 +24,7 @@ class ConversationList extends Component {
   componentDidMount() {
     this.getMatches().then(this.getConversations());
 
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   // getListUser = async () => {
@@ -93,7 +92,7 @@ class ConversationList extends Component {
 
   render() {
     // console.log(this.state);
-    console.log(this.state.conversations);
+    // console.log(this.state.conversations);
     return (
       <div className="conversation-list">
         <div style={{ "height": "53px", paddingTop: '120px' }}>

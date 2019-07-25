@@ -37,7 +37,6 @@ import work5 from "assets/img/examples/clem-onojegaw.jpg";
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 import { Typography, TextField } from "@material-ui/core";
 import { compose } from 'recompose'
-import { withAuthorization } from "../Session";
 import image from 'assets/img/sky1.jpg'
 import image1 from 'assets/img/skydown.jpg'
 
@@ -83,7 +82,6 @@ class ProfilePage extends React.Component {
     const lengthOfExp = authUser.lengthOfExperience || null
     const interests = authUser.chips || []
     // console.log(authUser)
-    const chip = ""
 
     const condition = authUser != null
 
