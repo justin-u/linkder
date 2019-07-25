@@ -1,4 +1,5 @@
 import React from 'react';
+import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { withFirebase } from 'components/Firebase';
@@ -8,6 +9,12 @@ import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import image from 'assets/img/bg.jpg'
 import AWS from 'aws-sdk'
+import PlacesAutocomplete from 'react-places-autocomplete';
+import {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from 'react-places-autocomplete';
 
 AWS.config.update({
   accessKeyId: 'AKIA6PTGMIK4SFDNUZ2I', secretAccessKey: '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', region: 'us-east-1'
@@ -28,6 +35,9 @@ const INITIAL_STATE = {
   passwordTwo: '',
   imageURL: '',
   error: '',
+  address: '',
+  latitude: '',
+  longitude: ''
 };
 
 const ERROR_CODE_ACCOUNT_EXISTS = 'auth/email-already-in-use';
@@ -53,8 +63,8 @@ class SignUpFormBase extends React.Component {
       'id': authUser.uid,
       'firstName': authUser.name.split(' ')[0] || ' ',
       'lastName': authUser.name.split(' ')[1] || ' ',
-      'defaultLatitude': 30.123,
-      'defaultLongitude': 40.123,
+      'defaultLatitude': this.state.latitude,
+      'defaultLongitude': this.state.longitude,
       'url': authUser.imageURL || 'https://thispersondoesnotexist.com/image'
     }
     console.log(payload)
@@ -73,10 +83,10 @@ class SignUpFormBase extends React.Component {
   }
 
   onSubmit = event => {
-    var { name, email, passwordOne, passwordTwo, imageURL, error } = this.state;
+    var { name, email, passwordOne, passwordTwo, imageURL, address, latitude, longitude, error } = this.state;
 
     const roles = {};
-
+  
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
@@ -84,7 +94,10 @@ class SignUpFormBase extends React.Component {
         return this.props.firebase.user(authUser.user.uid).set({
           name,
           email,
-          imageURL
+          imageURL,
+          latitude,
+          longitude,
+          address
         });
       })
       .then(() => {
@@ -116,6 +129,22 @@ class SignUpFormBase extends React.Component {
     this.setState({ [event.target.name]: event.target.checked });
   };
 
+  handleChange = address => {
+    this.setState({ address });
+  };
+
+  handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        this.setState({
+          latitude: latLng.lat,
+          longitude: latLng.lng
+        })
+      })
+      .catch(error => console.error('Error', error));
+  };
+
   render() {
     const {
       name,
@@ -123,14 +152,15 @@ class SignUpFormBase extends React.Component {
       passwordOne,
       passwordTwo,
       imageURL,
-      error
+      error,
+      address
     } = this.state;
 
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
       email === '' ||
-      name === '';
+      name === '' || address ==='';
 
     return (
       <form onSubmit={this.onSubmit} style={{ textAlign: 'center' }}>
@@ -179,6 +209,62 @@ class SignUpFormBase extends React.Component {
           style = {{ paddingBottom: '10px', paddingTop: '20px' }}
         />
         <br /><br />
+        <PlacesAutocomplete
+          value={address}
+          onChange={this.handleChange}
+          onSelect={this.handleSelect}
+        >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+            <div>
+              <TextField
+                {...getInputProps({
+                  placeholder: 'Search Places ...',
+                  className: 'location-search-input',
+                })}
+                // style={{
+                //   width: '30%',
+                //   background: 'transparent'
+                // }}
+              />
+              <div className="autocomplete-dropdown-container" style={{
+                opacity: '50%',
+                paddingRight: '600px',
+                paddingLeft: '600px'
+              }}>
+                {loading && <div>Loading...</div>}
+                {suggestions.map(suggestion => {
+                  const className = suggestion.active
+                    ? 'suggestion-item--active'
+                    : 'suggestion-item';
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                      style={{
+                        opacity: '80%',
+                        paddingBottom: '5px',
+                      }}
+                    >
+                      <span><Typography 
+                      variant="subtitle1"
+                      style={{
+                        color: 'white',
+                        background: 'black',
+                        // maxWidth: '100px'
+                      }}>{suggestion.description}</Typography></span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </PlacesAutocomplete>
         <Button disabled = {isInvalid} type="submit" variant='contained' style = {{ color: "#ffffff", backgroundColor: "#000000" }}>
           Sign Up
         </Button>
