@@ -68,9 +68,9 @@ class MessageList extends Component {
   }
 
   getMessages = () => {
-    if (this.removeListener) {
-      this.removeListener()
-    }
+    // if (this.removeListener) {
+    //   this.removeListener()
+    // }
 
     this.props.firebase.messages(this.state.authUser.uid, "gIYF2LikSbdtwQYuq8exd0DKwGn1").on('value', snapshot => {
       const messageList = snapshot.val();
@@ -82,9 +82,6 @@ class MessageList extends Component {
 
       for (var message of messageObject) {
         // console.log(message)
-        const author = message.author
-        const text = message.text;
-        const time = message.time
         // this.state.messages.push(message)
 
         this.state.messages.push({
