@@ -44,7 +44,7 @@ class ProfilePage extends React.Component {
     const bio = authUser.bio
     const experience = authUser.experience
     const lengthOfExp = authUser.lengthOfExperience
-    const interests = authUser.chips
+    const interests = authUser.chips || []
     const chip = ""
 
     const condition = authUser != null
@@ -72,9 +72,9 @@ class ProfilePage extends React.Component {
     if (this.state.isLoggedIn) {
       return (
         <div style={{
-            marginLeft: '60px',
-            marginRight: '60px',
-            marginBottom: '60px'
+          marginLeft: '60px',
+          marginRight: '60px',
+          marginBottom: '60px'
         }}>
           <div className={classNames(classes.main, classes.mainRaised)}>
             <div>
@@ -126,27 +126,35 @@ class ProfilePage extends React.Component {
                 </GridContainer>
 
                 <div className={classes.description}>
-                    <Typography variant='subtitle1'>
-                        {this.props.user.bio}    
-                    </Typography>
-                    <br />
-                    <Typography variant='subtitle1'>
-                        {this.props.user.experience}
-                    </Typography>
-                    <br />
-                    <Typography variant='subtitle1'>
-                        {this.props.user.lengthOfExperience}
-                    </Typography>
-                    <br />
-              
-                    {this.state.chips.map(function (chip, index) {
-                      return <Typography variant='subtitle1'>
+                <Typography variant='h4'>
+                    Bio
+                  </Typography>
+                  <br />
+                  <Typography variant='subtitle1'>
+                    {this.props.user.bio}
+                  </Typography>
+                  <br />
+                  <Typography variant='h4'>
+                    Experience
+                  </Typography>
+                  <Typography variant='subtitle1'>
+                    {this.props.user.experience}
+                  </Typography>
+                  <br />
+                  <Typography variant='subtitle1'>
+                    {this.props.user.lengthOfExperience}
+                  </Typography>
+                  <br />
+                  <Typography variant='h4'>
+                    Interests
+                  </Typography>
+                  {this.state.chips != [] &&
+                   this.state.chips.map(function (chip, index) {
+                    return <Typography variant='subtitle1'>
                       {chip}
                     </Typography>
-             
-           
-          })}
-                    <br />
+                  })}
+                  <br />
                 </div>
 
                 <GridContainer justify="center">
@@ -267,7 +275,7 @@ class ProfilePage extends React.Component {
                 </GridContainer>
               </div>
             </div>
-            
+
           </div>
         </div>
       );

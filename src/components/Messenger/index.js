@@ -4,6 +4,18 @@ import MessageList from '../MessageList';
 import './Messenger.css';
 
 export default class Messenger extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      otherUser: null
+    }
+  }
+
+  callbackFunction = (uid) => {
+    this.setState({otherUser: uid});
+  }
+
   render() {
     return (
       <div className="messenger">
@@ -27,11 +39,11 @@ export default class Messenger extends Component {
         /> */}
 
         <div className="scrollable sidebar">
-          <ConversationList />
+          <ConversationList parentCallback = {this.callbackFunction}/>
         </div>
 
         <div className="scrollable content">
-          <MessageList />
+          <MessageList otherUser={this.state.otherUser}/>
         </div>
       </div>
     );

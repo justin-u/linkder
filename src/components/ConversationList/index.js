@@ -11,6 +11,8 @@ import { compose } from 'recompose'
 import './ConversationList.css';
 import { withFirebase } from '../Firebase';
 
+var otherUser = null;
+
 class ConversationList extends Component {
   constructor(props) {
     super(props);
@@ -22,18 +24,8 @@ class ConversationList extends Component {
   }
 
   componentDidMount() {
-    this.getMatches().then(this.getConversations());
-
-    // console.log(this.props);
+    this.getMatches();
   }
-
-  // getListUser = async () => {
-  //   const result = await myFirestore.collection(AppString.NODE_USERS).get()
-  //   if (result.docs.length > 0) {
-  //     this.listuser = [...result.docs]
-  //     this.setState({ isLoading: false })
-  //   }
-  // }
 
   async getMatches() {
     return new Promise((resolve, reject) => {
@@ -50,44 +42,55 @@ class ConversationList extends Component {
       lambda.invoke({
         FunctionName: 'getCurrentMatches-dev',
         Payload: JSON.stringify(payload)
-      }, function (err, data) {
+      }, (err, data) => {
         if (err) {
           console.log(err)
         }
         else {
-          let matches = JSON.parse(data['Payload'])
-          scope.setState({ matches: matches['currentMatches'] });
+          // let matches = JSON.parse(data['Payload'])
+          let matches = {
+            currentMatches: [
+              "D7q4mJiJaYgjlgJWXtv0gh1csJB2",
+              "gIYF2LikSbdtwQYuq8exd0DKwGn1",
+              "hBxDK1y6o4RbU8QOs8oo9vtrv2q2"
+            ]
+          }
+          this.setState({ matches: matches['currentMatches'] });
+          this.getConversations();
         }
       })
     })
   }
 
   getConversations = () => {
-    return new Promise((resolve, reject) => {
-      for (var match of this.state.matches) {
-        const userID = match.id;
-        this.props.firebase.user(userID).on('value', snapshot => {
-          const user = snapshot.val();
-          // const bio = user.bio
-          // const experience = user.experience
-          // const lengthOfExp = user.lengthOfExperience
-          // const chips = user.chips;
-          const imageURL = user.imageURL;
-          const condition = user != null
-          var conversations = this.state.conversations;
-  
-          conversations.push(
-            {
-              photo: imageURL,
-              name: user.name,
-              text: 'Hello! I am a student at Purdue Univeristy. Would you like to meet me? (This is a long message that needs to be truncated.)'
-            }
-          )
-  
-          this.setState({ conversations: conversations });
+
+    const matches = this.state.matches;
+    for (var match of matches) {
+      this.props.firebase.user(match).on('value', snapshot => {
+        // console.log(snapshot.val());
+        var conversation = this.state.conversations;
+        const conversationObject = snapshot.val();
+        // console.log(conversationObject)
+        conversation.push({
+          photo: conversationObject.imageURL,
+          name: conversationObject.name,
+          text: "Click to view messages",
+          uid: match
         })
-      }
-    })
+
+        this.setState({conversations: conversation})
+      })
+    }
+  }
+
+  onConversationClick = (conversation) => {
+    console.log(conversation)
+    otherUser = conversation.uid;
+    this.sendUID();
+  }
+
+  sendUID = () => {
+    this.props.parentCallback(otherUser);
   }
 
   render() {
@@ -110,10 +113,14 @@ class ConversationList extends Component {
           { /* <ConversationSearch /> */}
           {
             this.state.conversations.map(conversation =>
+              <div
+              onClick={e => this.onConversationClick(conversation)}
+              >
               <ConversationListItem
                 key={conversation.name}
                 data={conversation}
               />
+              </div>
             )
           }
         </div>

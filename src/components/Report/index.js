@@ -9,9 +9,9 @@ import image from 'assets/img/bg7.jpg'
 class Report extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     const reportedUser = this.props.match.params.user;
+    console.log(reportedUser)
     const fromUser = authUser.uid;
     this.state = { 
       complaint: '',

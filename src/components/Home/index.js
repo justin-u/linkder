@@ -43,31 +43,27 @@ class HomePage extends React.Component {
       lambda.invoke({
         FunctionName: 'getPotentialMatches-dev',
         Payload: JSON.stringify(payload)
-      }, function (err, data) {
+      }, (err, data) => {
         if (err) {
           console.log(err)
         }
         else {
-          console.log(JSON.parse(data['Payload']))
+          // const lambdaData = JSON.parse(data['Payload'])['potentialMatches']
+          const lambdaData = [{
+            id: "hBxDK1y6o4RbU8QOs8oo9vtrv2q2"
+          }, {
+            id: "D7q4mJiJaYgjlgJWXtv0gh1csJB2"
+          }]
+          for (var d of lambdaData) {
+            this.props.firebase.user(d.id).on('value', snapshot => {
+              const users = this.state.users;
+              users.push(snapshot.val());
+              this.setState({users: users});
+            })
+          }
         }
       })
     }
-
-    //   this.props.firebase.users().on('value', snapshot => {
-    //     const usersObject = snapshot.val();
-
-    //     const usersList = Object.keys(usersObject).map(key => ({
-    //       ...usersObject[key],
-    //       uid: key,
-    //     }));
-
-    //   }
-
-    //   this.setState({
-    //     users: usersList,
-    //     loading: false,
-    //   });
-    // });
   }
 
   handleChange = () => {
@@ -77,7 +73,7 @@ class HomePage extends React.Component {
   render() {
     const { classes } = this.props;
     const { checked } = this.state
-
+    console.log(this.state);
     return (
       <div style={{
         paddingTop: '50px',

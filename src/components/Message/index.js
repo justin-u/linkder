@@ -13,7 +13,7 @@ export default class Message extends Component {
     } = this.props;
 
     const friendlyTimestamp = moment(data.timestamp).format('LLLL');
-    console.log(data.message);
+    // console.log(data.message);
 
     return (
       <div className={[

@@ -11,7 +11,7 @@ import AWS from 'aws-sdk'
 class ProfileCard extends React.Component {
 
     state = {};
-
+ew
     constructor(props) {
         super(props)
         this.state = {

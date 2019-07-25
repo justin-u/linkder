@@ -19,7 +19,6 @@ class MessageList extends Component {
 
     const authUser = JSON.parse(localStorage.getItem('authUser'));
     const condition = authUser != null
-    // const messages = []
 
     this.state = {
       authUser: authUser,
@@ -29,7 +28,8 @@ class MessageList extends Component {
           id: '',
           author: 'apple',
           message: '',
-          timestamp: ''
+          timestamp: '',
+          otherUser: ""
         }
       ]
     };
@@ -41,7 +41,7 @@ class MessageList extends Component {
   }
 
   componentDidMount() {
-    this.getMessages();
+    // this.getMessages();
   }
 
   componentWillUnmount() {
@@ -72,78 +72,85 @@ class MessageList extends Component {
       this.removeListener()
     }
 
-    this.props.firebase.messages(this.state.authUser.uid, "gIYF2LikSbdtwQYuq8exd0DKwGn1").on('value', snapshot => {
+    const scope = this;
+    this.props.firebase.messages(this.state.authUser.uid, this.props.otherUser).on('value', snapshot => {
       const messageList = snapshot.val();
 
-      const messageObject = Object.keys(messageList).map(key => ({
-        ...messageList[key],
-        messageID: key,
-      }));
+      if (messageList != null) {
+        const messageObject = Object.keys(messageList).map(key => ({
+          ...messageList[key],
+          messageID: key,
+        }));
 
-      for (var message of messageObject) {
-        // console.log(message)
-        const author = message.author
-        const text = message.text;
-        const time = message.time
-        // this.state.messages.push(message)
+        console.log(messageList);
 
-        this.state.messages.push({
-          id: '',
-          author: message.author,
-          message: message.text,
-          timestamp: message.time
-
-        })
-
+        for (var message of messageObject) {
+          // console.log(message)
+          const author = message.author
+          const text = message.text;
+          const time = new Date(message.time).getTime()
+          // console.log(time);
+          // this.state.messages.push(message)
+          var m = scope.state.messages;
+          m.push({
+            author: author,
+            message: text,
+            timestamp: time
+          })
+          scope.setState({
+            messages: m
+          });
+        }
         // console.log(this.state.messages)
       }
     })
 
-    console.log(this.state.messages)
-  
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        messages: [
-          // {
-          //   id: 1,
-          //   author: 'apple',
-          //   message: 'Hello world! Welcome to our chat feature! Hopefully get wrapped by our message bubble component! We will see how well it works.',
-          //   timestamp: new Date().getTime()
-          // },
-          // {
-          //   id: 2,
-          //   author: 'orange',
-          //   message: 'It looks great. Lets see what a reply looks like!',
-          //   timestamp: new Date().getTime()
-          // },
-          // {
-          //   id: 3,
-          //   author: 'orange',
-          //   message: 'We have worked hard as a team to build this app. Hope you like it',
-          //   timestamp: new Date().getTime()
-          // },
-          // {
-          //   id: 4,
-          //   author: 'apple',
-          //   message: 'We are a team of three amazingly talented and communicative individuals',
-          //   timestamp: new Date().getTime()
-          // },
-          // {
-          //   id: 5,
-          //   author: 'apple',
-          //   message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-          //   timestamp: new Date().getTime()
-          // },
-        ]
-      };
-    });
+    // console.log(this.state.messages)
+
+    // this.setState(prevState => {
+    //   return {
+    //     ...prevState,
+    //     messages: [
+    //       // {
+    //       //   id: 1,
+    //       //   author: 'apple',
+    //       //   message: 'Hello world! Welcome to our chat feature! Hopefully get wrapped by our message bubble component! We will see how well it works.',
+    //       //   timestamp: new Date().getTime()
+    //       // },
+    //       // {
+    //       //   id: 2,
+    //       //   author: 'orange',
+    //       //   message: 'It looks great. Lets see what a reply looks like!',
+    //       //   timestamp: new Date().getTime()
+    //       // },
+    //       // {
+    //       //   id: 3,
+    //       //   author: 'orange',
+    //       //   message: 'We have worked hard as a team to build this app. Hope you like it',
+    //       //   timestamp: new Date().getTime()
+    //       // },
+    //       // {
+    //       //   id: 4,
+    //       //   author: 'apple',
+    //       //   message: 'We are a team of three amazingly talented and communicative individuals',
+    //       //   timestamp: new Date().getTime()
+    //       // },
+    //       // {
+    //       //   id: 5,
+    //       //   author: 'apple',
+    //       //   message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
+    //       //   timestamp: new Date().getTime()
+    //       // },
+    //     ]
+    //   };
+    // });
   }
 
   renderMessages() {
+    // this.getMessages();
     let i = 0;
     let messageCount = this.state.messages.length;
-    console.log(messageCount)
+    // console.log(messageCount)
     let messages = [];
 
     while (i < messageCount) {
@@ -199,35 +206,34 @@ class MessageList extends Component {
       i += 1;
     }
 
-    console.log(messages)
+    // console.log(messages)
     return messages;
   }
 
   render() {
+    // console.log(this.props);
+    // console.log(otherUser)
     if (this.state.isLoggedIn) {
       const scope = this;
 
-      return(
+      return (
         <div className="message-list">
-          <br/><br/><br/><br/><br/>
+          <br /><br /><br /><br /><br />
           <Toolbar
-            title= {this.state.authUser.name}
+            title={this.state.authUser.name}
             rightItems={[
-              // <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-              // <ToolbarButton key="phone" icon="ion-ios-call" />,
-              
-              <Button style={{backgroundColor: "#007aff"}} variant="contained">
-                <Link to={"/report/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"+"/from/"+this.state.authUser} style={{color: '#ffffff', textDecoration: 'none'}}>Report</Link>
+              <Button style={{ backgroundColor: "#007aff" }} variant="contained">
+                <Link to={"/report/" + this.props.otherUser + "/from/" + this.state.authUser} style={{ color: '#ffffff', textDecoration: 'none' }}>Report</Link>
               </Button>,
-              
-              <Button style={{backgroundColor: "#007aff"}} variant="outlined">
-                <Link to={"/u/"+"MKJy2ZnYN3OQ3YbnZYxjVp7vsD32"} style={{color: '#ffffff', textDecoration: 'none'}}>Schedule</Link>
+
+              <Button style={{ backgroundColor: "#007aff" }} variant="outlined">
+                <Link to={"/u/" + this.props.otherUser} style={{ color: '#ffffff', textDecoration: 'none' }}>Schedule</Link>
               </Button>
             ]}
           />
-  
+
           <div className="message-list-container">{this.renderMessages()}</div>
-  
+
           <Compose rightItems={[
             <ToolbarButton key="photo" icon="ion-ios-camera" />,
             <ToolbarButton key="image" icon="ion-ios-image" />,
@@ -235,7 +241,7 @@ class MessageList extends Component {
             <ToolbarButton key="money" icon="ion-ios-card" />,
             <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
             <ToolbarButton key="emoji" icon="ion-ios-happy" />
-          ]}/>
+          ]} />
         </div>
       );
     }
@@ -244,7 +250,7 @@ class MessageList extends Component {
       return (<div style={{ paddingTop: '50px' }}>
         <h1>You need to be signed in to view this</h1>
       </div>)
-    } 
+    }
   }
 }
 
