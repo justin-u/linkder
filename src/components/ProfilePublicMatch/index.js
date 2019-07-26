@@ -46,22 +46,24 @@ class ProfilePublicPage extends React.Component {
     this.props.firebase.user(userid).on('value', snapshot => {
       const user = snapshot.val();
       console.log(user);
-      const bio = user.bio
-      const experience = user.experience
-      const lengthOfExp = user.lengthOfExperience
-      const chips = user.chips;
-      const imageURL = user.imageURL;
-      const condition = user != null;
+      if (user != null) {
+        const bio = user.bio
+        const experience = user.experience
+        const lengthOfExp = user.lengthOfExperience
+        const chips = user.chips;
+        const imageURL = user.imageURL;
+        const condition = user != null;
 
-      this.setState({
-        user: user,
-        bio: bio,
-        experience: experience,
-        isLoggedIn: condition,
-        lengthOfExp: lengthOfExp,
-        chips: chips,
-        imageURL: imageURL
-      })
+        this.setState({
+          user: user,
+          bio: bio,
+          experience: experience,
+          isLoggedIn: condition,
+          lengthOfExp: lengthOfExp,
+          chips: chips,
+          imageURL: imageURL
+        })
+      }
     });
 
   }
@@ -113,7 +115,7 @@ class ProfilePublicPage extends React.Component {
                         paddingTop: '40px',
                       }}
                     />
-                    </div>
+                  </div>
                 </div>
                 <br />
                 <GridItem xs={12} sm={12} md={6}>

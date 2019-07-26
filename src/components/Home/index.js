@@ -2,12 +2,13 @@ import React from 'react';
 import { compose } from 'recompose';
 import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import ProfileCard from 'components/ProfileCard';
-import Amplify from 'aws-amplify';
 import { Grid } from '@material-ui/core'
-import awsconfig from '../../aws-exports';
 import { withFirebase } from '../Firebase';
-import AWS from 'aws-sdk'
 import image from 'assets/img/bg.jpg'
+
+import Amplify from 'aws-amplify';
+import AWS from 'aws-sdk'
+import awsconfig from '../../aws-exports';
 
 Amplify.configure(awsconfig);
 AWS.config.update({
@@ -49,16 +50,18 @@ class HomePage extends React.Component {
         }
         else {
           const lambdaData = JSON.parse(data['Payload'])['potentialMatches']
-          for (var d of lambdaData) {
-            this.props.firebase.user(d.id).on('value', snapshot => {
-              const users = this.state.users;
-              const data = snapshot.val()
-              if (data != null) {
-                data['uid'] = d.id;
-                users.push(data);
-                this.setState({ users: users });
-              }
-            })
+          if (lambdaData != null) {
+            for (var d of lambdaData) {
+              this.props.firebase.user(d.id).on('value', snapshot => {
+                const users = this.state.users;
+                const data = snapshot.val()
+                if (data != null) {
+                  data['uid'] = d.id;
+                  users.push(data);
+                  this.setState({ users: users });
+                }
+              })
+            }
           }
         }
       })

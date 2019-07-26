@@ -176,8 +176,11 @@ class MessageList extends Component {
   }
 
   render() {
-    // console.log(this.props);
-    // console.log(otherUser)
+    console.log(this.props);
+    var otherUser = ""
+    if (this.props.otherUser)
+      otherUser = this.props.otherUser.id;
+
     if (this.state.isLoggedIn) {
       const scope = this;
 
@@ -188,11 +191,11 @@ class MessageList extends Component {
             title={this.state.authUser.name}
             rightItems={[
               <Button style={{ backgroundColor: "#007aff" }} variant="contained">
-                <Link to={"/report/" + this.props.otherUser + "/from/" + this.state.authUser} style={{ color: '#ffffff', textDecoration: 'none' }}>Report</Link>
+                <Link to={"/report/" + otherUser + "/from/" + this.state.authUser.uid} style={{ color: '#ffffff', textDecoration: 'none' }}>Report</Link>
               </Button>,
 
               <Button style={{ backgroundColor: "#007aff" }} variant="outlined">
-                <Link to={"/u/" + this.props.otherUser} style={{ color: '#ffffff', textDecoration: 'none' }}>Schedule</Link>
+                <Link to={"/u/" + otherUser} style={{ color: '#ffffff', textDecoration: 'none' }}>Schedule</Link>
               </Button>
             ]}
           />

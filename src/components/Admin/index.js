@@ -9,6 +9,10 @@ import * as ROUTES from 'constants/routes';
 import { withFirebase } from '../Firebase';
 import { Button, Table, TableRow, TableHead, TableCell } from '@material-ui/core';
 
+import Amplify from 'aws-amplify';
+import AWS from 'aws-sdk'
+import awsconfig from '../../aws-exports';
+
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -70,16 +74,41 @@ class AdminPage extends React.Component {
                   var r = this.state.reports;
                   var i = r.indexOf(report.reportID);
                   r.splice(i, 1);
-                  this.setState({report: r})
+                  this.setState({ report: r })
                 }
 
                 const deleteUser = (uid, reportID) => {
+
+                  Amplify.configure(awsconfig);
+                  AWS.config.update({
+                    accessKeyId: 'AKIA6PTGMIK4SFDNUZ2I', secretAccessKey: '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', region: 'us-east-1'
+                  })
+
                   this.props.firebase.user(uid).remove();
                   this.props.firebase.report().child(reportID).remove();
                   var r = this.state.reports;
                   var i = r.indexOf(reportID);
                   r.splice(i, 1);
-                  this.setState({report: r})
+                  this.setState({ report: r })
+
+                  const lambda = new AWS.Lambda()
+
+                  const payload = {
+                    'id': uid
+                  }
+
+                  lambda.invoke({
+                    FunctionName: 'deleteUser-dev',
+                    Payload: JSON.stringify(payload)
+                  }, (err, data) => {
+                    if (err) {
+                      console.log(err)
+                    }
+                    else {
+                      const lambdaData = JSON.parse(data['Payload'])
+                      console.log(lambdaData);
+                    }
+                  })
                 }
 
                 return <TableRow>
