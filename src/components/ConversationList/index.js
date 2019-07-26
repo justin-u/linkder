@@ -47,14 +47,14 @@ class ConversationList extends Component {
           console.log(err)
         }
         else {
-          // let matches = JSON.parse(data['Payload'])
-          let matches = {
-            currentMatches: [
-              "D7q4mJiJaYgjlgJWXtv0gh1csJB2",
-              "gIYF2LikSbdtwQYuq8exd0DKwGn1",
-              "hBxDK1y6o4RbU8QOs8oo9vtrv2q2"
-            ]
-          }
+          let matches = JSON.parse(data['Payload'])
+          // let matches = {
+          //   currentMatches: [
+          //     "D7q4mJiJaYgjlgJWXtv0gh1csJB2",
+          //     "gIYF2LikSbdtwQYuq8exd0DKwGn1",
+          //     "hBxDK1y6o4RbU8QOs8oo9vtrv2q2"
+          //   ]
+          // }
           this.setState({ matches: matches['currentMatches'] });
           this.getConversations();
         }
