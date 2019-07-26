@@ -35,9 +35,6 @@ class MessageList extends Component {
     };
 
     this.removeListener = null
-    // this.messages =  []
-    this.groupChatId = null
-    // this.currentPeerUser = this.props.currentPeerUser
   }
 
   componentDidMount() {
@@ -51,8 +48,16 @@ class MessageList extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.currentPeerUser) {
-      this.currentPeerUser = newProps.currentPeerUser
+    var otherUser = ""
+    var otherUserName = ""
+
+    if (this.props.otherUser) {
+      otherUser = this.props.otherUser.id;
+      otherUserName = this.props.otherUser.firstName;
+    }
+
+    if (newProps.otherUser) {
+      this.otherUser = newProps.otherUser
       this.getMessages()
     }
   }
@@ -68,10 +73,6 @@ class MessageList extends Component {
   }
 
   getMessages = () => {
-    // if (this.removeListener) {
-    //   this.removeListener()
-    // }
-
     const scope = this;
     this.props.firebase.messages(this.state.authUser.uid, "L1aoxBNR4KOx5JfTsKlwLsnuPds1").on('value', snapshot => {
       const messageList = snapshot.val();
@@ -112,7 +113,6 @@ class MessageList extends Component {
   }
 
   renderMessages() {
-    // this.getMessages();
     let i = 0;
     let messageCount = this.state.messages.length;
     // console.log(messageCount)
