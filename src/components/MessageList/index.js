@@ -73,7 +73,7 @@ class MessageList extends Component {
     // }
 
     const scope = this;
-    this.props.firebase.messages(this.state.authUser.uid, "hBxDK1y6o4RbU8QOs8oo9vtrv2q2").on('value', snapshot => {
+    this.props.firebase.messages(this.state.authUser.uid, "L1aoxBNR4KOx5JfTsKlwLsnuPds1").on('value', snapshot => {
       const messageList = snapshot.val();
 
       if (messageList != null) {
@@ -177,9 +177,13 @@ class MessageList extends Component {
 
   render() {
     console.log(this.props);
-    var otherUser = ""
+    var otherUser = {
+      id: "",
+      firstName: "",
+      lastName: ""
+    }
     if (this.props.otherUser)
-      otherUser = this.props.otherUser.id;
+      otherUser = this.props.otherUser;
 
     if (this.state.isLoggedIn) {
       const scope = this;
@@ -188,14 +192,14 @@ class MessageList extends Component {
         <div className="message-list">
           <br /><br /><br /><br /><br />
           <Toolbar
-            title={this.state.authUser.name}
+            title={otherUser.firstName + " " + otherUser.lastName}
             rightItems={[
               <Button style={{ backgroundColor: "#007aff" }} variant="contained">
-                <Link to={"/report/" + otherUser + "/from/" + this.state.authUser.uid} style={{ color: '#ffffff', textDecoration: 'none' }}>Report</Link>
+                <Link to={"/report/" + otherUser.id + "/from/" + this.state.authUser.uid} style={{ color: '#ffffff', textDecoration: 'none' }}>Report</Link>
               </Button>,
 
               <Button style={{ backgroundColor: "#007aff" }} variant="outlined">
-                <Link to={"/u/" + otherUser} style={{ color: '#ffffff', textDecoration: 'none' }}>Schedule</Link>
+                <Link to={"/u/" + otherUser.id} style={{ color: '#ffffff', textDecoration: 'none' }}>Schedule</Link>
               </Button>
             ]}
           />
@@ -209,7 +213,7 @@ class MessageList extends Component {
             <ToolbarButton key="money" icon="ion-ios-card" />,
             <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
             <ToolbarButton key="emoji" icon="ion-ios-happy" />
-          ]} />
+          ]} otherUser={otherUser.id}/>
         </div>
       );
     }
