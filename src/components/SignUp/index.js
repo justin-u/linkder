@@ -205,7 +205,7 @@ class SignUpFormBase extends React.Component {
           onChange = {this.onChange}
           type = "text"
           placeholder = "Link to Image (Optional)"
-          style = {{ paddingBottom: '10px', paddingTop: '20px' }}
+          // style = {{ paddingBottom: '10px', paddingTop: '20px' }}
         />
         <br /><br />
         <PlacesAutocomplete
@@ -220,10 +220,6 @@ class SignUpFormBase extends React.Component {
                   placeholder: 'Search Places ...',
                   className: 'location-search-input',
                 })}
-                // style={{
-                //   width: '30%',
-                //   background: 'transparent'
-                // }}
               />
               <div className="autocomplete-dropdown-container" style={{
                 opacity: '50%',
@@ -264,6 +260,7 @@ class SignUpFormBase extends React.Component {
             </div>
           )}
         </PlacesAutocomplete>
+        <br />
         <Button disabled = {isInvalid} type="submit" variant='contained' style = {{ color: "#ffffff", backgroundColor: "#000000" }}>
           Sign Up
         </Button>

@@ -1,16 +1,13 @@
 import React from 'react'
 import { Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, Button } from '@material-ui/core';
-import Switch from '@material-ui/core/Switch';
-import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import image from 'assets/img/favicon.png'
 import ProfilePublic from '../ProfilePublic';
 import AWS from 'aws-sdk'
 
-
 class ProfileCard extends React.Component {
-
     state = {};
+
     constructor(props) {
         super(props)
         this.state = {
@@ -26,7 +23,6 @@ class ProfileCard extends React.Component {
     };
 
     onIgnore() {
-
         this.setState(state => ({ ignored: false }));
         const authUser = JSON.parse(localStorage.getItem('authUser'));
         this.setState(state => ({ ignored: !state.ignored }));
@@ -57,7 +53,6 @@ class ProfileCard extends React.Component {
             'userId': authUser.uid,
             'otherId': this.props.user.uid
         }
-        // console.log(payload)
         const lambda = new AWS.Lambda()
         lambda.invoke({
             FunctionName: 'likeUser-dev',

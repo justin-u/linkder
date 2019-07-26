@@ -30,7 +30,7 @@ const App = () => {
         <meta name="description=" content="Linkder-The app that lets you meet people in-person" />
         <meta name="keywords" content="linkder, linkdin, tinder, network, interests, conversation" />
         <meta property="og:title" content="Linkder" />
-        <meta property="og:url" content="localhost:3000" />
+        <meta property="og:url" content="linkder.unterr.com" />
         <meta property="og:type" content="website" />
         {/* <meta property="og:image" content="/favicon.ico" /> */}
         <meta property="og:description" content="The app that lets you network and meet people in-person/real life." />

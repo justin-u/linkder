@@ -32,7 +32,6 @@ export default class Message extends Component {
         <div className="bubble-container">
           <div className="bubble" title={friendlyTimestamp}>
             { data.message }
-            
           </div>
         </div>
       </div>

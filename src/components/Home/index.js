@@ -5,7 +5,6 @@ import ProfileCard from 'components/ProfileCard';
 import { Grid } from '@material-ui/core'
 import { withFirebase } from '../Firebase';
 import image from 'assets/img/bg.jpg'
-
 import Amplify from 'aws-amplify';
 import AWS from 'aws-sdk'
 import awsconfig from '../../aws-exports';
@@ -79,9 +78,6 @@ class HomePage extends React.Component {
     return (
       <div style={{
         paddingTop: '50px',
-        // marginLeft: '40px',
-        // marginRight: '40px',
-        // marginBottom: '40px',
         justifyContent: 'center',
         alignContent: 'center',
         textAlign: 'center',
@@ -94,18 +90,16 @@ class HomePage extends React.Component {
         <h1>Meet these people!</h1>
         <Grid style={{ marginTop: "-40px", marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing={3}>
           {this.state.users.map(function (userInfo, index) {
-            console.log(userInfo)
+            // console.log(userInfo)
             return <Grid style={{ margin: '2px', }} container item xs={3} spacing={3}>
               <ProfileCard user={userInfo} uid={userInfo.uid} />
             </Grid>
           })}
         </Grid>
       </div>
-
     );
   }
 }
-
 
 const condition = authUser => !!authUser;
 

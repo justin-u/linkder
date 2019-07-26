@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import ConversationSearch from '../ConversationSearch';
 import ConversationListItem from '../ConversationListItem';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
-import axios from 'axios';
 import * as ROUTES from 'constants/routes';
 import AWS from 'aws-sdk'
 import { compose } from 'recompose'
@@ -114,7 +112,6 @@ class ConversationList extends Component {
               <ToolbarButton key="profile" icon="ion-ios-person" onClick={ROUTES.HOME}> </ToolbarButton>
             ]}
           />
-          { /* <ConversationSearch /> */}
           {
             this.state.conversations.map(conversation =>
               <div
