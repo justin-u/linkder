@@ -48,16 +48,13 @@ class HomePage extends React.Component {
           console.log(err)
         }
         else {
-          // const lambdaData = JSON.parse(data['Payload'])['potentialMatches']
-          const lambdaData = [{
-            id: "hBxDK1y6o4RbU8QOs8oo9vtrv2q2"
-          }, {
-            id: "D7q4mJiJaYgjlgJWXtv0gh1csJB2"
-          }]
+          const lambdaData = JSON.parse(data['Payload'])['potentialMatches']
           for (var d of lambdaData) {
             this.props.firebase.user(d.id).on('value', snapshot => {
               const users = this.state.users;
-              users.push(snapshot.val());
+              const data = snapshot.val()
+              data['id'] = d.id;
+              users.push(data);
               this.setState({users: users});
             })
           }
@@ -92,8 +89,9 @@ class HomePage extends React.Component {
         <h1>Meet these people!</h1>
         <Grid style={{ marginTop: "-40px", marginLeft: '2px', marginRight: '4px', justifyContent: 'center', alignContent: 'center' }} container spacing={3}>
           {this.state.users.map(function (userInfo, index) {
+            console.log(userInfo)
             return <Grid style={{ margin: '2px', }} container item xs={3} spacing={3}>
-              <ProfileCard user={userInfo} />
+              <ProfileCard user={userInfo} uid={userInfo.id} />
             </Grid>
           })}
         </Grid>

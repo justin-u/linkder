@@ -11,7 +11,6 @@ import AWS from 'aws-sdk'
 class ProfileCard extends React.Component {
 
     state = {};
-ew
     constructor(props) {
         super(props)
         this.state = {
@@ -23,7 +22,7 @@ ew
     }
 
     handleChange = () => {
-        console.log("CHANGE")
+        // console.log("CHANGE")
         this.setState(state => ({ checked: !state.checked }));
     };
 
@@ -34,10 +33,10 @@ ew
         this.setState(state => ({ ignored: !state.ignored }));
         const payload = {
             'userId': authUser.uid,
-            'otherId': this.props.user.uid
+            'otherId': this.props.uid
         }
         const lambda = new AWS.Lambda()
-        lambda.invoke({
+        lambda.invoke({ 
             FunctionName: 'dislikeUser-dev',
             Payload: JSON.stringify(payload)
         }, function (err, data) {
@@ -46,7 +45,7 @@ ew
             }
             else {
                 console.log(JSON.parse(data['Payload']))
-                console.log(data)
+                // console.log(data)
             }
         })
     }
@@ -59,6 +58,7 @@ ew
             'userId': authUser.uid,
             'otherId': this.props.user.uid
         }
+        // console.log(payload)
         const lambda = new AWS.Lambda()
         lambda.invoke({
             FunctionName: 'likeUser-dev',

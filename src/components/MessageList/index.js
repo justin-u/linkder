@@ -41,7 +41,7 @@ class MessageList extends Component {
   }
 
   componentDidMount() {
-    // this.getMessages();
+    this.getMessages();
   }
 
   componentWillUnmount() {
@@ -73,7 +73,7 @@ class MessageList extends Component {
     // }
 
     const scope = this;
-    this.props.firebase.messages(this.state.authUser.uid, this.props.otherUser).on('value', snapshot => {
+    this.props.firebase.messages(this.state.authUser.uid, "hBxDK1y6o4RbU8QOs8oo9vtrv2q2").on('value', snapshot => {
       const messageList = snapshot.val();
 
       if (messageList != null) {
@@ -101,49 +101,14 @@ class MessageList extends Component {
             messages: m
           });
         }
-        // console.log(this.state.messages)
       }
     })
 
-    // console.log(this.state.messages)
-
-    // this.setState(prevState => {
-    //   return {
-    //     ...prevState,
-    //     messages: [
-    //       // {
-    //       //   id: 1,
-    //       //   author: 'apple',
-    //       //   message: 'Hello world! Welcome to our chat feature! Hopefully get wrapped by our message bubble component! We will see how well it works.',
-    //       //   timestamp: new Date().getTime()
-    //       // },
-    //       // {
-    //       //   id: 2,
-    //       //   author: 'orange',
-    //       //   message: 'It looks great. Lets see what a reply looks like!',
-    //       //   timestamp: new Date().getTime()
-    //       // },
-    //       // {
-    //       //   id: 3,
-    //       //   author: 'orange',
-    //       //   message: 'We have worked hard as a team to build this app. Hope you like it',
-    //       //   timestamp: new Date().getTime()
-    //       // },
-    //       // {
-    //       //   id: 4,
-    //       //   author: 'apple',
-    //       //   message: 'We are a team of three amazingly talented and communicative individuals',
-    //       //   timestamp: new Date().getTime()
-    //       // },
-    //       // {
-    //       //   id: 5,
-    //       //   author: 'apple',
-    //       //   message: 'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-    //       //   timestamp: new Date().getTime()
-    //       // },
-    //     ]
-    //   };
-    // });
+    this.setState(prevState => {
+      return {
+        ...prevState, messages: []
+      }
+    })
   }
 
   renderMessages() {

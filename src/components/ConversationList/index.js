@@ -71,14 +71,16 @@ class ConversationList extends Component {
         var conversation = this.state.conversations;
         const conversationObject = snapshot.val();
         // console.log(conversationObject)
-        conversation.push({
-          photo: conversationObject.imageURL,
-          name: conversationObject.name,
-          text: "Click to view messages",
-          uid: match
-        })
+        if (conversationObject != null) {
+          conversation.push({
+            photo: conversationObject.imageURL || 'https://thispersondoesnotexist.com/image',
+            name: conversationObject.name,
+            text: "Click to view messages",
+            uid: match
+          })
 
-        this.setState({conversations: conversation})
+          this.setState({ conversations: conversation })
+        }
       })
     }
   }
@@ -114,12 +116,12 @@ class ConversationList extends Component {
           {
             this.state.conversations.map(conversation =>
               <div
-              onClick={e => this.onConversationClick(conversation)}
+                onClick={e => this.onConversationClick(conversation)}
               >
-              <ConversationListItem
-                key={conversation.name}
-                data={conversation}
-              />
+                <ConversationListItem
+                  key={conversation.name}
+                  data={conversation}
+                />
               </div>
             )
           }

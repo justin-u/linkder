@@ -42,14 +42,16 @@ class ProfilePublicPage extends React.Component {
 
     console.log(this.props)
     const userid = this.props.match.params.uid;
-    
+
     this.props.firebase.user(userid).on('value', snapshot => {
       const user = snapshot.val();
+      console.log(user);
       const bio = user.bio
       const experience = user.experience
       const lengthOfExp = user.lengthOfExperience
       const chips = user.chips;
-      const condition = user != null
+      const imageURL = user.imageURL;
+      const condition = user != null;
 
       this.setState({
         user: user,
@@ -57,14 +59,15 @@ class ProfilePublicPage extends React.Component {
         experience: experience,
         isLoggedIn: condition,
         lengthOfExp: lengthOfExp,
-        chips: chips
+        chips: chips,
+        imageURL: imageURL
       })
     });
-    
+
   }
 
   render() {
-    
+
     const { classes, ...rest } = this.props;
     // const imageClasses = classNames(
     //   classes.imgRaised,
@@ -74,222 +77,213 @@ class ProfilePublicPage extends React.Component {
 
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
-    if (this.state.isLoggedIn) {
-      return (
-        <div style={{
-          paddingTop: '200px',
-          marginLeft: '60px',
-          marginRight: '60px',
-          marginBottom: '60px'
-        }}>
-          <div className={classNames(classes.main, classes.mainRaised)}>
-            <div>
-              <div className={classes.container}>
-                <GridContainer justify="center">
+    // if (this.state.isLoggedIn) {
+    return (
+      <div style={{
+        paddingTop: '200px',
+        marginLeft: '60px',
+        marginRight: '60px',
+        marginBottom: '60px'
+      }}>
+        <div className={classNames(classes.main, classes.mainRaised)}>
+          <div>
+            <div className={classes.container}>
+              <GridContainer justify="center">
+                <div
+                  style={{
+                    width: "100%",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: "20px"
+                  }}>
                   <div
                     style={{
-                      width: "100%",
+                      height: '200px',
+                      width: '200px',
+                      overflow: 'hidden',
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      marginTop: "20px"
-                    }}>
-                    <div
+                      borderRadius: '100%'
+                    }}
+                  >
+                    <img src={this.state.imageURL}
                       style={{
-                        height: '200px',
-                        width: '200px',
-                        overflow: 'hidden',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderRadius: '100%'
+                        paddingTop: '40px',
                       }}
-                    >
-                      <img src={this.state.user.imageURL}
-                        style={{
-                          paddingTop: '40px',
-                        }}
-                      /> */}
-                    </div>
-                  </div>
-                  <br />
-                  <GridItem xs = {12} sm = {12} md = {6}>
-                    <div className = {classes.profile}>
-                      <div style = {{ paddingBottom: '120px' }}></div>
-
-                      <div className={classes.name} style={{
-                        paddingBottom: '40px',
-                        paddingTop: '20px'
-                      }}>
-                        <Typography variant='h3'>
-                          {this.state.user.name}
-                        </Typography>
-                      </div>
-
-                      <React.Fragment>
-                        <Scheduler
-                          dataSource={this.state.data}
-                          views={views}
-                          defaultCurrentView={'week'}
-                          defaultCurrentDate={currentDate}
-                          startDayHour={8}
-                          endDayHour={24}
-                          height={600}
-                          disabled
-                        />
-                      </React.Fragment>
-
-                    </div>
-                  </GridItem>
-                </GridContainer>
-                <div className={classes.description}>
-                  <Typography variant='subtitle1'>
-                    {this.state.user.bio}
-                  </Typography>
-                  <br />
-                  <Typography variant='subtitle1'>
-                    {this.state.user.experience}
-                  </Typography>
-                  <br />
-                  <Typography variant='subtitle1'>
-                    {this.state.user.lengthOfExperience}
-                  </Typography>
-                  <br />
-                  <Typography variant='subtitle1'>
-                    {this.state.user.chips}
-                  </Typography>
-                  <br />
-                </div>
-                <GridContainer justify="center">
-                  <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
-                    <NavPills
-                      alignCenter
-                      color="primary"
-                      tabs={[
-                        {
-                          tabButton: "Tab 1",
-                          tabIcon: Camera,
-                          tabContent: (
-                            <GridContainer justify="center">
-                              <GridItem xs={12} sm={12} md={4}>
-                                <img
-                                  alt="..."
-                                  src={studio1}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={studio2}
-                                  className={navImageClasses}
-                                />
-                              </GridItem>
-                              <GridItem xs={12} sm={12} md={4}>
-                                <img
-                                  alt="..."
-                                  src={studio5}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={studio4}
-                                  className={navImageClasses}
-                                />
-                              </GridItem>
-                            </GridContainer>
-                          )
-                        },
-                        {
-                          tabButton: "Tab 2",
-                          tabIcon: Palette,
-                          tabContent: (
-                            <GridContainer justify="center">
-                              <GridItem xs={12} sm={12} md={4}>
-                                <img
-                                  alt="..."
-                                  src={work1}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={work2}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={work3}
-                                  className={navImageClasses}
-                                />
-                              </GridItem>
-                              <GridItem xs={12} sm={12} md={4}>
-                                <img
-                                  alt="..."
-                                  src={work4}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={work5}
-                                  className={navImageClasses}
-                                />
-                              </GridItem>
-                            </GridContainer>
-                          )
-                        },
-                        {
-                          tabButton: "Tab 3",
-                          tabIcon: Favorite,
-                          tabContent: (
-                            <GridContainer justify="center">
-                              <GridItem xs={12} sm={12} md={4}>
-                                <img
-                                  alt="..."
-                                  src={work4}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={studio3}
-                                  className={navImageClasses}
-                                />
-                              </GridItem>
-                              <GridItem xs={12} sm={12} md={4}>
-                                <img
-                                  alt="..."
-                                  src={work2}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={work1}
-                                  className={navImageClasses}
-                                />
-                                <img
-                                  alt="..."
-                                  src={studio1}
-                                  className={navImageClasses}
-                                />
-                              </GridItem>
-                            </GridContainer>
-                          )
-                        }
-                      ]}
                     />
-                  </GridItem>
-                </GridContainer>
-              </div>
-            </div>
+                    </div>
+                </div>
+                <br />
+                <GridItem xs={12} sm={12} md={6}>
+                  <div className={classes.profile}>
+                    <div style={{ paddingBottom: '120px' }}></div>
 
+                    <div className={classes.name} style={{
+                      paddingBottom: '40px',
+                      paddingTop: '20px'
+                    }}>
+                      <Typography variant='h3'>
+                        {this.state.name}
+                      </Typography>
+                    </div>
+
+                    <React.Fragment>
+                      <Scheduler
+                        dataSource={this.state.data}
+                        views={views}
+                        defaultCurrentView={'week'}
+                        defaultCurrentDate={currentDate}
+                        startDayHour={8}
+                        endDayHour={24}
+                        height={600}
+                        disabled
+                      />
+                    </React.Fragment>
+
+                  </div>
+                </GridItem>
+              </GridContainer>
+              <div className={classes.description}>
+                <Typography variant='subtitle1'>
+                  {this.state.bio}
+                </Typography>
+                <br />
+                <Typography variant='subtitle1'>
+                  {this.state.experience}
+                </Typography>
+                <br />
+                <Typography variant='subtitle1'>
+                  {this.state.lengthOfExperience}
+                </Typography>
+                <br />
+                <Typography variant='subtitle1'>
+                  {this.state.chips}
+                </Typography>
+                <br />
+              </div>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
+                  <NavPills
+                    alignCenter
+                    color="primary"
+                    tabs={[
+                      {
+                        tabButton: "Tab 1",
+                        tabIcon: Camera,
+                        tabContent: (
+                          <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={studio1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio2}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={studio5}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio4}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                        )
+                      },
+                      {
+                        tabButton: "Tab 2",
+                        tabIcon: Palette,
+                        tabContent: (
+                          <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={work1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work2}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work3}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={work4}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work5}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                        )
+                      },
+                      {
+                        tabButton: "Tab 3",
+                        tabIcon: Favorite,
+                        tabContent: (
+                          <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={work4}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio3}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={4}>
+                              <img
+                                alt="..."
+                                src={work2}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={work1}
+                                className={navImageClasses}
+                              />
+                              <img
+                                alt="..."
+                                src={studio1}
+                                className={navImageClasses}
+                              />
+                            </GridItem>
+                          </GridContainer>
+                        )
+                      }
+                    ]}
+                  />
+                </GridItem>
+              </GridContainer>
+            </div>
           </div>
         </div>
-      );
-    }
-    else {
-      return (<div style={{
-        paddingTop: '50px'
-      }}>
-        <h1>You need to be signed in to view this</h1>
-      </div>)
-    }
+      </div>
+    );
   }
 }
 
