@@ -17,8 +17,8 @@ class Compose extends Component {
   }
 
   onSendMessage = () => {
-//     console.log(this.state.inputValue);
-    this.props.firebase.messages(this.state.authUser.uid, "gIYF2LikSbdtwQYuq8exd0DKwGn1").push({
+    console.log(this.state.inputValue);
+    this.props.firebase.messages(this.state.authUser.uid, "L1aoxBNR4KOx5JfTsKlwLsnuPds1").push({
       text: this.state.inputValue,
       author: this.state.authUser.uid,
       time: new Date().getTime()
