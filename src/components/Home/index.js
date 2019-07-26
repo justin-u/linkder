@@ -53,9 +53,11 @@ class HomePage extends React.Component {
             this.props.firebase.user(d.id).on('value', snapshot => {
               const users = this.state.users;
               const data = snapshot.val()
-              data['id'] = d.id;
-              users.push(data);
-              this.setState({users: users});
+              if (data != null) {
+                data['id'] = d.id;
+                users.push(data);
+                this.setState({ users: users });
+              }
             })
           }
         }
