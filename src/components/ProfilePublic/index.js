@@ -148,8 +148,8 @@ class ProfilePage extends React.Component {
                   <Typography variant='h4'>
                     Interests
                   </Typography>
-                  {this.state.chips != [] &&
-                   this.state.chips.map(function (chip, index) {
+                  {this.props.user.chips != [] &&
+                   this.props.user.chips.map(function (chip, index) {
                     return <Typography variant='subtitle1'>
                       {chip}
                     </Typography>

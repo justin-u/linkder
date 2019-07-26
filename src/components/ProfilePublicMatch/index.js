@@ -31,6 +31,8 @@ import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.js
 import { Typography } from "@material-ui/core";
 import { compose } from 'recompose'
 
+import { data } from './data.js';
+
 const currentDate = new Date();
 const views = ['day', 'week', 'month'];
 
@@ -65,18 +67,18 @@ class ProfilePublicPage extends React.Component {
         })
       }
     });
+  }
 
+  componentDidMount() {
+    data().then((events) => {
+      console.log(events)
+      this.setState({ data: events });
+    }).catch(e => console.log(e));
   }
 
   render() {
 
     const { classes, ...rest } = this.props;
-    // const imageClasses = classNames(
-    //   classes.imgRaised,
-    //   classes.imgRoundedCircle,
-    //   classes.imgFluid
-    // );
-
     const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
     // if (this.state.isLoggedIn) {
@@ -130,28 +132,20 @@ class ProfilePublicPage extends React.Component {
                         {this.state.name}
                       </Typography>
                     </div>
-
-                    <React.Fragment>
-                      <Scheduler
-                        dataSource={this.state.data}
-                        views={views}
-                        defaultCurrentView={'week'}
-                        defaultCurrentDate={currentDate}
-                        startDayHour={8}
-                        endDayHour={24}
-                        height={600}
-                        disabled
-                      />
-                    </React.Fragment>
-
                   </div>
                 </GridItem>
               </GridContainer>
               <div className={classes.description}>
+                <Typography variant='h4'>
+                  Bio
+                  </Typography>
                 <Typography variant='subtitle1'>
                   {this.state.bio}
                 </Typography>
                 <br />
+                <Typography variant='h4'>
+                  Experience
+                  </Typography>
                 <Typography variant='subtitle1'>
                   {this.state.experience}
                 </Typography>
@@ -160,10 +154,29 @@ class ProfilePublicPage extends React.Component {
                   {this.state.lengthOfExperience}
                 </Typography>
                 <br />
-                <Typography variant='subtitle1'>
-                  {this.state.chips}
+                <Typography variant='h4'>
+                  Interests
                 </Typography>
+                {this.state.chips &&
+                  this.state.chips.map(function (chip, index) {
+                    return <Typography variant='subtitle1'>
+                      {chip}
+                    </Typography>
+                  })}
                 <br />
+
+                <React.Fragment>
+                  <Scheduler
+                    dataSource={this.state.data}
+                    views={views}
+                    defaultCurrentView={'week'}
+                    defaultCurrentDate={currentDate}
+                    startDayHour={8}
+                    endDayHour={24}
+                    height={600}
+                    disabled
+                  />
+                </React.Fragment>
               </div>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
