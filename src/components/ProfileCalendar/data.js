@@ -28,6 +28,7 @@ export function data() {
         }
         else {
           var schedule = JSON.parse(data['Payload'])['freeTimes']
+          console.log(schedule);
           var i = 0
           for (var d of schedule) {
             var start = new Date(d.time)

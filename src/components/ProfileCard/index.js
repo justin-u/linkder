@@ -22,7 +22,6 @@ class ProfileCard extends React.Component {
     }
 
     handleChange = () => {
-        // console.log("CHANGE")
         this.setState(state => ({ checked: !state.checked }));
     };
 

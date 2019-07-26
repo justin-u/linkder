@@ -65,6 +65,7 @@ class ConversationList extends Component {
   getConversations = () => {
 
     const matches = this.state.matches;
+    if (matches != null)
     for (var match of matches) {
       this.props.firebase.user(match).on('value', snapshot => {
         // console.log(snapshot.val());

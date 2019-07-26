@@ -54,7 +54,7 @@ class HomePage extends React.Component {
               const users = this.state.users;
               const data = snapshot.val()
               if (data != null) {
-                data['id'] = d.id;
+                data['uid'] = d.id;
                 users.push(data);
                 this.setState({ users: users });
               }
@@ -93,7 +93,7 @@ class HomePage extends React.Component {
           {this.state.users.map(function (userInfo, index) {
             console.log(userInfo)
             return <Grid style={{ margin: '2px', }} container item xs={3} spacing={3}>
-              <ProfileCard user={userInfo} uid={userInfo.id} />
+              <ProfileCard user={userInfo} uid={userInfo.uid} />
             </Grid>
           })}
         </Grid>

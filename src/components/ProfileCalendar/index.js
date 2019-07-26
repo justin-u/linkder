@@ -65,8 +65,8 @@ class ProfileCalendar extends React.Component {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         this.setState({
-          latitude: latLng.lat,
-          longitude: latLng.lng
+          latitude: ""+latLng.lat,
+          longitude: ""+latLng.lng
         })
       })
       .catch(error => console.error('Error', error));
